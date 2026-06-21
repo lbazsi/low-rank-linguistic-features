@@ -99,19 +99,6 @@ The long-term research program begins from a 40-variable map of structural lingu
 | 39 | Ambiguity density | How much meaning is left underspecified by the surface form. |
 | 40 | Optionality vs obligatoriness | Which distinctions must be encoded and which can be left implicit. |
 
-## Initial Experimental Scope
-
-The first phase focuses on the four variables most directly connected to alignment-relevant behavior:
-
-| Variable | Why it is prioritized |
-|---|---|
-| Evidentiality | Relevant to calibration, uncertainty, source sensitivity, hearsay, and truth claims. |
-| Agency / passive deletion | Relevant to blame, responsibility attribution, causal reasoning, and moral judgment. |
-| Status / authority marking | Relevant to deference, sycophancy, authority bias, and social pressure. |
-| Negation / truth-framing | Relevant to refusal behavior, contradiction, truth conditions, and instruction following. |
-
-The project begins with these messy variables rather than cleaner sanity-check categories because the aim is not merely to show that SAEs can find simple grammatical features. The aim is to test whether structurally meaningful linguistic variables that plausibly affect behavior are internally represented and causally usable.
-
 ## Main Outputs
 
 This repository is intended to produce a reusable research resource consisting of:
