@@ -1,60 +1,51 @@
 # Low-Rank Linguistic Features
 
-This project investigates whether low-level structural linguistic features are represented inside language models in ways that are discoverable, measurable, and causally relevant to model behavior.
+This project studies whether structural features of language are represented inside language models in ways that can be discovered, interpreted, and causally tested.
 
-Rather than treating linguistic structure as a surface property of prompts, the project studies whether grammatical and quasi-grammatical variables such as evidentiality, agency marking, authority/status marking, and negation correspond to internal representational features. The central hypothesis is that such features can influence model behavior, including deference, uncertainty, attribution of responsibility, truth-framing, and response style.
+The motivating idea is that language is not only a medium through which prompts are expressed. Its structure may shape how models represent uncertainty, responsibility, authority, generality, negation, social relation, and other behaviorally important concepts. If these features can be located in model activations, they may become useful objects for interpretability, robustness, and future work on Constitutional Languages.
 
 ## Research Goal
 
-The goal is to build an exploratory mechanistic pipeline for identifying linguistic features that may later inform the design of Constitutional Languages: deliberately structured languages or intermediate representations intended to make model behavior more stable, transparent, and less sensitive to harmful framing effects.
+The project builds a mechanistic pipeline for studying low-level linguistic structure in language models. It focuses on whether structural variables can be recovered from internal activations, whether sparse autoencoders can expose them as interpretable features, and whether interventions on those features change model behavior.
 
-The project starts with four intentionally difficult feature families:
-
-1. **Evidentiality**  
-   How information source is marked, such as direct observation, report, inference, hearsay, or uncertainty.
-
-2. **Agency and responsibility marking**  
-   How syntax encodes who caused an event, including active voice, passive voice, agent deletion, and impersonal constructions.
-
-3. **Status and authority marking**  
-   How linguistic markers encode social rank, expertise, politeness, institutional authority, or deference pressure.
-
-4. **Negation and truth-framing**  
-   How statements are framed through negation, denial, contradiction, uncertainty, or indirect truth claims.
-
-These features are intentionally messier than standard grammatical categories such as number, tense, or gender. The project starts with the difficult cases because they are closer to the behavioral phenomena relevant for alignment research.
+The long-term goal is to create a reusable empirical foundation for Constitutional Language research: the study of deliberately structured languages or intermediate representations that could make model behavior more stable, transparent, and less sensitive to framing, social pressure, or hidden linguistic bias.
 
 ## Methodological Basis
 
-The methodology is based on the sparse-autoencoder interpretability approach used in:
+The methodology is based on sparse-autoencoder interpretability methods used in:
 
 > Brinkmann, J., Wendler, C., Bartelt, C., & Mueller, A. (2025). **Large Language Models Share Representations of Latent Grammatical Concepts Across Typologically Diverse Languages.** arXiv:2501.06346.  
 > https://arxiv.org/abs/2501.06346
 
-That paper trains sparse autoencoders on internal activations of large language models, identifies SAE features corresponding to morphosyntactic concepts, uses attribution patching to locate causally relevant features, and validates those features through ablation and steering interventions.
-
-This project does not aim to reproduce the paper's exact experimental targets, such as number, tense, or grammatical gender. Instead, it adapts the paper's methodological skeleton to alignment-relevant structural linguistic variables.
-
-The adapted pipeline is:
-
-- collect controlled linguistic datasets using minimal-pair and counterfactual templates;
-- run a pretrained language model and cache internal activations;
-- train sparse autoencoders on selected residual stream activations;
-- identify SAE features associated with the target linguistic variables;
-- train probes over both raw activations and SAE latents;
-- rank and inspect candidate features;
-- perform ablation and steering interventions;
-- measure whether interventions affect downstream behavior.
+The project adapts the paper's general mechanistic approach: train sparse autoencoders on model activations, identify linguistic features in SAE latents, rank candidate features by their relevance to target variables, and test those features through ablation and steering interventions.
 
 ## Core Research Question
 
-Can sparse autoencoders recover low-level structural linguistic variables from language-model representations, and can those recovered features be causally linked to downstream behavior?
+Can sparse autoencoders recover structural linguistic variables from language-model activations, and can those recovered features be causally linked to downstream model behavior?
 
-The project asks whether structural linguistic features can be treated as mechanistic objects inside language models rather than merely as surface properties of prompts.
+A positive result would suggest that some linguistic structures are not only surface-level prompt patterns, but internal representational features that influence how models reason, respond, defer, attribute responsibility, express uncertainty, or frame truth.
 
-## Research Variable Map
+## Initial Focus
 
-The long-term research program begins from a 40-variable map of structural linguistic features. The first experiments focus on evidentiality, agency, status/authority, and negation, but the repository is designed to grow into a broader reusable resource.
+The first experiments focus on four feature families:
+
+1. **Evidentiality**  
+   How language marks the source or reliability of information: direct observation, inference, report, hearsay, uncertainty, or institutional source.
+
+2. **Agency and responsibility marking**  
+   How syntax foregrounds or hides the actor responsible for an event: active voice, passive voice, agent deletion, impersonal framing, or causal distance.
+
+3. **Status and authority marking**  
+   How language encodes social rank, expertise, politeness, institutional authority, or pressure to defer.
+
+4. **Negation and truth-framing**  
+   How language structures denial, contradiction, uncertainty, refusal, indirect truth claims, and scope of negation.
+
+These four variables are prioritized because they are directly connected to alignment-relevant behaviors such as calibration, authority bias, sycophancy, responsibility attribution, refusal stability, and sensitivity to framing.
+
+## Forty Structural Linguistic Variables
+
+The broader research map contains forty linguistic variables that may affect model representations and behavior.
 
 | # | Variable | Short description |
 |---:|---|---|
@@ -99,76 +90,111 @@ The long-term research program begins from a 40-variable map of structural lingu
 | 39 | Ambiguity density | How much meaning is left underspecified by the surface form. |
 | 40 | Optionality vs obligatoriness | Which distinctions must be encoded and which can be left implicit. |
 
-## Main Outputs
+## Experiment Overview
 
-This repository is intended to produce a reusable research resource consisting of:
+The first experiment constructs a controlled interpretability pipeline around the four initial variables.
 
-- controlled datasets for the four target feature families;
-- minimal pairs and counterfactual examples for linguistic-structure interventions;
-- activation caches from small pretrained language models;
-- trained sparse autoencoders for selected model layers;
-- feature rankings for each linguistic variable;
+### 1. Dataset Construction
+
+For each variable, the project creates controlled sentence sets using minimal pairs and counterfactual templates. Each example changes one structural property while keeping the surrounding content as stable as possible.
+
+Example contrast types:
+
+- direct observation vs reported information;
+- active agency vs passive or agentless framing;
+- high-authority speaker vs low-authority speaker;
+- affirmed statement vs negated, denied, or indirectly contradicted statement.
+
+Each variable is expressed through multiple surface forms so that the model cannot succeed only by detecting one obvious marker. The dataset includes held-out templates and held-out phrasings for evaluation.
+
+### 2. Activation Collection
+
+A small pretrained language model is run on the controlled examples and on broader background text. Internal activations are cached from selected residual-stream layers.
+
+The controlled examples are used to study the target variables. The broader text is used to train sparse autoencoders on a less artificial activation distribution.
+
+### 3. Sparse Autoencoder Training
+
+Sparse autoencoders are trained on selected activation sites. Their purpose is to decompose dense model activations into sparse latent features that may correspond to interpretable linguistic or behavioral structure.
+
+The first runs use a small model and a small number of layers to keep the experiment fast, inspectable, and cheap. Later runs can scale to additional layers, model sizes, and feature families.
+
+### 4. Probing and Feature Discovery
+
+The project trains simple probes on both raw activations and SAE latents to test whether each linguistic variable is recoverable.
+
+Candidate SAE features are then ranked using measures such as label association, probe contribution, activation differences across contrast pairs, and top-activating examples. The goal is to identify features or feature clusters that track the target linguistic structures.
+
+### 5. Feature Inspection
+
+For each candidate feature, the project inspects the examples that activate it most strongly. This step checks whether the feature appears to represent the intended structural variable or whether it is mostly responding to shallow artifacts such as a single token, phrase, or template.
+
+### 6. Ablation
+
+The strongest candidate features are ablated and the model is re-evaluated. If removing a feature weakens the model's ability to represent or respond to the relevant variable, this provides evidence that the feature is causally involved rather than merely correlated.
+
+### 7. Steering
+
+Candidate features are also steered in the opposite direction. For example, the experiment can increase features associated with reported evidence, hidden agency, authority pressure, or negated truth-framing and test whether model outputs shift accordingly.
+
+### 8. Behavioral Evaluation
+
+The final stage tests whether feature interventions affect behaviorally meaningful outputs. Evaluation focuses on changes in uncertainty, deference, responsibility attribution, truth framing, refusal behavior, and sensitivity to social or evidential cues.
+
+## Expected Outputs
+
+The repository is intended to produce:
+
+- controlled datasets for the initial four variables;
+- reusable templates for expanding to the full forty-variable map;
+- cached activations from selected language models;
+- trained sparse autoencoders;
 - probe results over raw activations and SAE latents;
-- top-activating examples for candidate features;
+- ranked candidate features for each variable;
+- top-activating examples for interpretability;
 - ablation and steering results;
-- behavioral evaluations showing whether feature interventions change model outputs;
-- documentation of failure modes and artifact controls;
-- a scalable template for expanding from the initial four variables to the full 40-variable map.
-
-The end product is not only a set of experimental results, but also a reusable pipeline for testing additional linguistic variables.
-
-## Intended Research Contribution
-
-A successful result would show that some structural linguistic variables are:
-
-- linearly or sparsely recoverable from internal activations;
-- represented by interpretable SAE features or feature clusters;
-- robust across lexical templates and notation systems;
-- causally involved in model predictions or generated behavior;
-- useful for designing later controlled language or representation systems.
-
-This would support future research into Constitutional Languages by identifying which linguistic structures are promising candidates for deliberate design and which are likely too entangled, distributed, or behaviorally weak.
-
-## Experimental Loop
-
-The initial experimental loop is:
-
-1. Generate controlled examples for evidentiality, agency, status, and negation.
-2. Cache model activations on these examples and on broad background text.
-3. Train sparse autoencoders on selected activation sites.
-4. Train probes to test whether the variables are represented.
-5. Identify candidate SAE features associated with each variable.
-6. Inspect top-activating examples for interpretability.
-7. Ablate candidate features and measure changes in probe or model behavior.
-8. Steer candidate features and test whether outputs shift in the expected direction.
+- behavioral evaluations of feature interventions;
+- documentation of artifact controls and failure cases.
 
 ## Artifact Controls
 
-Because the target variables are subtle and behaviorally loaded, the project emphasizes controls against shallow artifacts.
+The project includes controls to distinguish genuine structural representations from shallow pattern matching.
 
 Planned controls include:
 
 - held-out lexical templates;
 - held-out surface markers;
-- multiple notation systems for each variable;
+- multiple phrasings for each variable;
 - token-level and bag-of-words baselines;
 - random-feature ablation baselines;
 - comparison between raw-activation probes and SAE-latent probes;
-- behavioral evaluations that separate surface imitation from genuine representational effects.
+- behavioral tests that separate surface imitation from representational effects.
 
-The goal is not merely to show that a model detects words such as "reportedly" or "authority." The goal is to test whether broader structural patterns are represented and causally usable.
+The aim is not to show that a model can recognize words like “reportedly,” “expert,” or “not.” The aim is to test whether broader structural patterns are internally represented and causally usable.
 
-## Long-Term Role in Constitutional Language Research
+## Research Contribution
 
-This project is the first empirical layer in a larger research program on Constitutional Language.
+A successful result would show that at least some structural linguistic variables are:
 
-Future projects can use this resource to:
+- recoverable from internal activations;
+- represented in sparse latent features or feature clusters;
+- robust across surface forms;
+- causally involved in model predictions or generations;
+- relevant to alignment-related behavior.
 
-- expand the feature set beyond the initial four cases;
-- compare different model scales and architectures;
-- test whether linguistic features compose linearly or interfere with each other;
-- study whether structural language design can reduce framing sensitivity;
-- build controlled artificial or semi-artificial languages;
-- evaluate whether constitutional representations improve robustness, transparency, or alignment-relevant behavior.
+This would create an empirical foundation for later Constitutional Language research by identifying which linguistic structures are worth designing around, which are too entangled to control directly, and which may influence model behavior more strongly than expected.
 
-In the long term, the project aims to help determine whether language structure itself can be engineered as part of model alignment, rather than being treated as a neutral input medium.
+## Long-Term Direction
+
+This project is the first layer of a broader research program on language structure and alignment.
+
+Future work can use the pipeline to:
+
+- expand from four variables to the full forty-variable map;
+- compare models of different sizes and training distributions;
+- study interactions between linguistic variables;
+- test artificial or semi-artificial language systems;
+- investigate whether structural language design can reduce framing sensitivity;
+- build constitutional representations that improve robustness, transparency, or behavioral stability.
+
+The long-term aim is to understand whether language structure itself can become an alignment tool.
