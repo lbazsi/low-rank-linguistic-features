@@ -8,7 +8,7 @@ Rather than treating linguistic structure as a surface property of prompts, the 
 
 The goal is to build an exploratory mechanistic pipeline for identifying linguistic features that may later inform the design of Constitutional Languages: deliberately structured languages or intermediate representations intended to make model behavior more stable, transparent, and less sensitive to harmful framing effects.
 
-The project focuses on four initial feature families:
+The project starts with four intentionally difficult feature families:
 
 1. **Evidentiality**  
    How information source is marked, such as direct observation, report, inference, hearsay, or uncertainty.
@@ -26,7 +26,16 @@ These features are intentionally messier than standard grammatical categories su
 
 ## Methodological Basis
 
-The project adapts methods from sparse-autoencoder-based interpretability work on grammatical representations in language models. The methodological skeleton is:
+The methodology is based on the sparse-autoencoder interpretability approach used in:
+
+> Brinkmann, J., Wendler, C., Bartelt, C., & Mueller, A. (2025). **Large Language Models Share Representations of Latent Grammatical Concepts Across Typologically Diverse Languages.** arXiv:2501.06346.  
+> https://arxiv.org/abs/2501.06346
+
+That paper trains sparse autoencoders on internal activations of large language models, identifies SAE features corresponding to morphosyntactic concepts, uses attribution patching to locate causally relevant features, and validates those features through ablation and steering interventions.
+
+This project does not aim to reproduce the paper's exact experimental targets, such as number, tense, or grammatical gender. Instead, it adapts the paper's methodological skeleton to alignment-relevant structural linguistic variables.
+
+The adapted pipeline is:
 
 - collect controlled linguistic datasets using minimal-pair and counterfactual templates;
 - run a pretrained language model and cache internal activations;
@@ -37,7 +46,71 @@ The project adapts methods from sparse-autoencoder-based interpretability work o
 - perform ablation and steering interventions;
 - measure whether interventions affect downstream behavior.
 
-The project does not aim to exactly replicate previous grammatical-feature experiments. Instead, it uses their mechanistic methodology as a foundation for studying alignment-relevant structural linguistic variables.
+## Core Research Question
+
+Can sparse autoencoders recover low-level structural linguistic variables from language-model representations, and can those recovered features be causally linked to downstream behavior?
+
+The project asks whether structural linguistic features can be treated as mechanistic objects inside language models rather than merely as surface properties of prompts.
+
+## Research Variable Map
+
+The long-term research program begins from a 40-variable map of structural linguistic features. The first experiments focus on evidentiality, agency, status/authority, and negation, but the repository is designed to grow into a broader reusable resource.
+
+| # | Variable | Short description |
+|---:|---|---|
+| 1 | Subject explicitness / pro-drop | Whether subjects must be explicitly stated or can be omitted. |
+| 2 | Agent prominence / passive | How strongly the grammar foregrounds the acting agent. |
+| 3 | Causativity | Whether causation is encoded directly, indirectly, or through special marking. |
+| 4 | Evidentiality | Whether information source is grammatically or structurally marked. |
+| 5 | Grammatical gender | Whether nouns, pronouns, or agreement patterns encode gender classes. |
+| 6 | Honorific/status marking | Whether social rank, politeness, or respect are structurally encoded. |
+| 7 | Word order | How subject, object, verb, and modifiers are ordered. |
+| 8 | Case marking | Whether grammatical roles are marked through morphology or position. |
+| 9 | Agglutinative morphology | Whether words are built from separable chains of morphemes. |
+| 10 | Analytic vs synthetic grammar | Whether relations are expressed mostly through word order/function words or morphology. |
+| 11 | Definiteness/articles | Whether known/unknown or specific/non-specific reference is explicitly marked. |
+| 12 | Number marking | Whether singular, plural, dual, or other number distinctions are marked. |
+| 13 | Animacy marking | Whether living/sentient entities are grammatically distinguished from non-living ones. |
+| 14 | Person hierarchy | Whether first, second, and third person are structurally ranked or treated differently. |
+| 15 | Inclusive/exclusive we | Whether “we including you” and “we excluding you” are distinguished. |
+| 16 | Genericity | How general claims, kinds, norms, or universal statements are encoded. |
+| 17 | Habitual aspect | Whether repeated or characteristic actions are structurally marked. |
+| 18 | Tense prominence | How strongly time location is grammatically required. |
+| 19 | Aspect | How event structure, completion, duration, or ongoingness are marked. |
+| 20 | Negation placement | Where negation appears and how it scopes over a sentence. |
+| 21 | Double negation | Whether multiple negatives cancel, intensify, or preserve negation. |
+| 22 | Quantifier scope | How “all,” “some,” “none,” “most,” and similar operators bind meaning. |
+| 23 | Conditionals | How hypothetical, counterfactual, and causal dependency structures are marked. |
+| 24 | Topic-comment structure | Whether sentences explicitly separate what is being discussed from what is said about it. |
+| 25 | Focus marking | How new, contrastive, or emphasized information is structurally highlighted. |
+| 26 | Given/new marking | Whether old information and new information are grammatically distinguished. |
+| 27 | Pronoun richness/reduction | How much pronouns encode person, gender, number, formality, or social relation. |
+| 28 | Formal/informal you | Whether the second person distinguishes intimacy, distance, politeness, or hierarchy. |
+| 29 | Status agreement | Whether grammar changes depending on social relation between speaker, listener, or referent. |
+| 30 | Direct/indirect request grammar | How commands, requests, suggestions, and obligations are structurally encoded. |
+| 31 | Motion encoding | How path, manner, direction, source, and goal of movement are expressed. |
+| 32 | Emotion grammar | Whether emotional state, evaluation, or affect are structurally encoded. |
+| 33 | Possession structure | How ownership, relation, alienability, and control are encoded. |
+| 34 | Whitespace segmentation | Whether word boundaries are explicit or implicit. |
+| 35 | Character vs subword units | Whether linguistic structure is exposed through characters, morphemes, or subword tokens. |
+| 36 | Script variation | How writing systems influence segmentation, abstraction, and visual/token structure. |
+| 37 | Punctuation structure | How punctuation encodes hierarchy, emphasis, quotation, or discourse relation. |
+| 38 | Redundancy | How often the same information is marked multiple times across a sentence. |
+| 39 | Ambiguity density | How much meaning is left underspecified by the surface form. |
+| 40 | Optionality vs obligatoriness | Which distinctions must be encoded and which can be left implicit. |
+
+## Initial Experimental Scope
+
+The first phase focuses on the four variables most directly connected to alignment-relevant behavior:
+
+| Variable | Why it is prioritized |
+|---|---|
+| Evidentiality | Relevant to calibration, uncertainty, source sensitivity, hearsay, and truth claims. |
+| Agency / passive deletion | Relevant to blame, responsibility attribution, causal reasoning, and moral judgment. |
+| Status / authority marking | Relevant to deference, sycophancy, authority bias, and social pressure. |
+| Negation / truth-framing | Relevant to refusal behavior, contradiction, truth conditions, and instruction following. |
+
+The project begins with these messy variables rather than cleaner sanity-check categories because the aim is not merely to show that SAEs can find simple grammatical features. The aim is to test whether structurally meaningful linguistic variables that plausibly affect behavior are internally represented and causally usable.
 
 ## Main Outputs
 
@@ -52,15 +125,14 @@ This repository is intended to produce a reusable research resource consisting o
 - top-activating examples for candidate features;
 - ablation and steering results;
 - behavioral evaluations showing whether feature interventions change model outputs;
-- documentation of failure modes and artifact controls.
+- documentation of failure modes and artifact controls;
+- a scalable template for expanding from the initial four variables to the full 40-variable map.
 
 The end product is not only a set of experimental results, but also a reusable pipeline for testing additional linguistic variables.
 
 ## Intended Research Contribution
 
-The project asks whether structural linguistic features can be treated as mechanistic objects inside language models.
-
-A successful result would show that some linguistic variables are:
+A successful result would show that some structural linguistic variables are:
 
 - linearly or sparsely recoverable from internal activations;
 - represented by interpretable SAE features or feature clusters;
@@ -70,9 +142,7 @@ A successful result would show that some linguistic variables are:
 
 This would support future research into Constitutional Languages by identifying which linguistic structures are promising candidates for deliberate design and which are likely too entangled, distributed, or behaviorally weak.
 
-## Initial Experimental Scope
-
-The first phase focuses on small pretrained language models, such as Pythia-style models, and a small number of residual-stream layers.
+## Experimental Loop
 
 The initial experimental loop is:
 
