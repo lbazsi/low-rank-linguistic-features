@@ -31,6 +31,15 @@ The current feature map contains forty structural variables, including subject e
 
 See `List of features.md` for the full feature map.
 
+## Methodological Basis
+
+The project is methodologically inspired by:
+
+> Brinkmann, J., Wendler, C., Bartelt, C., & Mueller, A. (2025). **Large Language Models Share Representations of Latent Grammatical Concepts Across Typologically Diverse Languages.** *Proceedings of NAACL 2025*. arXiv:2501.06346.  
+> https://arxiv.org/abs/2501.06346
+
+That work trains sparse autoencoders on multilingual language-model activations, identifies latent grammatical features such as number, gender, and tense, and validates candidate features through causal interventions. This project adapts the same broad methodological pattern to a wider WALS-aligned feature map, including structural variables such as evidentiality, modality, agent prominence, negation, topic-comment structure, social deixis, discourse relations, and speech-act force.
+
 ## Dataset Strategy
 
 The project uses a controlled **feature dataset** organized around contrast pairs. Each example contains a basis sentence and a changed sentence. The pair changes one target structural property while keeping surrounding meaning as stable as possible.
@@ -153,9 +162,9 @@ The goal is not to make the model recognize individual trigger words. The goal i
 
 ### 2. Activation Collection
 
-Models are run on the controlled feature dataset and on broad background text. During the forward pass activations are cached from relevant model sites, especially residual stream positions across layers.
+The controlled feature dataset and broad background text are passed through each model using forward passes. The model weights are not updated. During these forward passes, activations are cached from selected internal sites, especially residual-stream positions across layers.
 
-For small models, the project scans all or nearly all layers. This is important because foundational linguistic variables may be distributed, nonlinear, or represented differently across early, middle, and late layers.
+For small models, the project caches activations from all or nearly all layers. This allows the analysis to test where each linguistic variable is most recoverable, rather than assuming that foundational linguistic features are localized to one or two specific layers.
 
 ### 3. SAE Training
 
@@ -239,7 +248,7 @@ Behavioral evaluations are kept separate from the controlled feature dataset bec
 
 ## Repository Structure
 
-Project structure:
+Recommended project structure:
 
 ```text
 data/
