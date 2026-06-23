@@ -1,200 +1,313 @@
 # Low-Rank Linguistic Features
 
-This project studies whether structural features of language are represented inside language models in ways that can be discovered, interpreted, and causally tested.
+This project studies whether structural linguistic features are represented inside language models in ways that can be discovered, measured, and causally tested.
 
-The motivating idea is that language is not only a medium through which prompts are expressed. Its structure may shape how models represent uncertainty, responsibility, authority, generality, negation, social relation, and other behaviorally important concepts. If these features can be located in model activations, they may become useful objects for interpretability, robustness, and future work on Constitutional Languages.
+The core hypothesis is that linguistic structure is not only a surface property of prompts. Features such as evidentiality, modality, negation, agent prominence, social deixis, discourse relations, and speech-act force may shape how models internally represent uncertainty, responsibility, authority, truth, obligation, and perspective.
 
-## Research Goal
+The project builds a controlled mechanistic pipeline for identifying these structures in model activations, comparing raw activation probes with sparse autoencoder features, and testing whether candidate features affect downstream behavior through ablation and steering.
 
-The project builds a mechanistic pipeline for studying low-level linguistic structure in language models. It focuses on whether structural variables can be recovered from internal activations, whether sparse autoencoders can expose them as interpretable features, and whether interventions on those features change model behavior.
+## Research Question
 
-The long-term goal is to create a reusable empirical foundation for Constitutional Language research: the study of deliberately structured languages or intermediate representations that could make model behavior more stable, transparent, and less sensitive to framing, social pressure, or hidden linguistic bias.
+Can structural linguistic variables be recovered from language-model activations, represented by sparse autoencoder latents or feature clusters, and causally linked to behaviorally meaningful changes in model outputs?
 
-## Methodological Basis
+The project focuses on four linked questions:
 
-The methodology is based on sparse-autoencoder interpretability methods used in:
+1. Are structural linguistic variables linearly or nonlinearly recoverable from internal activations?
+2. Do sparse autoencoders expose interpretable features or feature clusters corresponding to these variables?
+3. Are the recovered features robust across surface forms, languages, and lexical content?
+4. Do interventions on these features change model behavior in predictable ways?
 
-> Brinkmann, J., Wendler, C., Bartelt, C., & Mueller, A. (2025). **Large Language Models Share Representations of Latent Grammatical Concepts Across Typologically Diverse Languages.** arXiv:2501.06346.  
-> https://arxiv.org/abs/2501.06346
+## Typological Basis
 
-The project adapts the paper's general mechanistic approach: train sparse autoencoders on model activations, identify linguistic features in SAE latents, rank candidate features by their relevance to target variables, and test those features through ablation and steering interventions.
+The feature inventory is grounded in the typological orientation of **The World Atlas of Language Structures Online (WALS)**. WALS organizes cross-linguistic structural variation across domains such as morphology, nominal categories, verbal categories, word order, simple clauses, complex sentences, lexicon, and writing systems.
 
-## Core Research Question
+The project does not directly copy WALS chapters. Instead, it adapts typological categories into an experimental feature map for mechanistic interpretability.
 
-Can sparse autoencoders recover structural linguistic variables from language-model activations, and can those recovered features be causally linked to downstream model behavior?
+Recommended general citation:
 
-A positive result would suggest that some linguistic structures are not only surface-level prompt patterns, but internal representational features that influence how models reason, respond, defer, attribute responsibility, express uncertainty, or frame truth.
+> Dryer, Matthew S. & Haspelmath, Martin (eds.) 2013. **WALS Online (v2020.4)** [Data set]. Zenodo. https://doi.org/10.5281/zenodo.13950591. Available online at https://wals.info.
 
-## Initial Focus
+The current feature map contains forty structural variables, including subject expression, constituent order, case marking, agreement, evidentiality, modality, negation, discourse relations, topic-comment structure, social deixis, speech-act force, and orthographic/tokenization effects.
 
-The first experiments focus on four feature families:
+See `List of features.md` for the full feature map.
 
-1. **Evidentiality**  
-   How language marks the source or reliability of information: direct observation, inference, report, hearsay, uncertainty, or institutional source.
+## Dataset Strategy
 
-2. **Agency and responsibility marking**  
-   How syntax foregrounds or hides the actor responsible for an event: active voice, passive voice, agent deletion, impersonal framing, or causal distance.
+The project uses a controlled **feature dataset** organized around contrast pairs. Each example contains a basis sentence and a changed sentence. The pair changes one target structural property while keeping surrounding meaning as stable as possible.
 
-3. **Status and authority marking**  
-   How language encodes social rank, expertise, politeness, institutional authority, or pressure to defer.
+Example schema:
 
-4. **Negation and truth-framing**  
-   How language structures denial, contradiction, uncertainty, refusal, indirect truth claims, and scope of negation.
+```json
+{
+  "id": "26_001",
+  "variable_id": 26,
+  "variable": "evidentiality",
+  "approach": "EN+XL",
+  "language": "tr",
+  "surface_type": "xl",
+  "contrast": "direct_to_reported",
+  "split": "train",
+  "pair": [
+    {
+      "type": "basis",
+      "sentence": "..."
+    },
+    {
+      "type": "changed",
+      "sentence": "..."
+    }
+  ]
+}
+```
 
-These four variables are prioritized because they are directly connected to alignment-relevant behaviors such as calibration, authority bias, sycophancy, responsibility attribution, refusal stability, and sensitivity to framing.
+The default split structure is:
 
-## Forty Structural Linguistic Variables
+```text
+001-400 = train
+401-450 = val
+451-500 = test
+```
 
-The broader research map contains forty linguistic variables that may affect model representations and behavior.
+For variables with 500 examples, this gives an 80/10/10 train/validation/test split. Splits are kept explicit in the data even when they can be derived from the ID.
 
-| # | Variable | Short description |
-|---:|---|---|
-| 1 | Subject explicitness / pro-drop | Whether subjects must be explicitly stated or can be omitted. |
-| 2 | Agent prominence / passive | How strongly the grammar foregrounds the acting agent. |
-| 3 | Causativity | Whether causation is encoded directly, indirectly, or through special marking. |
-| 4 | Evidentiality | Whether information source is grammatically or structurally marked. |
-| 5 | Grammatical gender | Whether nouns, pronouns, or agreement patterns encode gender classes. |
-| 6 | Honorific/status marking | Whether social rank, politeness, or respect are structurally encoded. |
-| 7 | Word order | How subject, object, verb, and modifiers are ordered. |
-| 8 | Case marking | Whether grammatical roles are marked through morphology or position. |
-| 9 | Agglutinative morphology | Whether words are built from separable chains of morphemes. |
-| 10 | Analytic vs synthetic grammar | Whether relations are expressed mostly through word order/function words or morphology. |
-| 11 | Definiteness/articles | Whether known/unknown or specific/non-specific reference is explicitly marked. |
-| 12 | Number marking | Whether singular, plural, dual, or other number distinctions are marked. |
-| 13 | Animacy marking | Whether living/sentient entities are grammatically distinguished from non-living ones. |
-| 14 | Person hierarchy | Whether first, second, and third person are structurally ranked or treated differently. |
-| 15 | Inclusive/exclusive we | Whether “we including you” and “we excluding you” are distinguished. |
-| 16 | Genericity | How general claims, kinds, norms, or universal statements are encoded. |
-| 17 | Habitual aspect | Whether repeated or characteristic actions are structurally marked. |
-| 18 | Tense prominence | How strongly time location is grammatically required. |
-| 19 | Aspect | How event structure, completion, duration, or ongoingness are marked. |
-| 20 | Negation placement | Where negation appears and how it scopes over a sentence. |
-| 21 | Double negation | Whether multiple negatives cancel, intensify, or preserve negation. |
-| 22 | Quantifier scope | How “all,” “some,” “none,” “most,” and similar operators bind meaning. |
-| 23 | Conditionals | How hypothetical, counterfactual, and causal dependency structures are marked. |
-| 24 | Topic-comment structure | Whether sentences explicitly separate what is being discussed from what is said about it. |
-| 25 | Focus marking | How new, contrastive, or emphasized information is structurally highlighted. |
-| 26 | Given/new marking | Whether old information and new information are grammatically distinguished. |
-| 27 | Pronoun richness/reduction | How much pronouns encode person, gender, number, formality, or social relation. |
-| 28 | Formal/informal you | Whether the second person distinguishes intimacy, distance, politeness, or hierarchy. |
-| 29 | Status agreement | Whether grammar changes depending on social relation between speaker, listener, or referent. |
-| 30 | Direct/indirect request grammar | How commands, requests, suggestions, and obligations are structurally encoded. |
-| 31 | Motion encoding | How path, manner, direction, source, and goal of movement are expressed. |
-| 32 | Emotion grammar | Whether emotional state, evaluation, or affect are structurally encoded. |
-| 33 | Possession structure | How ownership, relation, alienability, and control are encoded. |
-| 34 | Whitespace segmentation | Whether word boundaries are explicit or implicit. |
-| 35 | Character vs subword units | Whether linguistic structure is exposed through characters, morphemes, or subword tokens. |
-| 36 | Script variation | How writing systems influence segmentation, abstraction, and visual/token structure. |
-| 37 | Punctuation structure | How punctuation encodes hierarchy, emphasis, quotation, or discourse relation. |
-| 38 | Redundancy | How often the same information is marked multiple times across a sentence. |
-| 39 | Ambiguity density | How much meaning is left underspecified by the surface form. |
-| 40 | Optionality vs obligatoriness | Which distinctions must be encoded and which can be left implicit. |
+The feature dataset is separate from the SAE training corpus. The feature dataset is controlled, labeled, and variable-specific. The SAE corpus is broad natural text used to train sparse autoencoders on a less artificial activation distribution.
 
-## Experiment Overview
+See `Feature dataset construction.md` for the full language and dataset-construction strategy.
 
-The first experiment constructs a controlled interpretability pipeline around the four initial variables.
+## Language Strategy
 
-### 1. Dataset Construction
+The experiment uses a compact multilingual pool:
 
-For each variable, the project creates controlled sentence sets using minimal pairs and counterfactual templates. Each example changes one structural property while keeping the surrounding content as stable as possible.
+- English
+- Turkish
+- Japanese
+- Korean
+- Spanish
+- Russian
+- Arabic
+- Mandarin Chinese
 
-Example contrast types:
+Each variable is assigned one of four construction approaches:
 
-- direct observation vs reported information;
-- active agency vs passive or agentless framing;
-- high-authority speaker vs low-authority speaker;
-- affirmed statement vs negated, denied, or indirectly contradicted statement.
+| Label | Meaning |
+|---|---|
+| `EN` | English templates are sufficient. |
+| `EN+ctrl` | English is usable, but controlled templates or lexical substitutions are needed. |
+| `XL` | English underdetermines the feature; use one selected non-English language. |
+| `EN+XL` | English gives a partial contrast; the full structural contrast uses one selected non-English language. |
 
-Each variable is expressed through multiple surface forms so that the model cannot succeed only by detecting one obvious marker. The dataset includes held-out templates and held-out phrasings for evaluation.
+For simplicity and interpretability, each `XL` or `EN+XL` variable uses at most one non-English language. This avoids mixing too many confounds inside a single variable, such as script, tokenization, morphology, model familiarity, and corpus quality.
+
+## Models
+
+The initial experiments use two complementary models.
+
+### Pythia-70M-deduped
+
+`EleutherAI/pythia-70m-deduped` is used as the small English-first interpretability sandbox.
+
+Its role is to test the full pipeline cheaply:
+
+- controlled feature examples;
+- activation extraction;
+- all-layer scanning;
+- sparse autoencoder training;
+- raw activation probes;
+- SAE latent probes;
+- feature ranking;
+- ablation;
+- steering;
+- result formatting.
+
+Because the model is small, it is practical to scan most or all layers and debug the full pipeline before scaling to larger or multilingual models.
+
+### XGLM-564M
+
+`facebook/xglm-564M` is used as the first multilingual causal language model.
+
+Its role is to test whether the same pipeline can recover structural features across the project’s multilingual feature set. This is especially important for variables that are absent, weak, or structurally underdetermined in English, such as evidentiality, pro-drop, honorifics, topic-comment structure, rich case marking, gender agreement, and Mandarin-style tense optionality.
+
+The two-model setup separates pipeline validation from multilingual representational claims:
+
+```text
+Pythia-70M-deduped = cheap pipeline validation and English controls
+XGLM-564M = multilingual structural feature discovery
+```
+
+## Methodology
+
+### 1. Controlled Feature Construction
+
+For each linguistic variable, the project constructs contrast pairs. Each pair contains a basis sentence and a changed sentence. The contrast label records the structural change, such as:
+
+```text
+direct_to_reported
+active_to_passive
+assertion_to_request
+obligation_to_permission
+definite_to_indefinite
+affirmed_to_negated
+```
+
+The goal is not to make the model recognize individual trigger words. The goal is to test whether broader structural distinctions are represented internally.
 
 ### 2. Activation Collection
 
-A small pretrained language model is run on the controlled examples and on broader background text. Internal activations are cached from selected residual-stream layers.
+Models are run on the controlled feature dataset and on broad background text. During the forward pass activations are cached from relevant model sites, especially residual stream positions across layers.
 
-The controlled examples are used to study the target variables. The broader text is used to train sparse autoencoders on a less artificial activation distribution.
+For small models, the project scans all or nearly all layers. This is important because foundational linguistic variables may be distributed, nonlinear, or represented differently across early, middle, and late layers.
 
-### 3. Sparse Autoencoder Training
+### 3. SAE Training
 
-Sparse autoencoders are trained on selected activation sites. Their purpose is to decompose dense model activations into sparse latent features that may correspond to interpretable linguistic or behavioral structure.
+Sparse autoencoders are trained on natural-text activations. The SAE corpus is separate from the feature dataset to avoid training the autoencoder only on artificial contrast examples.
 
-The first runs use a small model and a small number of layers to keep the experiment fast, inspectable, and cheap. Later runs can scale to additional layers, model sizes, and feature families.
+The project may train separate SAEs by model and activation site. For multilingual experiments, the SAE corpus should cover every language used in controlled feature probes.
 
-### 4. Probing and Feature Discovery
+### 4. Probing
 
-The project trains simple probes on both raw activations and SAE latents to test whether each linguistic variable is recoverable.
+The project trains simple probes on both raw activations and SAE latents.
 
-Candidate SAE features are then ranked using measures such as label association, probe contribution, activation differences across contrast pairs, and top-activating examples. The goal is to identify features or feature clusters that track the target linguistic structures.
+Probe targets include:
 
-### 5. Feature Inspection
+- basis vs changed classification;
+- variable-specific contrast detection;
+- language-specific and cross-language recoverability;
+- layer-wise feature localization;
+- raw activation vs SAE-latent performance.
 
-For each candidate feature, the project inspects the examples that activate it most strongly. This step checks whether the feature appears to represent the intended structural variable or whether it is mostly responding to shallow artifacts such as a single token, phrase, or template.
+Probe results are not treated as causal evidence by themselves. They are used to identify where a feature may be represented and which layers or SAE latents are worth inspecting further.
 
-### 6. Ablation
+### 5. Feature Ranking
 
-The strongest candidate features are ablated and the model is re-evaluated. If removing a feature weakens the model's ability to represent or respond to the relevant variable, this provides evidence that the feature is causally involved rather than merely correlated.
+Candidate SAE features are ranked using contrast-pair activation differences, probe relevance, top-activating examples, and robustness across surface forms.
 
-### 7. Steering
+For each variable, the project records whether the signal appears to be:
 
-Candidate features are also steered in the opposite direction. For example, the experiment can increase features associated with reported evidence, hidden agency, authority pressure, or negated truth-framing and test whether model outputs shift accordingly.
+- concentrated in a small number of features;
+- distributed across feature clusters;
+- stronger in raw activations than SAE latents;
+- stronger in SAE latents than raw activations;
+- language-specific;
+- stable across layers;
+- dependent on shallow lexical artifacts.
 
-### 8. Behavioral Evaluation
+### 6. Feature Inspection
 
-The final stage tests whether feature interventions affect behaviorally meaningful outputs. Evaluation focuses on changes in uncertainty, deference, responsibility attribution, truth framing, refusal behavior, and sensitivity to social or evidential cues.
+Top-activating examples are inspected to determine whether candidate features track the intended linguistic structure or merely respond to repeated words, punctuation, templates, or tokenization artifacts.
+
+This step is especially important for variables such as evidentiality, negation, modality, and social deixis, where shallow surface markers can easily masquerade as structural features.
+
+### 7. Ablation
+
+Candidate SAE features or feature clusters are ablated to test whether removing them weakens representation of the target variable or changes downstream model behavior.
+
+Ablation is used to distinguish correlational recoverability from causal involvement.
+
+### 8. Steering
+
+Candidate features are steered to test whether increasing or decreasing them changes model outputs in predictable ways.
+
+Possible steering targets include:
+
+- uncertainty expression;
+- deference to authority;
+- responsibility attribution;
+- truth-framing;
+- refusal behavior;
+- instruction-following;
+- sensitivity to evidential cues;
+- sensitivity to social pressure;
+- perspective anchoring.
+
+### 9. Behavioral Evaluation
+
+The behavioral evaluation dataset tests whether structural linguistic changes affect model outputs.
+
+The feature dataset asks:
+
+```text
+Can the structure be represented or recovered?
+```
+
+The behavioral evaluation asks:
+
+```text
+Does the structure affect model behavior?
+```
+
+Behavioral evaluations are kept separate from the controlled feature dataset because they measure downstream output effects rather than representational recoverability.
+
+## Repository Structure
+
+Project structure:
+
+```text
+data/
+  feature_dataset/
+    variable_01_subject_expression/
+    variable_02_constituent_order/
+    ...
+    variable_40_orthographic_tokenization/
+
+  sae_corpus/
+    raw/
+    processed/
+    metadata.yaml
+
+  behavioral_eval/
+    uncertainty/
+    deference/
+    responsibility_attribution/
+    truth_framing/
+    refusal_stability/
+    social_pressure/
+    authority_sensitivity/
+
+artifacts/
+  activation_cache/
+    feature_dataset/
+    behavioral_eval/
+
+  probe_data/
+    raw_activation_probes/
+    sae_latent_probes/
+
+  trained_saes/
+  trained_probes/
+
+  results/
+    feature_rankings/
+    ablations/
+    steering/
+    behavioral_eval/
+```
+
+Stable, manually constructed datasets belong in `data/`. Generated outputs, caches, trained models, and experiment results belong in `artifacts/`.
 
 ## Expected Outputs
 
-The repository is intended to produce:
+The project is designed to produce:
 
-- controlled datasets for the initial four variables;
-- reusable templates for expanding to the full forty-variable map;
-- cached activations from selected language models;
+- a controlled feature dataset for structural linguistic variables;
+- a broad multilingual SAE corpus;
+- a behavioral evaluation dataset;
+- activation caches across layers and models;
 - trained sparse autoencoders;
-- probe results over raw activations and SAE latents;
+- raw-activation and SAE-latent probe results;
 - ranked candidate features for each variable;
-- top-activating examples for interpretability;
-- ablation and steering results;
-- behavioral evaluations of feature interventions;
-- documentation of artifact controls and failure cases.
-
-## Artifact Controls
-
-The project includes controls to distinguish genuine structural representations from shallow pattern matching.
-
-Planned controls include:
-
-- held-out lexical templates;
-- held-out surface markers;
-- multiple phrasings for each variable;
-- token-level and bag-of-words baselines;
-- random-feature ablation baselines;
-- comparison between raw-activation probes and SAE-latent probes;
-- behavioral tests that separate surface imitation from representational effects.
-
-The aim is not to show that a model can recognize words like “reportedly,” “expert,” or “not.” The aim is to test whether broader structural patterns are internally represented and causally usable.
+- top-activating example analyses;
+- ablation results;
+- steering results;
+- behavioral evaluation results.
 
 ## Research Contribution
 
 A successful result would show that at least some structural linguistic variables are:
 
-- recoverable from internal activations;
+- recoverable from model activations;
 - represented in sparse latent features or feature clusters;
-- robust across surface forms;
+- partially robust across surface forms and languages;
 - causally involved in model predictions or generations;
-- relevant to alignment-related behavior.
+- relevant to alignment-adjacent behaviors such as uncertainty, deference, refusal stability, and truth-framing.
 
-This would create an empirical foundation for later Constitutional Language research by identifying which linguistic structures are worth designing around, which are too entangled to control directly, and which may influence model behavior more strongly than expected.
-
-## Long-Term Direction
-
-This project is the first layer of a broader research program on language structure and alignment.
-
-Future work can use the pipeline to:
-
-- expand from four variables to the full forty-variable map;
-- compare models of different sizes and training distributions;
-- study interactions between linguistic variables;
-- test artificial or semi-artificial language systems;
-- investigate whether structural language design can reduce framing sensitivity;
-- build constitutional representations that improve robustness, transparency, or behavioral stability.
-
-The long-term aim is to understand whether language structure itself can become an alignment tool.
+The long-term motivation is to build an empirical foundation for Constitutional Language research: studying whether deliberately structured languages or intermediate representations can make model behavior more stable, transparent, and less sensitive to framing, social pressure, hidden assumptions, or linguistic bias.
