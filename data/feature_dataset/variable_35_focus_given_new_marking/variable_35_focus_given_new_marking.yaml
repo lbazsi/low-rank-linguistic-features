@@ -1,0 +1,31 @@
+variable_id: 35
+variable: focus_and_given_new_marking
+approach: EN+XL
+languages:
+- en
+- ja
+surface_types:
+- en
+- xl
+target_contrasts:
+- english_neutral_to_cleft_focus_control
+- english_contrastive_focus_control
+- japanese_focus_particle_marking
+- japanese_wa_topic_to_ga_focus_contrast
+- given_to_new_information_focus
+- focus_particle_to_plain_clause
+generation_notes:
+- Use English clefts and contrastive templates plus Japanese focus/topic particles.
+- Keep propositional content, participant roles, tense/aspect, and polarity stable across pairs.
+- Separate focus from topicality by including explicit discourse contexts for given versus new information.
+- Avoid relying only on capitalization, italics, or punctuation in English unless marked as diagnostic controls.
+- Balance argument focus, predicate focus, and contrastive alternatives.
+- Reserve held-out focus particles, cleft structures, and discourse-context templates for validation and test splits.
+- 'Do not create bilingual basis/changed pairs: each generated pair should stay within the example''s declared language and
+  surface_type; English and XL surfaces should be parallel subsets, not mixed inside one pair.'
+- Do not use English clefting and Japanese focus particles as the two sides of one bilingual pair; they are parallel surfaces.
+- 'Keep variable 35 distinct from variable 34: focus/given-new marking should not collapse into topic-comment structure.'
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500

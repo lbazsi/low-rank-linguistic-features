@@ -1,0 +1,27 @@
+variable_id: 36
+variable: genericity_and_kind_level_reference
+approach: EN
+languages:
+- en
+surface_types:
+- en
+target_contrasts:
+- specific_individual_to_generic_kind
+- episodic_to_habitual
+- bare_plural_generic_to_definite_specific
+- norm_like_generalization_to_observed_event
+- kind_statement_to_member_statement
+- generic_to_statistical_generalization
+generation_notes:
+- Use English specific individuals, kinds, generics, habitual generalizations, and norm-like claims.
+- Keep noun class, predicate core, and domain stable while changing reference level.
+- Distinguish true generic statements from statistical summaries and from single observed events.
+- Use both bare plural and singular kind-level constructions where natural.
+- Avoid morally or politically loaded generalizations unless they are part of a separately controlled behavioral evaluation.
+- Reserve held-out noun kinds, predicates, and genericity templates for validation and test splits.
+- Avoid stereotypes and controversial social generalizations; use neutral biological, artifact, or everyday kind-level examples.
+- Do not let genericity collapse into quantifier scope, which is handled by variable 29.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500

@@ -1,0 +1,31 @@
+variable_id: 3
+variable: nominal_modifier_order
+approach: EN+XL
+languages:
+- en
+- es
+surface_types:
+- en
+- xl
+target_contrasts:
+- english_adjective_noun_order_control
+- spanish_noun_adjective_order
+- english_prenominal_possessive_control
+- spanish_postnominal_de_possession
+- stacked_modifier_order_shift
+generation_notes:
+- Use English for adjective-noun and prenominal possessive controls; use Spanish for natural noun-adjective and postnominal
+  de-possession contrasts.
+- Do not describe Spanish possession as a clean English-style genitive case contrast; phrase it as postnominal possession
+  or de-possession.
+- Keep the head noun, modifier meaning, definiteness, number, and event context stable across basis and changed sentences.
+- Avoid lexicalized adjective-position meaning shifts unless the contrast explicitly targets modifier order.
+- 'Use multiple modifier types: adjectives, possessive/de-phrases, demonstratives where natural, and descriptive phrases.'
+- Balance masculine/feminine and singular/plural Spanish nouns without making agreement the main signal.
+- Reserve held-out noun classes, adjective sets, and modifier templates for validation and test splits.
+- 'Do not create bilingual basis/changed pairs: each generated pair should stay within the example''s declared language and
+  surface_type; English and XL surfaces should be parallel subsets, not mixed inside one pair.'
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500

@@ -1,0 +1,24 @@
+variable_id: 10
+variable: morphological_segmentation_type
+approach: XL
+languages:
+- tr
+surface_types:
+- xl
+target_contrasts:
+- root_to_agglutinated_form
+- single_suffix_to_multi_suffix_chain
+- transparent_morpheme_chain_to_unsegmented_surface
+- case_suffix_chain_to_separate_gloss_control
+- possessive_case_number_suffix_stack
+generation_notes:
+- Use Turkish agglutinative morphology as the main segmentation contrast.
+- Keep lexical root and broad meaning stable while adding or removing transparent suffix chains.
+- Vary suffix functions across case, number, possession, tense/aspect, person, polarity, and derivation where natural.
+- Avoid using only one familiar suffix pattern; the feature should not reduce to a single morpheme detector.
+- Where gloss-like controls are used, mark them as diagnostic controls rather than primary XL evidence.
+- Reserve held-out roots, suffix orders, and morpheme-chain lengths for validation and test splits.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500

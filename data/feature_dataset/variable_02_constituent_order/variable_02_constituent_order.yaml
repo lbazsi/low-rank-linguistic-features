@@ -1,0 +1,31 @@
+variable_id: 2
+variable: basic_constituent_order
+approach: EN+XL
+languages:
+- en
+- ja
+surface_types:
+- en
+- xl
+target_contrasts:
+- english_canonical_svo_diagnostic_control
+- english_marked_argument_order_control
+- japanese_canonical_sov_order
+- japanese_particle_preserved_scrambling
+- argument_order_shift_with_role_interpretation_preserved
+generation_notes:
+- Use English only for diagnostic controls; do not make ungrammatical English VSO/OSV strings the main evidence for constituent
+  order.
+- Use Japanese as the main XL surface for natural SOV order and particle-preserved scrambling.
+- Keep the same agent, patient, verb, tense/aspect, polarity, and adjuncts across basis and changed sentences.
+- When using English controls, prefer minimally marked but interpretable argument-order perturbations, cleft-like controls,
+  or explicitly diagnostic templates rather than nonsense word-order strings.
+- Use Japanese case particles or other unambiguous role marking so order is not confounded with semantic role reversal.
+- Avoid world-knowledge cues that make one role obvious independently of syntax.
+- Reserve held-out verbs, noun pairs, particles, and order templates for validation and test splits.
+- 'Do not create bilingual basis/changed pairs: each generated pair should stay within the example''s declared language and
+  surface_type; English and XL surfaces should be parallel subsets, not mixed inside one pair.'
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500

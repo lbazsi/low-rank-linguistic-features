@@ -1,0 +1,25 @@
+variable_id: 14
+variable: definiteness_and_specificity
+approach: EN
+languages:
+- en
+surface_types:
+- en
+target_contrasts:
+- indefinite_to_definite
+- nonspecific_to_specific
+- new_reference_to_familiar_reference
+- generic_to_specific_individual
+- unique_reference_to_nonunique_reference
+- bare_plural_generic_to_definite_plural
+generation_notes:
+- Use English articles, bare plurals, demonstratives, and discourse context to isolate definiteness and specificity.
+- Keep noun identity, predicate, tense/aspect, and event content stable across basis and changed sentences.
+- Distinguish definiteness from specificity; a definite NP need not always be specific in the same way.
+- Use short discourse contexts when needed to license familiarity or uniqueness.
+- Avoid lexical items whose uniqueness is obvious without grammatical marking unless uniqueness is the target contrast.
+- Reserve held-out noun types, discourse contexts, and article/demonstrative templates for validation and test splits.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500

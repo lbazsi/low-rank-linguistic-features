@@ -1,0 +1,27 @@
+variable_id: 12
+variable: optionality_vs_obligatoriness_of_marking
+approach: XL
+languages:
+- zh
+surface_types:
+- xl
+target_contrasts:
+- context_only_time_to_explicit_time_adverb
+- temporally_unmarked_to_temporal_adverb_marked
+- unmarked_event_to_optional_aspect_marker
+- aspect_marker_present_to_absent_with_context_stable
+- classifier_or_number_context_to_bare_nominal_control
+- optional_marker_present_to_marker_absent_with_context_stable
+generation_notes:
+- Use Mandarin to test absence or optionality of tense-like marking against context, temporal adverbs, and optional aspect
+  markers.
+- Do not describe Mandarin as having a general optional plural marker equivalent to English plural; plural-like marking such
+  as -men is limited and should not be the main signal.
+- Keep temporal interpretation stable by controlling adverbs, discourse context, and event sequence.
+- Use aspect particles and temporal adverbs carefully, and avoid treating them as obligatory tense morphology.
+- Keep lexical content, participants, polarity, and event type stable across basis and changed sentences.
+- Reserve held-out temporal adverbs, aspect markers, classifiers, and event templates for validation and test splits.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500

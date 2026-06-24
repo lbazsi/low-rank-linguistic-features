@@ -1,0 +1,27 @@
+variable_id: 25
+variable: epistemic_modality
+approach: EN+ctrl
+languages:
+- en
+surface_types:
+- en
+target_contrasts:
+- certain_to_probable
+- probable_to_possible
+- possible_to_doubtful
+- certainly_to_apparently
+- direct_claim_to_epistemically_hedged_claim
+- high_confidence_to_low_confidence
+generation_notes:
+- Use controlled English modal and adverbial contrasts such as certainly, probably, possibly, maybe, and apparently.
+- Keep event content, source information, tense/aspect, and polarity stable across basis and changed sentences.
+- Separate epistemic confidence from evidential source marking; do not make reportedness the main signal.
+- Use multiple surface markers so the dataset does not reduce to one adverb detector.
+- Balance scientific, social, administrative, everyday, and technical claims.
+- Reserve held-out epistemic markers, claim domains, and hedging templates for validation and test splits.
+- 'Keep this variable epistemic: avoid deontic obligation, permission, or social pressure meanings that belong in variable
+  24 or 38.'
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500

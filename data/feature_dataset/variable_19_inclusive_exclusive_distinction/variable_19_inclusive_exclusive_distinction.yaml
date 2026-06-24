@@ -1,0 +1,28 @@
+variable_id: 19
+variable: inclusive_exclusive_distinction
+approach: XL
+languages:
+- zh
+surface_types:
+- xl
+target_contrasts:
+- inclusive_we_to_exclusive_we_lexical
+- zanmen_to_women_contextual_contrast
+- speaker_addressee_included_to_excluded
+- group_membership_explicit_to_contextual_we
+- inclusive_like_phrase_to_exclusive_like_phrase
+generation_notes:
+- Use Mandarin only as a weak placeholder for inclusive-like versus exclusive-like lexical and contextual contrasts.
+- Do not present this as a clean grammatical inclusive/exclusive distinction; Mandarin does not provide that full grammatical
+  contrast.
+- Make addressee inclusion or exclusion explicit in the context so the contrast is recoverable.
+- Keep event content, group action, tense/aspect context, and participant identities stable across basis and changed sentences.
+- Avoid examples where group membership can be inferred only from world knowledge.
+- Reserve held-out group contexts, pronoun choices, and inclusion/exclusion templates for validation and test splits.
+- Keep this variable explicitly marked as weak coverage; if the generation model cannot make a clean contrast, it should produce
+  conservative lexical/contextual contrasts rather than inventing grammar.
+- Do not use Mandarin forms as if they encode a universal or obligatory grammatical inclusive/exclusive distinction.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500

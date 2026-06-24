@@ -1,0 +1,27 @@
+variable_id: 28
+variable: negation_and_polarity_structure
+approach: EN
+languages:
+- en
+surface_types:
+- en
+target_contrasts:
+- affirmation_to_simple_negation
+- simple_negation_to_denial
+- positive_claim_to_contradiction
+- wide_scope_negation_to_narrow_scope_negation
+- polarity_item_licensed_to_unlicensed_control
+- double_negation_to_single_negation
+generation_notes:
+- Use English affirmation, negation, denial, contradiction, polarity-item, and scope templates.
+- Keep predicates, arguments, tense/aspect, and discourse context stable when changing polarity.
+- Separate simple negation from denial of a previous claim and from contradiction between clauses.
+- Use negative polarity items carefully so grammaticality does not become the only signal.
+- Include scope ambiguity controls with quantifiers and modals where interpretable.
+- Reserve held-out predicates, polarity items, and scope templates for validation and test splits.
+- Unlicensed polarity-item examples should be labeled and used only as diagnostic controls, not as natural grammatical examples.
+- Do not make negation examples depend on controversial or sensitive propositions.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500

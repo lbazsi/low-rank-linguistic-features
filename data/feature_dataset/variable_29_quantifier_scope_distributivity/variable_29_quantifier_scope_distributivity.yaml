@@ -1,0 +1,26 @@
+variable_id: 29
+variable: quantifier_scope_and_distributivity
+approach: EN
+languages:
+- en
+surface_types:
+- en
+target_contrasts:
+- all_to_some
+- every_to_each
+- collective_to_distributive
+- none_to_some
+- most_to_all
+- subject_quantifier_scope_to_object_quantifier_scope
+generation_notes:
+- Use English quantifiers including all, some, none, most, every, and each.
+- Keep noun sets, predicates, tense/aspect, and event domain stable across basis and changed sentences.
+- Distinguish truth-conditional quantity changes from scope and distributivity changes.
+- Use collective/distributive predicates that support both readings where possible.
+- Avoid numerical world-knowledge cues that make one quantifier implausible.
+- Reserve held-out quantifier combinations, predicates, and scope templates for validation and test splits.
+- Avoid using real demographic, political, or morally loaded generalizations; use neutral sets and concrete domains.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500

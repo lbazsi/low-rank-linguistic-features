@@ -1,0 +1,31 @@
+variable_id: 8
+variable: causativity_and_valency_change
+approach: EN+XL
+languages:
+- en
+- tr
+surface_types:
+- en
+- xl
+target_contrasts:
+- noncausative_to_causative
+- direct_to_indirect_causation
+- permissive_to_coercive_causation
+- english_periphrastic_causative_control
+- turkish_morphological_causative
+- causer_added_to_event
+generation_notes:
+- Use English for periphrastic causatives and Turkish for structural or morphological causative contrasts.
+- Keep the caused event stable; only the causer, causative marking, or causation type should change.
+- Distinguish direct making/forcing, indirect arranging, and permissive letting/allowing.
+- Do not rely only on English words such as make, let, force, or cause; Turkish morphology should carry the XL contrast.
+- Balance human, institutional, mechanical, and natural causers.
+- Reserve held-out verb stems, causative suffix patterns, and causer types for validation and test splits.
+- 'Do not create bilingual basis/changed pairs: each generated pair should stay within the example''s declared language and
+  surface_type; English and XL surfaces should be parallel subsets, not mixed inside one pair.'
+- Do not treat English periphrastic causatives and Turkish morphological causatives as a single bilingual minimal pair; generate
+  language-specific controlled pairs.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500

@@ -1,0 +1,26 @@
+variable_id: 11
+variable: agreement_indexing_density
+approach: XL
+languages:
+- es
+surface_types:
+- xl
+target_contrasts:
+- subject_verb_person_number_indexing
+- determiner_noun_gender_number_agreement
+- noun_adjective_gender_number_agreement
+- determiner_noun_adjective_agreement_stack
+- overt_subject_to_verb_indexing_control
+- agreement_feature_shift_with_lexical_content_stable
+generation_notes:
+- Use Spanish agreement and person/number marking as the main richer-indexing contrast.
+- Do not imply that Spanish freely varies between sparse and dense agreement in the same construction; most agreement is obligatory.
+- Frame density as how many positions visibly index the same features, such as determiner, noun, adjective, and verb agreement.
+- Keep event content, tense/aspect, polarity, and lexical participants stable across basis and changed sentences.
+- Avoid making lexical gender, natural gender, or social stereotypes carry the contrast; use inanimate grammatical-gender
+  nouns where possible.
+- Reserve held-out agreement patterns, person/number forms, noun classes, and adjective sets for validation and test splits.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500

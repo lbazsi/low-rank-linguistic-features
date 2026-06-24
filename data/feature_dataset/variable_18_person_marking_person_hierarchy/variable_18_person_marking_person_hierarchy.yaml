@@ -1,0 +1,32 @@
+variable_id: 18
+variable: person_marking_and_person_hierarchy
+approach: EN+XL
+languages:
+- en
+- es
+surface_types:
+- en
+- xl
+target_contrasts:
+- first_person_to_second_person
+- second_person_to_third_person
+- singular_person_to_plural_person
+- english_person_pronoun_control
+- spanish_person_number_verb_indexing
+- overt_pronoun_to_verb_indexing_control
+- speaker_or_addressee_to_third_person_reference
+generation_notes:
+- Use English for basic pronoun/person contrasts and Spanish for richer person and agreement marking.
+- Keep predicate, tense/aspect, polarity, and event content stable when changing person features.
+- Separate person marking from pro-drop by including both overt-pronoun and agreement-focused Spanish controls.
+- Balance singular and plural first, second, and third person forms.
+- Avoid social-status or politeness contrasts unless they are explicitly marked as controls.
+- Reserve held-out pronouns, verb paradigms, and discourse-role templates for validation and test splits.
+- 'Do not create bilingual basis/changed pairs: each generated pair should stay within the example''s declared language and
+  surface_type; English and XL surfaces should be parallel subsets, not mixed inside one pair.'
+- Do not mix English pronoun examples and Spanish agreement examples inside the same pair; generate language-specific person-marking
+  pairs.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500

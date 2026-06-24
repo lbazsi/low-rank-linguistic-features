@@ -1,0 +1,27 @@
+variable_id: 24
+variable: modality_and_mood
+approach: EN
+languages:
+- en
+surface_types:
+- en
+target_contrasts:
+- possibility_to_necessity
+- ability_to_permission
+- obligation_to_advice
+- must_to_should
+- may_to_can
+- indicative_to_imperative
+- permission_to_prohibition_control
+generation_notes:
+- Use English modal verbs, imperative forms, and controlled mood-like constructions.
+- Keep propositional content and event participants stable while changing modal force.
+- Distinguish ability, permission, possibility, obligation, necessity, advice, and command force.
+- Avoid mixing epistemic modality into this variable except as explicitly labeled controls.
+- Balance personal, institutional, technical, and everyday event domains.
+- Reserve held-out modal auxiliaries, imperative templates, and event domains for validation and test splits.
+- Distinguish root/deontic modality from epistemic modality where possible so this variable does not duplicate variable 25.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500

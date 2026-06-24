@@ -1,0 +1,28 @@
+variable_id: 34
+variable: topic_comment_structure
+approach: XL
+languages:
+- ja
+surface_types:
+- xl
+target_contrasts:
+- subject_marker_to_topic_marker
+- topic_fronting_to_neutral_order
+- old_information_topic_to_new_information_comment
+- contrastive_topic_to_plain_topic
+- topic_comment_to_subject_predicate_parallel
+- discourse_topic_present_to_topic_absent_control
+generation_notes:
+- Use Japanese topic particles, topic-fronting, and topic-comment constructions as the main surface.
+- Keep event content, participant roles, tense/aspect, and polarity stable across basis and changed sentences.
+- Provide discourse context where needed so topicality is not confused with grammatical subjecthood.
+- Contrast topic marking with subject marking carefully and avoid making case role ambiguous.
+- Use both familiar-topic and contrastive-topic contexts.
+- Reserve held-out topics, particles, discourse contexts, and fronting templates for validation and test splits.
+- Do not treat wa/ga as a simple subject-marker swap; distinguish topic, contrastive topic, focus, and neutral subject marking
+  as carefully as possible.
+- Avoid making topic examples depend only on English translation word order.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500
