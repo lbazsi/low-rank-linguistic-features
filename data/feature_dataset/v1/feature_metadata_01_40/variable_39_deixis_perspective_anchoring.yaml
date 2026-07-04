@@ -1,0 +1,53 @@
+variable_id: 39
+variable: deixis_and_perspective_anchoring
+approach: EN
+languages:
+- en
+surface_types:
+- en
+target_contrasts:
+- here_to_there
+- now_to_then
+- this_to_that
+- speaker_centered_to_addressee_centered
+- first_person_to_third_person_perspective
+- proximal_to_distal_reference
+- today_to_that_day_context_control
+generation_notes:
+- Use English deictic markers for place, time, person, discourse reference, and proximal/distal anchoring.
+- Keep event content and referents stable while shifting the perspective center or deictic anchor.
+- Provide explicit speaker, addressee, location, and time contexts where needed.
+- Avoid confounding deixis with tense or reported speech unless those are explicitly controlled.
+- Include here/there, now/then, this/that, I/you/we/they, and today/that day contrasts.
+- Reserve held-out anchors, contexts, and deictic marker templates for validation and test splits.
+- Do not change actual referents when changing deictic anchors; the intended shift is perspective anchoring, not entity substitution.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500
+
+marker_families:
+  train:
+  - spatial_deixis
+  - temporal_deixis
+  - demonstrative_deixis
+  val:
+  - person_perspective_shift
+  test:
+  - speaker_listener_anchor_shift
+  - proximal_distal_context
+lexical_domains:
+  train:
+  - healthcare
+  - engineering
+  - education
+  - logistics
+  - workplace_operations
+  - community_services
+  val:
+  - finance
+  - agriculture
+  test:
+  - legal
+  - scientific_research
+  - public_administration

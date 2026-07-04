@@ -1,0 +1,55 @@
+variable_id: 27
+variable: mirativity_stance_and_affect_marking
+approach: XL
+languages:
+- ja
+surface_types:
+- xl
+target_contrasts:
+- neutral_to_surprise_marker
+- neutral_to_unexpectedness_stance
+- plain_assertion_to_sentence_final_affect
+- direct_observation_to_mirative_reaction
+- neutral_description_to_evaluative_stance
+- speaker_attitude_absent_to_speaker_attitude_marked
+generation_notes:
+- Use Japanese stance, sentence-final, surprise, and affective constructions as the main surface.
+- Interpret this as stance/affect marking rather than a universal mirativity typology test.
+- Keep event content, speaker role, tense/aspect, and polarity stable across basis and changed sentences.
+- Use diverse markers and constructions so the dataset does not collapse into one particle or interjection detector.
+- Avoid changing factuality when only surprise, unexpectedness, or attitude should change.
+- Reserve held-out stance markers, event domains, and sentence-final templates for validation and test splits.
+- Do not overclaim universal mirativity; Japanese examples should be treated as stance, affect, surprise, or sentence-final
+  marking probes.
+- Avoid making emotional intensity or sentiment the only cue when the intended contrast is grammatical or discourse stance
+  marking.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500
+
+marker_families:
+  train:
+  - surprise_adverbial
+  - unexpectedness_marker
+  - sentence_final_affect
+  val:
+  - evaluative_stance_phrase
+  test:
+  - mirative_reaction_construction
+  - speaker_attitude_particle
+lexical_domains:
+  train:
+  - healthcare
+  - engineering
+  - education
+  - logistics
+  - workplace_operations
+  - community_services
+  val:
+  - finance
+  - agriculture
+  test:
+  - legal
+  - scientific_research
+  - public_administration

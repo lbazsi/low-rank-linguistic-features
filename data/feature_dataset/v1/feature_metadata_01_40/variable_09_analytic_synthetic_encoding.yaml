@@ -1,0 +1,56 @@
+variable_id: 9
+variable: analytic_vs_synthetic_encoding
+approach: EN+XL
+languages:
+- en
+- tr
+surface_types:
+- en
+- xl
+target_contrasts:
+- english_function_word_encoding_control
+- turkish_bound_morphology_encoding
+- analytic_relation_encoding_control
+- synthetic_relation_encoding_probe
+- multiword_relation_to_morphologically_packed_relation_parallel
+generation_notes:
+- Use English as the analytic/function-word-heavy side and Turkish as the synthetic/morphologically packed side.
+- Keep propositional meaning stable across basis and changed sentences as far as translation permits.
+- Target grammatical relations such as possession, case, tense/aspect, agreement, and direction/location.
+- Do not collapse this variable into general language identity; include tightly matched English and Turkish templates.
+- Avoid examples where the contrast is merely shorter vs longer rather than separate words vs bound morphology.
+- Reserve held-out morpheme combinations, relation types, and lexical templates for validation and test splits.
+- 'Do not create bilingual basis/changed pairs: each generated pair should stay within the example''s declared language and
+  surface_type; English and XL surfaces should be parallel subsets, not mixed inside one pair.'
+- Do not let this collapse into English-versus-Turkish detection; the metadata should require parallel meanings, matched registers,
+  and explicit acknowledgement of language-identity confounds.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500
+
+marker_families:
+  train:
+  - english_function_word_relation
+  - english_prepositional_relation
+  - turkish_bound_case_relation
+  val:
+  - turkish_possessive_case_stack
+  test:
+  - turkish_multi_suffix_compression
+  - analytic_to_synthetic_parallel
+lexical_domains:
+  train:
+  - healthcare
+  - engineering
+  - education
+  - logistics
+  - workplace_operations
+  - community_services
+  val:
+  - finance
+  - agriculture
+  test:
+  - legal
+  - scientific_research
+  - public_administration

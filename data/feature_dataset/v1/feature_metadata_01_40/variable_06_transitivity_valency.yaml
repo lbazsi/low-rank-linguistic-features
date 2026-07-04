@@ -1,0 +1,52 @@
+variable_id: 6
+variable: transitivity_valency
+approach: EN
+languages:
+- en
+surface_types:
+- en
+target_contrasts:
+- intransitive_to_transitive
+- transitive_to_ditransitive
+- transitive_to_experiencer_frame
+- transitive_to_beneficiary_frame
+- transitive_to_instrument_frame
+- monovalent_to_bivalent_to_trivalent
+generation_notes:
+- Use English controlled templates because the feature can be isolated with clause-frame changes.
+- Keep the core event domain stable while changing the number and type of syntactic arguments.
+- Do not allow lexical verb choice alone to determine valency; use alternating verbs where possible.
+- Balance human, animal, organization, artifact, and abstract participants.
+- Avoid examples where added adjuncts are mistaken for core arguments.
+- Reserve held-out verb classes, argument structures, and lexical templates for validation and test splits.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500
+
+marker_families:
+  train:
+  - intransitive_frame
+  - transitive_frame
+  - ditransitive_frame
+  val:
+  - experiencer_frame
+  - beneficiary_frame
+  test:
+  - instrument_frame
+  - caused_motion_frame
+lexical_domains:
+  train:
+  - healthcare
+  - engineering
+  - education
+  - logistics
+  - workplace_operations
+  - community_services
+  val:
+  - finance
+  - agriculture
+  test:
+  - legal
+  - scientific_research
+  - public_administration

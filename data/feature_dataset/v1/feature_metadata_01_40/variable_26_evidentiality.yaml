@@ -1,0 +1,59 @@
+variable_id: 26
+variable: evidentiality
+approach: EN+XL
+languages:
+- en
+- tr
+surface_types:
+- en
+- xl
+target_contrasts:
+- english_source_marking_control
+- turkish_direct_past_to_reported_evidential
+- turkish_direct_to_inferred_evidential
+- reported_to_inferred_evidential
+- hearsay_source_to_inference_source
+- source_marker_present_to_absent_control
+generation_notes:
+- Use English source-marking pilots and Turkish grammatical evidential contrasts as complementary surfaces.
+- 'Do not create bilingual basis/changed pairs: each generated pair should stay within the example''s declared language and
+  surface_type.'
+- For Turkish, use evidential morphology naturally and distinguish direct, reported, inferred, or hearsay-like meanings where
+  appropriate.
+- For English, treat phrases such as reportedly, apparently, I saw that, or it seems that as source-marking controls, not
+  as grammatical evidentiality.
+- Keep event content, participants, tense/aspect, polarity, and source type stable except for the evidential/source contrast.
+- Avoid relying only on one English marker such as reportedly.
+- Reserve held-out source markers, Turkish evidential forms, verbs, and report contexts for validation and test splits.
+- 'Do not create bilingual basis/changed pairs: each generated pair should stay within the example''s declared language and
+  surface_type; English and XL surfaces should be parallel subsets, not mixed inside one pair.'
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500
+
+marker_families:
+  train:
+  - english_reported_source_phrase
+  - turkish_direct_past
+  - turkish_reported_evidential
+  val:
+  - turkish_inferred_evidential
+  test:
+  - hearsay_source_construction
+  - inference_source_construction
+lexical_domains:
+  train:
+  - healthcare
+  - engineering
+  - education
+  - logistics
+  - workplace_operations
+  - community_services
+  val:
+  - finance
+  - agriculture
+  test:
+  - legal
+  - scientific_research
+  - public_administration

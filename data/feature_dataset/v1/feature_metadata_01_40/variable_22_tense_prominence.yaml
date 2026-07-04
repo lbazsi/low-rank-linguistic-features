@@ -1,0 +1,58 @@
+variable_id: 22
+variable: tense_prominence
+approach: EN+XL
+languages:
+- en
+- zh
+surface_types:
+- en
+- xl
+target_contrasts:
+- english_past_present_future_tense_control
+- mandarin_temporal_adverb_time_reference
+- mandarin_contextual_time_inference
+- tense_marked_to_time_adverb_marked_parallel
+- explicit_time_anchor_to_contextual_time_anchor
+- morphological_tense_to_discourse_time_anchor_parallel
+generation_notes:
+- Use English tense marking and Mandarin context/adverb-based temporal interpretation as the main contrast.
+- Keep event content, participants, aspectual interpretation, and polarity stable across basis and changed sentences.
+- Do not treat Mandarin examples as timeless; temporal anchoring should come from adverbs or discourse context.
+- Separate tense prominence from optional aspect marking by controlling aspect particles where possible.
+- Balance past, present, future, and habitual contexts.
+- Reserve held-out temporal adverbs, tense forms, and discourse-time templates for validation and test splits.
+- 'Do not create bilingual basis/changed pairs: each generated pair should stay within the example''s declared language and
+  surface_type; English and XL surfaces should be parallel subsets, not mixed inside one pair.'
+- Do not pair an English tense-marked sentence directly with a Mandarin sentence inside one example; keep language-specific
+  examples separate.
+- Do not describe Mandarin temporal adverbs or discourse anchors as tense morphology.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500
+
+marker_families:
+  train:
+  - english_morphological_tense
+  - mandarin_temporal_adverb
+  - explicit_time_anchor
+  val:
+  - contextual_time_anchor
+  test:
+  - discourse_time_inference
+  - unmarked_event_time_reference
+lexical_domains:
+  train:
+  - healthcare
+  - engineering
+  - education
+  - logistics
+  - workplace_operations
+  - community_services
+  val:
+  - finance
+  - agriculture
+  test:
+  - legal
+  - scientific_research
+  - public_administration

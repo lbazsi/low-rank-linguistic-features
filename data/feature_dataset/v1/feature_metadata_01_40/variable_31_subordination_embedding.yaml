@@ -1,0 +1,52 @@
+variable_id: 31
+variable: subordination_and_embedding
+approach: EN
+languages:
+- en
+surface_types:
+- en
+target_contrasts:
+- main_clause_to_embedded_belief
+- main_clause_to_embedded_claim
+- single_embedding_to_recursive_embedding
+- reason_clause_to_evidence_clause
+- desire_embedding_to_belief_embedding
+- finite_to_nonfinite_embedding_control
+generation_notes:
+- Use English embedded belief, claim, desire, reason, evidence, and recursive clause structures.
+- Keep the embedded proposition stable while changing embedding predicate or depth.
+- Separate factual assertion from reported or believed content so truth commitment is controlled.
+- Avoid excessive sentence length that makes parsing difficulty the main signal.
+- Include complement clauses, relative clauses, reason clauses, and evidence clauses where natural.
+- Reserve held-out embedding predicates, recursion depths, and clause templates for validation and test splits.
+- Do not let embedding depth alone create excessive sentence length; keep recursive examples short and interpretable.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500
+
+marker_families:
+  train:
+  - belief_embedding
+  - claim_embedding
+  - reason_clause
+  val:
+  - evidence_clause
+  test:
+  - recursive_embedding
+  - nonfinite_embedding
+lexical_domains:
+  train:
+  - healthcare
+  - engineering
+  - education
+  - logistics
+  - workplace_operations
+  - community_services
+  val:
+  - finance
+  - agriculture
+  test:
+  - legal
+  - scientific_research
+  - public_administration

@@ -1,0 +1,53 @@
+variable_id: 30
+variable: conditional_and_counterfactual_marking
+approach: EN
+languages:
+- en
+surface_types:
+- en
+target_contrasts:
+- real_conditional_to_hypothetical
+- hypothetical_to_counterfactual
+- if_then_to_unmarked_dependency
+- conditional_to_concessive_conditional
+- future_open_to_past_counterfactual
+- necessary_condition_to_sufficient_condition_control
+generation_notes:
+- Use English conditionals, hypotheticals, counterfactuals, concessives, and if/then dependency templates.
+- Keep antecedent and consequent event content stable while changing conditional force.
+- Separate realis/open conditionals from counterfactuals through tense, modal, and contextual controls.
+- Avoid changing causal direction unless the contrast explicitly targets necessary versus sufficient conditions.
+- Balance everyday, scientific, policy, social, and technical scenarios.
+- Reserve held-out antecedent/consequent domains, modal patterns, and conditional templates for validation and test splits.
+- Avoid changing both conditional force and factual plausibility at once; the antecedent/consequent content should remain
+  controlled.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500
+
+marker_families:
+  train:
+  - if_then_conditional
+  - hypothetical_modal_conditional
+  - counterfactual_if_had
+  val:
+  - concessive_conditional
+  test:
+  - unmarked_dependency_conditional
+  - sufficient_condition_paraphrase
+lexical_domains:
+  train:
+  - healthcare
+  - engineering
+  - education
+  - logistics
+  - workplace_operations
+  - community_services
+  val:
+  - finance
+  - agriculture
+  test:
+  - legal
+  - scientific_research
+  - public_administration

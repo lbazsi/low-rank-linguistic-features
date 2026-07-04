@@ -1,0 +1,55 @@
+variable_id: 17
+variable: animacy_and_humanness
+approach: EN+ctrl
+languages:
+- en
+surface_types:
+- en
+target_contrasts:
+- human_to_nonhuman_animate
+- animate_to_inanimate
+- sentient_to_nonsentient_living
+- living_to_nonliving
+- human_agent_to_artifact_agent_control
+- animal_patient_to_object_patient_control
+generation_notes:
+- Use controlled English lexical sets for human, animate, sentient, living, and non-living entities.
+- Keep syntax, predicate type, tense/aspect, polarity, and argument position stable across pairs.
+- Avoid plausibility cues where only one entity type could realistically perform the action unless plausibility is explicitly
+  controlled.
+- Balance agent, patient, experiencer, possessor, and recipient positions.
+- Avoid culturally loaded or morally charged entity choices that could introduce behavioral confounds.
+- Reserve held-out entity classes, predicates, and role templates for validation and test splits.
+- Do not use morally or politically loaded group categories to instantiate humanness or animacy; use neutral nouns and controlled
+  lexical sets.
+- Avoid changing agency, capability, or plausibility so much that world knowledge replaces the animacy/humanness contrast.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500
+
+marker_families:
+  train:
+  - human_agent_lexical_set
+  - animal_patient_lexical_set
+  - inanimate_object_lexical_set
+  val:
+  - sentient_living_contrast
+  test:
+  - artifact_agent_control
+  - living_nonliving_boundary
+lexical_domains:
+  train:
+  - healthcare
+  - engineering
+  - education
+  - logistics
+  - workplace_operations
+  - community_services
+  val:
+  - finance
+  - agriculture
+  test:
+  - legal
+  - scientific_research
+  - public_administration

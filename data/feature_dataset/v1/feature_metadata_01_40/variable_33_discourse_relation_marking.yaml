@@ -1,0 +1,54 @@
+variable_id: 33
+variable: discourse_relation_marking
+approach: EN+ctrl
+languages:
+- en
+surface_types:
+- en
+target_contrasts:
+- cause_to_contrast
+- because_to_so_result
+- although_to_because
+- however_to_therefore
+- while_temporal_to_while_contrastive
+- since_causal_to_since_temporal
+- connective_present_to_connective_absent_control
+generation_notes:
+- Use controlled English discourse connectives such as because, although, however, therefore, while, since, despite, and so.
+- Keep clause content stable while changing only the discourse relation marker where possible.
+- Control connective identity so the model cannot solve the task from a single lexical item alone.
+- Include causal, contrastive, concessive, temporal, evidential, elaborative, and result relations.
+- Avoid pairs where one relation is pragmatically impossible unless marked as a diagnostic control.
+- Reserve held-out connectives, clause-pair domains, and relation templates for validation and test splits.
+- Do not create incoherent clause pairs just to swap connectives; the resulting discourse relation must remain interpretable.
+- Control connective identity carefully so the variable is discourse relation marking rather than arbitrary lexical substitution.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500
+
+marker_families:
+  train:
+  - causal_connective
+  - contrast_connective
+  - result_connective
+  val:
+  - temporal_connective
+  test:
+  - connective_absent_relation
+  - concessive_relation_without_marker
+lexical_domains:
+  train:
+  - healthcare
+  - engineering
+  - education
+  - logistics
+  - workplace_operations
+  - community_services
+  val:
+  - finance
+  - agriculture
+  test:
+  - legal
+  - scientific_research
+  - public_administration

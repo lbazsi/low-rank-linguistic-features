@@ -1,0 +1,54 @@
+variable_id: 38
+variable: speech_act_force_and_request_directness
+approach: EN+ctrl
+languages:
+- en
+surface_types:
+- en
+target_contrasts:
+- assertion_to_question
+- statement_to_command
+- direct_command_to_indirect_request
+- request_to_warning
+- advice_to_obligation
+- promise_to_threat
+- explicit_performative_to_indirect_speech_act
+generation_notes:
+- Use controlled English forms for assertion, question, command, request, warning, advice, promise, threat, and indirect requests.
+- Keep propositional content, participants, tense/aspect, and stakes stable while changing speech-act force.
+- Separate request directness from politeness and social status unless explicitly marked as controls.
+- Avoid examples where punctuation alone carries the contrast; use syntactic and lexical force markers too.
+- Balance everyday, institutional, technical, and interpersonal domains.
+- Reserve held-out performatives, request forms, and speech-act templates for validation and test splits.
+- Keep threats, warnings, and commands harmless and low-stakes; do not generate violent, coercive, or policy-sensitive content.
+- Do not let politeness/formality dominate the contrast unless request directness is explicitly being tested.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500
+
+marker_families:
+  train:
+  - interrogative_question
+  - imperative_command
+  - direct_request
+  val:
+  - indirect_request
+  test:
+  - performative_speech_act
+  - warning_threat_contrast
+lexical_domains:
+  train:
+  - healthcare
+  - engineering
+  - education
+  - logistics
+  - workplace_operations
+  - community_services
+  val:
+  - finance
+  - agriculture
+  test:
+  - legal
+  - scientific_research
+  - public_administration

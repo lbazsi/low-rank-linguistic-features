@@ -1,0 +1,57 @@
+variable_id: 32
+variable: quotation_and_reported_speech_structure
+approach: EN+XL
+languages:
+- en
+- ja
+surface_types:
+- en
+- xl
+target_contrasts:
+- english_direct_quote_to_indirect_report_control
+- english_punctuation_quote_to_reported_claim_control
+- japanese_quotative_reporting_structure
+- japanese_direct_quotation_to_indirect_report
+- embedded_claim_to_source_attribution
+- exact_words_to_paraphrased_report
+generation_notes:
+- Use English quotation punctuation controls and Japanese quotative/reporting structures.
+- Keep the reported proposition, speaker, addressee, tense/aspect, and polarity stable across pairs.
+- Separate quotation form from evidentiality; source attribution should be controlled rather than conflated with certainty.
+- Use Japanese quotative structures naturally rather than forcing punctuation-only contrasts.
+- Avoid changing pronoun perspective unless the contrast explicitly targets direct versus indirect speech.
+- Reserve held-out reporting verbs, quote types, and source-attribution templates for validation and test splits.
+- 'Do not create bilingual basis/changed pairs: each generated pair should stay within the example''s declared language and
+  surface_type; English and XL surfaces should be parallel subsets, not mixed inside one pair.'
+- Do not mix English quotation punctuation and Japanese quotative particles inside one basis/changed pair; use them as separate
+  surfaces.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500
+
+marker_families:
+  train:
+  - english_direct_quote_punctuation
+  - english_indirect_report
+  - japanese_quotative_to
+  val:
+  - source_attribution_report
+  test:
+  - paraphrased_report
+  - embedded_claim_report
+lexical_domains:
+  train:
+  - healthcare
+  - engineering
+  - education
+  - logistics
+  - workplace_operations
+  - community_services
+  val:
+  - finance
+  - agriculture
+  test:
+  - legal
+  - scientific_research
+  - public_administration

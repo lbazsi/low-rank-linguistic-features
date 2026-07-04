@@ -1,0 +1,59 @@
+variable_id: 23
+variable: aspect_and_event_structure
+approach: EN+XL
+languages:
+- en
+- ru
+surface_types:
+- en
+- xl
+target_contrasts:
+- english_progressive_to_simple_aspect_control
+- russian_perfective_to_imperfective_aspect
+- habitual_to_single_event
+- completed_to_ongoing
+- iterative_to_punctual
+- aspect_pair_with_lexical_meaning_stable
+generation_notes:
+- Use English aspectual forms and Russian aspect contrasts as complementary surfaces.
+- Keep participants, predicate core, tense, polarity, and event domain stable across pairs.
+- Separate grammatical aspect from lexical aspect by balancing states, activities, accomplishments, and achievements.
+- Use Russian aspectual verb pairs carefully and avoid relying on unrelated lexical meaning shifts.
+- Include progressive, habitual, perfective, imperfective, completive, iterative, and prospective-like contexts where natural.
+- Reserve held-out verb pairs, event classes, and aspectual templates for validation and test splits.
+- 'Do not create bilingual basis/changed pairs: each generated pair should stay within the example''s declared language and
+  surface_type; English and XL surfaces should be parallel subsets, not mixed inside one pair.'
+- Do not use English aspect and Russian aspect as a single bilingual minimal pair; they should be parallel language-specific
+  surfaces.
+- For Russian, avoid changing lexical aspect or verb meaning more than necessary when selecting aspectual pairs.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500
+
+marker_families:
+  train:
+  - english_progressive
+  - russian_perfective
+  - russian_imperfective
+  val:
+  - habitual_aspect
+  - iterative_aspect
+  test:
+  - completive_ongoing_contrast
+  - punctual_event_structure
+lexical_domains:
+  train:
+  - healthcare
+  - engineering
+  - education
+  - logistics
+  - workplace_operations
+  - community_services
+  val:
+  - finance
+  - agriculture
+  test:
+  - legal
+  - scientific_research
+  - public_administration

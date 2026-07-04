@@ -1,0 +1,59 @@
+variable_id: 40
+variable: orthographic_and_tokenization_interface
+approach: EN+XL
+languages:
+- en
+- zh
+surface_types:
+- en
+- xl
+target_contrasts:
+- english_capitalization_change_control
+- english_punctuation_present_to_absent_control
+- english_spacing_variant_control
+- mandarin_unsegmented_text_probe
+- mandarin_word_segmented_diagnostic_control
+- latin_punctuation_to_chinese_punctuation_control
+generation_notes:
+- Use English punctuation, capitalization, and spacing controls plus Mandarin script and segmentation contrasts.
+- Keep lexical meaning and sentence content stable across basis and changed sentences.
+- Treat marked segmentation or spacing variants as diagnostic controls rather than natural language evidence.
+- Do not interpret results as covering all scripts; Mandarin mainly covers script and tokenization interface effects.
+- Avoid semantic or grammatical changes when only orthographic or segmentation form should change.
+- Reserve held-out punctuation patterns, casing patterns, Mandarin strings, and segmentation templates for validation and
+  test splits.
+- 'Do not create bilingual basis/changed pairs: each generated pair should stay within the example''s declared language and
+  surface_type; English and XL surfaces should be parallel subsets, not mixed inside one pair.'
+- Do not frame English whitespace and Mandarin no-whitespace as a single bilingual minimal pair; use them as parallel script/tokenization
+  surfaces.
+- Mandarin word segmentation with spaces should be labeled as a diagnostic control, not natural standard Mandarin orthography.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500
+
+marker_families:
+  train:
+  - capitalization_variant
+  - punctuation_variant
+  - spacing_variant
+  val:
+  - chinese_punctuation_variant
+  test:
+  - mandarin_unsegmented_script
+  - mandarin_segmented_control
+lexical_domains:
+  train:
+  - healthcare
+  - engineering
+  - education
+  - logistics
+  - workplace_operations
+  - community_services
+  val:
+  - finance
+  - agriculture
+  test:
+  - legal
+  - scientific_research
+  - public_administration

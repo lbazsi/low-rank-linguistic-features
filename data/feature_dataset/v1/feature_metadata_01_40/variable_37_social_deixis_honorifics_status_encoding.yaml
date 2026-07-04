@@ -1,0 +1,58 @@
+variable_id: 37
+variable: social_deixis_honorifics_status_encoding
+approach: EN+XL
+languages:
+- en
+- ko
+surface_types:
+- en
+- xl
+target_contrasts:
+- english_deference_phrase_control
+- korean_plain_to_honorific_speech_level
+- informal_to_formal_request
+- equal_status_to_higher_status_addressee
+- referent_plain_to_referent_honorific
+- speaker_humility_to_neutral_description
+generation_notes:
+- Use English authority/deference controls and Korean honorifics or speech-level contrasts as the main XL surface.
+- Keep request or event content stable while changing social deixis, formality, or status encoding.
+- Separate addressee honorification, referent honorification, and speaker humility where possible.
+- Do not generalize beyond Korean social-deixis realization; this is not a universal honorifics typology test.
+- Avoid changing politeness into indirectness unless the contrast explicitly targets both.
+- Reserve held-out status relations, speech levels, honorific markers, and deference templates for validation and test splits.
+- 'Do not create bilingual basis/changed pairs: each generated pair should stay within the example''s declared language and
+  surface_type; English and XL surfaces should be parallel subsets, not mixed inside one pair.'
+- Do not use English authority/deference phrases and Korean speech levels as a single bilingual basis/changed pair; use them
+  as parallel surfaces.
+- Avoid stereotypes about age, gender, class, nationality, or occupation when constructing status relations.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500
+
+marker_families:
+  train:
+  - english_deference_phrase
+  - korean_honorific_speech_level
+  - formal_request_level
+  val:
+  - referent_honorific
+  test:
+  - speaker_humility_marker
+  - status_asymmetry_context
+lexical_domains:
+  train:
+  - healthcare
+  - engineering
+  - education
+  - logistics
+  - workplace_operations
+  - community_services
+  val:
+  - finance
+  - agriculture
+  test:
+  - legal
+  - scientific_research
+  - public_administration

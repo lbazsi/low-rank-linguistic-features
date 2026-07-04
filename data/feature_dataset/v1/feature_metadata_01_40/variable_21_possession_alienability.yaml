@@ -1,0 +1,53 @@
+variable_id: 21
+variable: possession_and_alienability
+approach: EN+ctrl
+languages:
+- en
+surface_types:
+- en
+target_contrasts:
+- alienable_relation_to_inalienable_relation_control
+- ownership_possession_to_kinship_relation
+- controllable_object_to_body_part_relation
+- temporary_possession_to_permanent_relation
+- legal_owner_to_associated_relation
+- possessor_control_high_to_possessor_control_low
+generation_notes:
+- Use controlled English lexical possession contrasts rather than claiming true grammatical alienability marking.
+- Do not label English examples as a full grammatical alienable/inalienable possession system; this is a semantic/lexical
+  control variable.
+- Keep possessive construction, possessor identity, definiteness, and event context stable where possible.
+- Avoid making legal, social, or emotional ownership assumptions carry the contrast.
+- Separate ownership, kinship, body-part, and association relations in the metadata so downstream generation does not merge
+  them.
+- Reserve held-out possessed nouns, possessor types, and possession templates for validation and test splits.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500
+
+marker_families:
+  train:
+  - ownership_possession
+  - kinship_possession
+  - body_part_possession
+  val:
+  - temporary_possession
+  test:
+  - legal_ownership_relation
+  - associated_relation_low_control
+lexical_domains:
+  train:
+  - healthcare
+  - engineering
+  - education
+  - logistics
+  - workplace_operations
+  - community_services
+  val:
+  - finance
+  - agriculture
+  test:
+  - legal
+  - scientific_research
+  - public_administration

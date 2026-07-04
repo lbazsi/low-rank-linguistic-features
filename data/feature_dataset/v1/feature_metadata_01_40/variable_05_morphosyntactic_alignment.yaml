@@ -1,0 +1,52 @@
+variable_id: 5
+variable: morphosyntactic_alignment
+approach: XL
+languages:
+- tr
+surface_types:
+- xl
+target_contrasts:
+- turkish_case_role_alignment_approximation
+- intransitive_subject_to_transitive_agent
+- intransitive_subject_to_transitive_patient_control
+- zero_marked_subject_to_accusative_object
+- agent_patient_role_swap_with_case_marking
+generation_notes:
+- Use Turkish case and role contrasts only as an approximate morphosyntactic-alignment-related probe.
+- Do not present this variable as a full ergative, split-ergative, or universal alignment typology test.
+- Treat the dataset as a role/case-structure approximation centered on nominative-like zero marking, accusative marking, and
+  dative or oblique roles where natural.
+- Keep participant identities and event content stable when contrasting subject, agent, patient, and object roles.
+- Avoid relying only on English translations of roles; the Turkish surface should carry the contrast.
+- Include both intransitive and transitive frames, and balance animate/inanimate participants.
+- Reserve held-out noun cases, verb classes, and role-swap templates for validation and test splits.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500
+
+marker_families:
+  train:
+  - nominative_subject_case
+  - accusative_object_case
+  - intransitive_subject_frame
+  val:
+  - transitive_agent_patient_alignment
+  test:
+  - patient_like_subject_control
+  - role_swap_case_alignment
+lexical_domains:
+  train:
+  - healthcare
+  - engineering
+  - education
+  - logistics
+  - workplace_operations
+  - community_services
+  val:
+  - finance
+  - agriculture
+  test:
+  - legal
+  - scientific_research
+  - public_administration

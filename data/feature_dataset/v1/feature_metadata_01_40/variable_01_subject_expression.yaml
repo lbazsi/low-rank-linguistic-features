@@ -1,0 +1,48 @@
+variable_id: 1
+variable: subject_expression_pro_drop
+approach: XL
+languages:
+- tr
+surface_types:
+- xl
+target_contrasts:
+- explicit_subject_to_omitted_subject
+- lexical_np_subject_to_zero_subject
+- pronoun_subject_to_zero_subject
+- agreement_recoverable_subject_to_context_recoverable_subject
+generation_notes:
+- Use Turkish as the main surface because pro-drop is grammatically licensed and recoverable from agreement or discourse context.
+- Keep predicate, tense/aspect, polarity, and event content stable across basis and changed sentences.
+- Do not make omission ambiguous between first, second, and third person unless ambiguity itself is the contrast.
+- Use diverse persons, numbers, animacy classes, and event domains.
+- Reserve held-out verbs, subject nouns, and person/number forms for validation and test splits.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500
+
+marker_families:
+  train:
+  - overt_pronoun_subject
+  - overt_lexical_np_subject
+  - agreement_recoverable_zero_subject
+  val:
+  - discourse_recoverable_zero_subject
+  test:
+  - coordinated_clause_zero_subject
+  - contrastive_context_zero_subject
+lexical_domains:
+  train:
+  - healthcare
+  - engineering
+  - education
+  - logistics
+  - workplace_operations
+  - community_services
+  val:
+  - finance
+  - agriculture
+  test:
+  - legal
+  - scientific_research
+  - public_administration

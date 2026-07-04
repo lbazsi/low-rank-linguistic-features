@@ -1,0 +1,59 @@
+variable_id: 15
+variable: number_marking
+approach: EN+XL
+languages:
+- en
+- ar
+surface_types:
+- en
+- xl
+target_contrasts:
+- english_singular_plural_control
+- arabic_singular_dual_plural_number
+- arabic_dual_to_plural_agreement
+- arabic_number_sensitive_modifier_agreement
+- cardinal_number_to_number_agreement
+- collective_or_singulative_number_control
+generation_notes:
+- Use English for singular/plural controls and Arabic for dual and richer number-agreement contrasts.
+- Keep entity type, predicate, definiteness, and event content stable across basis and changed sentences.
+- Do not let numerals alone carry the contrast when agreement morphology is intended to be tested.
+- Balance human, animate, artifact, and abstract nouns without making animacy the main signal.
+- Avoid confounding number marking with grammatical gender agreement in Arabic where possible.
+- Reserve held-out nouns, numerals, and singular/dual/plural templates for validation and test splits.
+- 'Do not create bilingual basis/changed pairs: each generated pair should stay within the example''s declared language and
+  surface_type; English and XL surfaces should be parallel subsets, not mixed inside one pair.'
+- Do not treat English plural and Arabic dual/plural as a bilingual minimal pair; use English as a control surface and Arabic
+  as the richer number/agreement probe.
+- Be careful with Arabic agreement complexity; keep dual/plural morphology and agreement natural rather than forcing English-like
+  number behavior.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500
+
+marker_families:
+  train:
+  - english_singular_plural
+  - arabic_singular_dual
+  - arabic_plural_agreement
+  val:
+  - cardinal_number_agreement
+  test:
+  - dual_modifier_agreement
+  - collective_singulative_control
+lexical_domains:
+  train:
+  - healthcare
+  - engineering
+  - education
+  - logistics
+  - workplace_operations
+  - community_services
+  val:
+  - finance
+  - agriculture
+  test:
+  - legal
+  - scientific_research
+  - public_administration

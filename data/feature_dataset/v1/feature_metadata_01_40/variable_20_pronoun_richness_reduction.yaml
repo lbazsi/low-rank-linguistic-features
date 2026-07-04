@@ -1,0 +1,57 @@
+variable_id: 20
+variable: pronoun_richness_and_reduction
+approach: EN+XL
+languages:
+- en
+- ja
+surface_types:
+- en
+- xl
+target_contrasts:
+- english_overt_pronoun_baseline
+- japanese_overt_argument_to_zero_reference
+- repeated_pronoun_to_contextual_reference
+- first_person_overt_to_zero_subject
+- third_person_overt_to_zero_subject
+- pronoun_identity_recoverable_from_discourse
+generation_notes:
+- Use English for overt-pronoun baselines and Japanese for pronoun omission and context-dependent reference.
+- Keep predicate, tense/aspect, polarity, and event content stable across basis and changed sentences.
+- Provide enough discourse context to recover omitted arguments without making the sentence pragmatically bizarre.
+- Avoid turning this into a pro-drop-only test; include reduction, repetition, and discourse-recovery contrasts.
+- Balance first, second, and third person where natural.
+- Reserve held-out discourse contexts, pronoun types, and omission templates for validation and test splits.
+- 'Do not create bilingual basis/changed pairs: each generated pair should stay within the example''s declared language and
+  surface_type; English and XL surfaces should be parallel subsets, not mixed inside one pair.'
+- Do not use English and Japanese as the two sides of a single basis/changed pair; use English overt-pronoun controls and
+  Japanese zero-reference pairs separately.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500
+
+marker_families:
+  train:
+  - english_overt_pronoun
+  - japanese_zero_subject
+  - repeated_pronoun_reduction
+  val:
+  - discourse_recoverable_reference
+  test:
+  - zero_object_reference
+  - cross_sentence_pronoun_omission
+lexical_domains:
+  train:
+  - healthcare
+  - engineering
+  - education
+  - logistics
+  - workplace_operations
+  - community_services
+  val:
+  - finance
+  - agriculture
+  test:
+  - legal
+  - scientific_research
+  - public_administration

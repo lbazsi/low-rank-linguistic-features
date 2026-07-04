@@ -1,0 +1,51 @@
+variable_id: 7
+variable: voice_and_agent_prominence
+approach: EN
+languages:
+- en
+surface_types:
+- en
+target_contrasts:
+- active_to_passive
+- active_to_by_phrase_passive
+- active_to_agentless_passive
+- active_to_middle_like
+- active_to_impersonal
+- agent_prominent_to_patient_prominent
+generation_notes:
+- Use English because active/passive and agent-prominence contrasts are directly controllable.
+- Keep event content, participants, tense/aspect, polarity, and outcome stable across basis and changed sentences.
+- Separate by-phrase passives from agentless passives so agent deletion is not confused with voice alone.
+- 'Use diverse agents: individuals, institutions, systems, natural forces, and unspecified actors.'
+- Avoid changing blame, responsibility, or causal interpretation unless the contrast explicitly targets agent prominence.
+- Reserve held-out verbs, agent types, and passive/middle templates for validation and test splits.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500
+
+marker_families:
+  train:
+  - active_voice
+  - by_phrase_passive
+  - agentless_passive
+  val:
+  - patient_prominent_passive
+  test:
+  - middle_like_voice
+  - impersonal_voice
+lexical_domains:
+  train:
+  - healthcare
+  - engineering
+  - education
+  - logistics
+  - workplace_operations
+  - community_services
+  val:
+  - finance
+  - agriculture
+  test:
+  - legal
+  - scientific_research
+  - public_administration

@@ -1,0 +1,53 @@
+variable_id: 16
+variable: gender_noun_class
+approach: XL
+languages:
+- es
+surface_types:
+- xl
+target_contrasts:
+- masculine_to_feminine_agreement
+- noun_gender_to_adjective_agreement
+- determiner_gender_shift
+- grammatical_gender_with_inanimate_nouns
+- natural_gender_to_grammatical_gender_control
+- gender_agreement_preserved_under_number_change
+generation_notes:
+- Use Spanish grammatical gender and agreement as the main contrast.
+- Treat this as a grammatical-gender probe, not a full noun-class typology test.
+- Include inanimate nouns so the dataset does not collapse into biological sex or social gender semantics.
+- Keep number, definiteness, and event content stable unless they are explicitly part of the contrast.
+- Balance determiner, adjective, and predicate-agreement contexts where natural.
+- Reserve held-out noun genders, adjective classes, and agreement templates for validation and test splits.
+- Do not present Spanish as a full noun-class system; this is a grammatical-gender probe with limited noun-class generalization.
+- Prefer inanimate grammatical-gender nouns when possible so the contrast is not carried by natural gender or stereotypes.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500
+
+marker_families:
+  train:
+  - masculine_agreement
+  - feminine_agreement
+  - determiner_gender
+  val:
+  - adjective_gender_shift
+  test:
+  - inanimate_gender_agreement
+  - gender_number_interaction
+lexical_domains:
+  train:
+  - healthcare
+  - engineering
+  - education
+  - logistics
+  - workplace_operations
+  - community_services
+  val:
+  - finance
+  - agriculture
+  test:
+  - legal
+  - scientific_research
+  - public_administration

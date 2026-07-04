@@ -1,0 +1,53 @@
+variable_id: 13
+variable: redundancy_cumulative_exponence
+approach: XL
+languages:
+- ru
+surface_types:
+- xl
+target_contrasts:
+- single_site_marking_to_multi_site_agreement
+- case_gender_number_bundle_inspection
+- noun_case_to_adjective_noun_case_agreement
+- subject_verb_person_number_agreement
+- cumulative_case_gender_number_exponence
+- redundant_agreement_stack_to_less_redundant_control
+generation_notes:
+- Use Russian bundled case/gender/number morphology and agreement redundancy as the main signal.
+- Do not imply that Russian can always remove redundancy while remaining equally natural; reduced-marking examples should
+  be diagnostic controls only.
+- Keep lexical content and grammatical roles stable while changing where and how much information is marked.
+- 'Separate cumulative exponence from simple repetition: one marker may bundle case, gender, and number, while multiple words
+  may redundantly agree.'
+- Avoid examples where animacy, plausibility, or word order alone determines the grammatical role.
+- Reserve held-out declension classes, adjective patterns, agreement stacks, and noun genders for validation and test splits.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500
+
+marker_families:
+  train:
+  - noun_adjective_case_agreement
+  - subject_verb_agreement
+  - multi_site_agreement
+  val:
+  - cumulative_case_gender_number_bundle
+  test:
+  - redundant_stack_reduction
+  - agreement_bundle_shift
+lexical_domains:
+  train:
+  - healthcare
+  - engineering
+  - education
+  - logistics
+  - workplace_operations
+  - community_services
+  val:
+  - finance
+  - agriculture
+  test:
+  - legal
+  - scientific_research
+  - public_administration

@@ -1,0 +1,54 @@
+variable_id: 4
+variable: case_marking
+approach: XL
+languages:
+- ru
+surface_types:
+- xl
+target_contrasts:
+- case_preserved_word_order_permutation
+- nominative_to_accusative_marking
+- nominative_to_dative_marking
+- canonical_order_to_case_preserving_scramble
+- role_reversal_with_overt_case_change
+generation_notes:
+- Use Russian overt case morphology as the main signal for grammatical role.
+- Do not frame the contrast as word-order role versus overt-case role, because Russian noun phrases normally carry overt case
+  marking.
+- Focus on case-preserved role interpretation under word-order variation, plus controlled case changes that alter grammatical
+  role.
+- Keep lexical content and event type stable while changing case marking or word order.
+- Include nominative, accusative, dative, genitive, instrumental, and prepositional contrasts where natural.
+- Use word-order variation only when case marking keeps roles recoverable.
+- Avoid examples where animacy, plausibility, or agreement alone determines the agent or patient.
+- Reserve held-out declension patterns, nouns, and verbs for validation and test splits.
+split_rule:
+  train: 001-400
+  val: 401-450
+  test: 451-500
+
+marker_families:
+  train:
+  - nominative_accusative_case
+  - nominative_dative_case
+  - canonical_case_order
+  val:
+  - case_preserving_scramble
+  test:
+  - role_reversal_case_change
+  - oblique_argument_case_marking
+lexical_domains:
+  train:
+  - healthcare
+  - engineering
+  - education
+  - logistics
+  - workplace_operations
+  - community_services
+  val:
+  - finance
+  - agriculture
+  test:
+  - legal
+  - scientific_research
+  - public_administration
