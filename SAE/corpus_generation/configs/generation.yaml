@@ -1,0 +1,25 @@
+model_name: Qwen/Qwen3-32B
+dtype: bfloat16
+tensor_parallel_size: 1
+gpu_memory_utilization: 0.92
+max_model_len: 4096
+enable_prefix_caching: true
+batch_plan: configs/batch_plan_150k.csv
+variable_config: configs/variable_constructions.yaml
+examples_per_batch: 50
+total_examples: 150000
+sentence_sampling:
+  temperature: 0.9
+  top_p: 0.95
+  max_tokens: 96
+  repetition_penalty: 1.05
+annotation_sampling:
+  temperature: 0.0
+  top_p: 1.0
+  max_tokens: 320
+max_generation_retries: 3
+max_annotation_retries: 3
+require_planned_language: true
+require_primary_variable_in_annotation: true
+output_root: data
+seed: 150040
