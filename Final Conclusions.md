@@ -1,496 +1,475 @@
 # Final Conclusions
 
-## Low-Rank Linguistic Features: Representation, Sparse Recovery, Causal Mediation, and Behavioral Influence in XGLM-564M
+## Low-Rank Linguistic Features in XGLM-564M
 
-## 1. Overall conclusion
+## 1. Summary
 
-The experiments provide evidence that a substantial range of low-level linguistic distinctions are represented inside XGLM-564M in recoverable and, for a smaller subset, causally consequential forms. However, the results do not support a simple picture in which each linguistic variable corresponds to a clean, monosemantic sparse feature. Instead, the evidence separates four properties that are often implicitly treated as equivalent in mechanistic interpretability: **recoverability, sparse isolation, human interpretability, and causal influence**.
+This study investigated whether low-level structural properties of language are represented in a multilingual language model in forms that are recoverable, sparsely isolatable, causally consequential, and behaviorally influential. Forty linguistic variables were evaluated using a controlled contrast-pair dataset containing 500 pairs per variable. Supervised probes were used to test linear recoverability from XGLM activations, while an independently trained sparse autoencoder (SAE) was used to identify unsupervised sparse directions associated with the same contrasts. Candidate SAE features were then inspected on naturalistic multilingual text and subjected to matched ablation, steering, and next-token behavioral interventions.
 
-These properties overlap, but they are not interchangeable.
+The results support a qualified positive conclusion. Structural linguistic information is widespread in XGLM-564M and can often be recovered both by supervised probes and by sparse decomposition. However, recoverability does not imply that the model contains a clean, one-to-one sparse feature for each linguistic abstraction. Many statistically strong SAE candidates were better described as narrower lexical, morphological, orthographic, tokenization, or language-specific correlates of the intended variable. Natural-text inspection therefore substantially weakened the semantic interpretation of several otherwise strong statistical candidates.
 
-Supervised activation probes showed that many controlled structural distinctions could be recovered robustly from model activations and generalized beyond the exact marker families and lexical domains used for training. A separately trained sparse autoencoder also exposed features associated with nearly all of the controlled contrasts at a permissive statistical level, with substantially stronger held-out evidence for a majority of variables. The supervised and sparse analyses agreed considerably more often than expected from a completely unrelated pair of methods.
+Causal intervention showed that some of these sparse directions nevertheless participate directly in model computation. Across all forty selected candidate features, 19 produced specific positive effects under ablation and 23 produced specific positive effects under steering. Fifteen variables satisfied a stronger mechanistic criterion requiring specific-positive effects in both ablation and steering together with a monotonic steering dose response. This 15-variable cohort was frozen before behavioral outcomes were inspected.
 
-Yet natural-text inspection changed the interpretation of these results. Many statistically strong SAE features were not clean representations of the intended typological variable. They instead tracked narrower morphological markers, lexical classes, punctuation, language identity, tokenization patterns, or surface realizations that correlated with the controlled contrast. This distinction persisted even among the statistically strongest candidates.
+Behavioral evaluation was substantially more selective. Within the frozen cohort, nine of fifteen target interventions produced a positive next-token effect, ten outperformed matched SAE controls, and six produced a positive, control-specific effect surviving Benjamini-Hochberg correction across the frozen primary family. All six also showed monotonic behavioral dose response. The final full-chain variables were:
 
-Causal intervention then revealed an additional layer. Nineteen of forty selected SAE features produced specific downstream effects under ablation, twenty-three produced specific effects under steering, and fifteen variables satisfied a pre-behavior criterion requiring specific effects in both directions together with a monotonic steering response. These fifteen were frozen before behavioral evaluation.
+1. morphological segmentation type — SAE feature 15843;
+2. animacy and humanness — SAE feature 6618;
+3. inclusive/exclusive distinction — SAE feature 6062;
+4. possession and alienability — SAE feature 15325;
+5. aspect and event structure — SAE feature 6216;
+6. mirativity, stance, and affect marking — SAE feature 1887.
 
-Of those fifteen, **six variables ultimately showed the complete causal chain**: a positive and control-specific representational effect under ablation, a positive and control-specific effect under steering, monotonic representation-level steering, and a positive, FDR-corrected effect on next-token preference with a monotonic behavioral dose response. These variables were morphological segmentation type, animacy/humanness, inclusive/exclusive distinction, possession/alienability, aspect/event structure, and mirativity/stance/affect marking.
-
-The central conclusion is therefore not that six abstract linguistic universals have been located inside XGLM. The stronger and more defensible conclusion is that **sparse directions associated with several controlled linguistic distinctions causally participate in both internal representation and local token prediction**, while many other recoverable distinctions either remain distributed, are represented through entangled surface correlates, or fail to propagate into the tested behavioral output.
-
-The results consequently support a layered view of linguistic representation: structural information is widespread, sparse representations can isolate causally relevant components of that information, but neither statistical association nor apparent interpretability alone determines whether a feature actually participates in model computation.
+The strongest general conclusion is therefore not that six abstract linguistic universals have been localized as monosemantic SAE features. Rather, **sparse directions associated with several controlled linguistic distinctions causally contribute to internal representation and, for a smaller subset, to local next-token behavior**. At the same time, several highly recoverable or human-interpretable features failed to produce the predicted behavioral effect. The study therefore separates four properties that should not be treated as equivalent: **representational recoverability, sparse isolation, semantic interpretability, and causal influence**.
 
 ---
 
-## 2. Evidence across the full experimental pipeline
+## 2. Representational evidence is broad but not uniform
 
-The project began with forty linguistic variables represented by 500 controlled contrast pairs each, yielding 20,000 basis/changed pairs and 40,000 sentences. The controlled dataset was kept separate from the SAE training corpus. Train, validation, and test partitions additionally encoded held-out marker families and lexical domains, making later evaluation stricter than simple random example separation.
+The supervised and sparse analyses provide convergent evidence that low-level linguistic form is represented throughout XGLM-564M.
 
-The major empirical results can be summarized as follows.
+The supervised comparison classified 26 of 40 variables as robust across all three available probe seeds under the core criterion requiring the relevant activation-recovery, directional-consistency, and split-generalization tests to pass in every seed. The remaining fourteen variables did not satisfy this cross-seed core standard, although failure of the aggregate criterion did not imply absence of signal at the SAE intervention layer. Several non-robust variables retained substantial layer-12 pair-difference probe performance.
 
-| Stage | Main result | Interpretation |
+The SAE analysis produced similarly broad but non-uniform evidence. Under the primary mean-pooled SAE evidence synthesis, the forty variables were distributed as follows:
+
+| SAE evidence tier | Variables | Interpretation |
 |---|---:|---|
-| Controlled feature dataset | 40 variables × 500 pairs | Broad typological test bed with explicit held-out constructions |
-| Raw activation probes | 27/40 passed activation recoverability in each probe seed | Many linguistic contrasts are linearly recoverable |
-| Directional probe test | 33/40 passed directional consistency | Pair transformations frequently form stable activation directions |
-| Split generalization | 26/40 passed in each seed | Many signals survive marker/domain holdout |
-| Learned-direction viability | Same 12 variables passed across seeds 1, 2, and 42 | A smaller subset supports especially strong supervised directional evidence |
-| Probe core evidence | 26/40 robust across all three seeds | Broad cross-seed representational evidence |
-| Canonical SAE | 16,384 features; 0.99863 validation explained variance | High-fidelity sparse decomposition with broad feature coverage |
-| SAE first-stage recovery | Every variable had at least one corrected-null candidate under the broad candidate search | Sparse activation differences are extremely widespread |
-| Primary mean-pooled SAE tiers | A: 11, B1: 2, B2: 16, C: 3, D: 8 | 29/40 had strong A/B sparse evidence; 32/40 preserved overall test direction through A/B/C |
-| Probe–SAE comparison | 23 convergent, 6 SAE-only, 3 probe-only, 8 weak in both | Supervised and sparse evidence overlap strongly but imperfectly |
-| Manual causal-candidate inspection | A: 7, B: 13, C: 12, D: 8 | Statistical strength substantially exceeded clean semantic interpretability |
-| Ablation | 31/40 positive; 25/40 beat controls; 19/40 specific after correction | A sizeable subset is causally involved in downstream representations |
-| Steering | 31/40 positive; 31/40 beat controls; 23/40 specific; 25/40 monotonic | Adding SAE directions can predictably alter representations |
-| Pre-behavior mechanistic cohort | 15/40 | Frozen before behavioral outcomes were inspected |
-| Behavioral evaluation | 9/15 positive; 10/15 beat controls; 6/15 FDR-specific | Internal causal effects translate to token-level behavior for a selective subset |
-| Final full-chain cohort | 6/15 primary candidates | Strongest evidence for causal linguistic influence |
+| A | 11 | held-out direction preserved, construction-robust, and cross-variable selective |
+| B1 | 2 | construction-robust but shared across variables |
+| B2 | 16 | held-out direction preserved with incomplete construction robustness |
+| C | 3 | overall held-out direction preserved but subgroup robustness weak |
+| D | 8 | selected feature failed to preserve direction on the overall held-out test |
 
-This funnel is itself one of the main results. The number of variables decreases as the evidential standard changes from **information being recoverable** to **information being isolated in a sparse direction**, then to **that direction causally mediating downstream computation**, and finally to **that intervention altering actual output probabilities in the predicted direction**.
+Using A, B1, and B2 as the stronger SAE group gives 29 of 40 variables. The supervised and SAE analyses converged on 23 variables, while six were SAE-strong without cross-seed robust probe evidence, three were probe-robust without strong SAE evidence, and eight were weak or unstable under both classifications.
 
-That decrease should not be interpreted as failure of the earlier stages. Rather, it demonstrates that these stages measure genuinely different properties.
+The binary agreement between the supervised and SAE classifications was 0.775, with a Jaccard overlap of 0.719, Cohen's kappa of approximately 0.480, an odds ratio of approximately 10.22, and a two-sided Fisher exact p-value of approximately 0.007. These results indicate that the two methods detect substantially overlapping representational structure while remaining meaningfully distinct.
+
+This distinction is theoretically important. Linear probing can recover information distributed across many activation dimensions even if no single sparse latent isolates it. Conversely, an SAE can identify a stable sparse direction whose information is not captured by the stricter cross-seed probe criterion. Neither method should therefore be treated as a complete definition of whether a linguistic property is represented.
 
 ---
 
-## 3. Raw activations contain widespread structural linguistic information
+## 3. SAE quality depended on dictionary coverage, not reconstruction alone
 
-The supervised probing stage provides the clearest evidence that structural linguistic information is broadly present in XGLM activations.
+The SAE training stage also produced a methodological conclusion relevant to sparse interpretability.
 
-Across seeds 1, 2, and 42, the evidence profile was remarkably stable. Each seed produced 27 variables passing the activation-recoverability screen, 33 passing directional consistency, and 26 passing split generalization. The same twelve variables passed the most conservative learned-direction viability criterion in all three seeds.
+Initial JumpReLU configurations achieved high reconstruction quality but suffered severe feature death. The selected replacement architecture, a 16× BatchTopK SAE with 16,384 features and training k=256, produced substantially healthier dictionary utilization. The selected four-epoch model achieved approximately 0.99863 validation explained variance while preserving 16,372 active features over the full unique training corpus. Only 12 of 16,384 features never activated over that corpus.
 
-Those twelve included morphosyntactic alignment, voice and agent prominence, causativity and valency change, morphological segmentation type, agreement/indexing density, definiteness/specificity, gender/noun class, inclusive/exclusive distinction, pronoun richness/reduction, mirativity/stance/affect marking, quantifier scope/distributivity, and quotation/reported-speech structure.
+A longer eight-epoch run produced a small reconstruction improvement, reaching approximately 0.99894 validation explained variance, but substantially worsened feature coverage. Full-corpus active features fell to 15,764, and trainer-dead feature fraction increased markedly. The four-epoch model was therefore selected because the objective was feature discovery rather than reconstruction optimization alone.
 
-Their average sentence-level activation AUROC was approximately 0.858, while the learned pair-difference directions achieved a mean AUROC of approximately 0.956. Thus, at least for this restricted subset, the evidence went beyond ordinary classifiability: the controlled transformation repeatedly corresponded to a stable representational direction.
+This comparison demonstrates that **reconstruction quality is an insufficient model-selection criterion for interpretability-oriented SAEs**. A model can reconstruct activations slightly better while yielding a materially less useful sparse dictionary.
 
-At the same time, the probe results already warned against treating decodability as an abstract linguistic representation. Text baselines frequently performed well because the intended linguistic changes were often surface-visible. This is expected for features realized by case morphology, pronouns, complementizers, quotation marks, verbal inflections, or other explicit linguistic material. A successful activation probe therefore establishes that the information is present in the representation, but not that the representation has abstracted away from the surface form that expresses it.
-
-The updated probing framework was important precisely because it separated activation recovery, surface visibility, directional consistency, split generalization, and learned-direction viability. A single high AUROC was not treated as sufficient evidence for a mechanistic claim.
-
-One further lesson emerges retrospectively from the later causal results: the most conservative supervised probe criteria were useful evidence filters but were **not exhaustive detectors of causal relevance**. Some variables that did not belong to the original twelve learned-direction candidates later produced strong sparse causal results. Probe failure or incompleteness therefore cannot be equated with absence of linguistic information.
+For downstream evaluation, the BatchTopK model was exported to an example-independent fixed-threshold inference representation. This avoided batch-dependent activation assignments during feature analysis and causal intervention. The resulting inference model retained approximately 0.99863 validation explained variance and approximately 0.99460 cosine similarity to the original residual activations.
 
 ---
 
-## 4. The canonical SAE provided a healthy sparse basis, but architecture choice mattered
+## 4. Statistical SAE recovery substantially exceeded semantic interpretability
 
-The sparse-autoencoder training process produced a methodological result of its own.
+The largest change in interpretation occurred during natural-text feature inspection.
 
-Initial JumpReLU experiments reconstructed the residual stream well but suffered catastrophic dictionary collapse. The original 16× JumpReLU model reached approximately 0.992 explained variance while leaving around 95% of its 16,384 features dead. Altering sparsity penalties, threshold parameterization, dead-feature objectives, and dictionary width improved the situation but did not solve progressive collapse.
+Statistical feature ranking initially suggested that many variables had highly selective and robust sparse correlates. Inspection of top natural activations showed that a large fraction of these candidates were narrower than the typological labels used to discover them. Some primarily tracked individual lexical items, suffixes, pronouns, complementizers, punctuation marks, tokenization patterns, language identity, or recurrent surface constructions.
 
-BatchTopK produced a dramatically healthier dictionary. The selected four-epoch model used a 16× expansion from 1,024 residual dimensions to 16,384 SAE features with training \(k=256\). It achieved approximately 0.99863 validation explained variance, a cosine similarity of 0.99459, and only 85 trainer-dead features. On the full unique training corpus, 16,372 of 16,384 features activated at least once.
+Examples included features dominated by Turkish lexical or suffixal material, Spanish function words, German and Romance lexical classes, quotation punctuation, Japanese punctuation, and highly specific pronoun forms. Other candidates were clearly relevant to the target variable but reflected only one surface realization, such as feminine morphology, progressive `-ing`, first-person pronouns, or complementizer forms.
 
-A longer eight-epoch model marginally improved reconstruction to approximately 0.99894 explained variance, but substantially worsened dictionary coverage: hundreds of additional features became dead or unused. The four-epoch model was therefore correctly selected because the scientific objective was feature discovery rather than optimizing reconstruction error alone.
+After inspecting all forty variables and considering alternative candidates where appropriate, the selected causal features received semantic grades of:
 
-This result illustrates an important principle for sparse interpretability work: **reconstruction quality and useful dictionary quality are not synonymous**. A slightly better autoencoder can be a worse interpretability instrument if it concentrates reconstruction into fewer active features.
+| Inspection grade | Count | Interpretation |
+|---|---:|---|
+| A | 7 | comparatively strong target alignment |
+| B | 13 | plausible target-relevant feature with narrower or imperfect interpretation |
+| C | 12 | partial, language-specific, lexical, or entangled correlate |
+| D | 8 | weak, proxy-like, or uninterpretable candidate |
 
-Native BatchTopK inference introduced a separate problem because an example's activation pattern depends on the other examples sharing its inference batch. The trained model was therefore exported to a fixed-threshold JumpReLU-style representation using a threshold calibrated exclusively from training activations. This gave each controlled sentence an independent representation and reproduced the training sparsity closely.
+These grades were deliberately not used as hard exclusion criteria for causal testing. All forty variables remained in the initial intervention screen. This decision was empirically important: some low-grade candidates later produced strong causal evidence, while some high-grade candidates failed at the behavioral stage.
 
-The resulting SAE was thus sufficiently stable and well-covered to serve as a fixed representational basis for the later linguistic experiments.
-
----
-
-## 5. Sparse recoverability was broad, but sparse recoverability did not imply a clean linguistic feature
-
-The post-canonical SAE analysis initially appeared extremely strong.
-
-Across the forty variables and 16,384 SAE features, paired basis/changed activation effects were evaluated under a sign-flip permutation framework. Because feature selection searched a large dictionary, the null distribution used the maximum absolute effect over the full SAE dictionary on each permutation, controlling the within-variable feature search.
-
-Under the broad first-stage procedure, every variable possessed at least one top candidate that survived corrected training significance and preserved its direction on held-out data in at least one representation. This establishes a broad result: **controlled linguistic transformations leave sparse signatures throughout the SAE dictionary**.
-
-The more informative mean-pooled evidence synthesis was less uniform. Eleven variables received Tier A, two Tier B1, sixteen Tier B2, three Tier C, and eight Tier D. Thus, 29 of forty variables fell into the stronger A/B family, while 32 preserved the overall held-out test direction when Tier C was also included.
-
-Mean pooling was preferable to final-token activation because final-token features showed much greater reuse across variables and were often dominated by punctuation or sentence-final regularities. This is another important negative finding: localization to a convenient token position can increase apparent sparsity while reducing structural specificity.
-
-The supervised and sparse approaches nevertheless agreed substantially. Twenty-three variables were simultaneously robust under the supervised probe criteria and strong under the SAE evidence tiers. Six had strong sparse evidence without robust probe evidence, three had robust probes but weak or unstable SAE evidence, and eight were weak or unstable under both systems. Binary agreement was 77.5%, with a Jaccard overlap of approximately 0.719 and Cohen's \(\kappa\) of approximately 0.48. The estimated odds ratio between robust probe evidence and strong SAE evidence was approximately 10.2.
-
-The methods therefore appear to be detecting overlapping representational structure, but not identical structure. A probe can recover information distributed across many dimensions even if no individual SAE latent cleanly isolates it. Conversely, an SAE feature can generalize even when the stricter cross-seed probe pipeline does not classify the variable as robust.
-
-This distinction became crucial in later stages.
+The inspection results therefore support a central methodological conclusion: **statistical association with a controlled contrast is not equivalent to semantic identification of the corresponding linguistic abstraction**. Controlled datasets are effective tools for discovering candidate model directions, but the human-readable meaning of those directions must be evaluated separately.
 
 ---
 
-## 6. Natural-text feature inspection fundamentally changed the interpretation of the SAE results
+## 5. Ablation provides necessity-like evidence for a substantial subset
 
-Feature inspection was the point at which the project moved from a feature-recovery study to a more defensible mechanistic study.
+The first causal intervention tested whether removing the selected sparse contribution weakened the corresponding downstream linguistic distinction.
 
-Several candidates that appeared exceptionally strong statistically were clearly dominated by shallow correlates in natural text. Examples included a morphological-segmentation candidate dominated by the Turkish lexical item *İstanbul*, a cumulative-exponence candidate dominated by Spanish *para*, a possession candidate dominated by equivalents of *last*, a speech-act candidate dominated by *wait/waiting*, and a quotation candidate that behaved primarily as a quotation-mark detector.
+For each variable, the feature-high member of the pair was identified using training data. The selected feature's SAE decoder contribution was removed at XGLM hidden state 12, and the downstream effect was evaluated at the final hidden layer using a linguistic pair-difference direction derived from training data. Three other SAE features were matched using training-only activation magnitude, firing rate, and decoder norm and served as intervention controls.
 
-Other candidates were linguistically relevant but much narrower than the intended variable. A gender/noun-class feature strongly tracked feminine morphology in Arabic and Urdu. A pronoun feature tracked explicit third-person pronouns across languages rather than abstract pronoun-system richness. A complementizer feature tracked forms such as *that*, *qu-* and *que* rather than embedding as an abstract relation.
+Across forty variables:
 
-The initial high SAE tiers therefore overstated semantic interpretability. After inspection of all forty variables and alternative candidates where useful, the primary causal candidates were graded as seven A, thirteen B, twelve C, and eight D.
+- 31 produced positive target attenuation;
+- 25 produced a larger effect than the matched controls;
+- 19 were classified as specific positive after multiple-comparison correction.
 
-These grades were not statistical tiers. They represented the quality of the linguistic interpretation:
+The global representational disturbance was extremely small. The mean cosine similarity between the intervened and baseline final-layer representations was approximately 0.999955, with the lowest variable-level mean still approximately 0.998758. The effects are therefore difficult to explain as nonspecific destruction of the residual stream.
 
-**A** indicated comparatively strong target alignment; **B** indicated a plausible and relevant feature with a narrower or imperfect interpretation; **C** indicated a partial, language-specific, lexical, or otherwise entangled correlate that remained scientifically interesting; and **D** indicated weak, uninterpretable, or strongly proxy-like behavior.
-
-Crucially, the weaker grades were not automatically excluded from causal intervention. This decision was vindicated by the later results.
-
-The ultimate full-chain causal cohort contained **no grade-A feature**. Its grades were B, D, C, C, B, and C.
-
-This is one of the most consequential findings of the project. Human interpretability from top activations was not a reliable proxy for causal importance.
-
-That does not mean interpretation is unnecessary. Quite the opposite: the grading prevents the causal results from being mislabeled. A grade-D animacy feature that later has a strong causal effect should not suddenly be renamed a clean "animacy neuron." Its causal success demonstrates that the sparse direction participates in the controlled animacy contrast; it does not erase the evidence that the feature's natural activation is dominated by a narrower lexical correlate.
-
-The correct lesson is therefore that **interpretability and causal relevance are orthogonal enough to require separate measurement**.
+Ablation should be interpreted as **necessity-like evidence**, not as proof that an individual latent is uniquely necessary for a linguistic distinction. Information can be redundant or distributed across multiple features. The result instead establishes that, for a substantial subset, removing one selected sparse component specifically reduces a downstream representation associated with the target contrast more than matched interventions do.
 
 ---
 
-## 7. Causal ablation established necessity-like evidence for a substantial subset
+## 6. Steering provides complementary sufficiency-like evidence
 
-Step 7 tested all forty selected candidate features rather than retaining only the cleanest inspection grades.
+The second causal intervention tested whether adding the selected SAE decoder direction to the feature-low condition moved the downstream representation toward the feature-high condition.
 
-For each variable, the condition with higher target-feature activation was determined from training data. The corresponding SAE decoder contribution was then removed from the XGLM residual stream at hidden state 12. The outcome was measured downstream at the final hidden layer using a linguistic pair-difference direction derived from training data.
+Steering strength was determined from the training-set target-feature activation gap. Three doses were fixed: 0.5×, 1×, and 2×, with 1× designated as the primary inferential condition. Matched-control steering vectors were rescaled so that their residual-space perturbation norm matched that of the target direction.
 
-Three other SAE features were used as controls for each target. These were matched using training-only activation magnitude, firing rate, and decoder norm.
+Across forty variables:
 
-The result was broad but selective:
+- 31 produced positive target steering effects;
+- 31 outperformed their matched controls;
+- 23 were specific positive after FDR correction;
+- 25 showed monotonic 0.5× → 1× → 2× dose response.
 
-31 of 40 target ablations moved the downstream distinction in the predicted direction; 25 produced greater attenuation than their matched controls; and 19 were classified as specific positive effects after correction.
+The intervention again remained highly local. Mean final-layer representation cosine similarity at the primary dose was approximately 0.999998, with a minimum variable-level mean of approximately 0.999985.
 
-Importantly, these interventions were highly local in global representation space. The mean cosine similarity between the intervened and original final representation was approximately **0.999955**. The causal results therefore cannot easily be explained as simple destruction of the model's hidden state.
-
-The largest effect occurred for gender/noun class, whose selected feature 5205 produced a target-minus-control attenuation of approximately 0.228. Animacy/humanness, transitivity/valency, possession/alienability, and agreement/indexing density also produced comparatively large effects.
-
-The ablation stage provides **necessity-like**, rather than absolute necessity, evidence. Removing a single SAE feature cannot establish that the represented linguistic property depends exclusively on that feature; information may be distributed or redundantly encoded. What it does establish is that, for a substantial subset, removing the selected sparse component reduces the downstream representational distinction more than matched interventions do.
-
----
-
-## 8. Steering established complementary sufficiency-like evidence
-
-Step 8 tested the complementary causal direction.
-
-The feature-low member of each pair received the candidate feature's SAE decoder direction. Steering strength was defined from the training-set difference in target-feature activation rather than selected from held-out outcomes. Three doses were fixed in advance: 0.5×, 1×, and 2× the training activation gap, with 1× designated as the primary inferential condition. Control directions were adjusted to match the residual-space perturbation norm of the target intervention.
-
-Again, all forty variables were retained.
-
-Thirty-one target interventions moved the representation in the predicted direction, all thirty-one of those also outperformed the average matched control effect, twenty-three were specific positive after FDR correction, and twenty-five showed a monotonic 0.5×→1×→2× dose response.
-
-The intervention remained extremely local: mean final-representation cosine similarity at the primary dose was approximately **0.999998**.
-
-This combination—directionally predictable change, matched controls, dose dependence, and extremely small global representational displacement—is considerably stronger evidence than ordinary activation correlation.
-
-A pre-behavior primary cohort was then frozen using only Steps 7 and 8. A variable entered this cohort if it showed specific-positive ablation, specific-positive steering, and monotonic steering across the three doses. Fifteen variables satisfied these criteria:
-
-transitivity/valency; morphological segmentation type; agreement/indexing density; definiteness/specificity; gender/noun class; animacy/humanness; inclusive/exclusive distinction; pronoun richness/reduction; possession/alienability; aspect/event structure; modality/mood; mirativity/stance/affect marking; quantifier scope/distributivity; quotation/reported speech; and social deixis/honorifics.
-
-The behavioral outcomes had not been consulted when this cohort was frozen.
+These results provide **sufficiency-like evidence** complementary to the ablation experiment. Adding a small amount of the selected sparse direction can predictably move the model's internal representation toward the associated linguistic condition. The combination of matched controls, dose response, and extremely small global representational displacement strengthens the causal interpretation beyond ordinary feature correlation.
 
 ---
 
-## 9. Behavioral influence was real but substantially more selective than internal causal influence
+## 7. A mechanistic cohort was frozen before behavioral evaluation
 
-The behavioral test asked a stricter question than the representational interventions.
+To separate internal causal evidence from output-level behavior, a primary mechanistic cohort was defined before behavioral outcomes were inspected.
 
-For each controlled pair, the first token position at which the feature-high and feature-low realizations diverged was identified. XGLM's next-token logit margin between those alternatives was then measured before and after SAE steering. When the sentences diverged immediately, the model's BOS token served as the common context.
+A variable entered this cohort only if it satisfied all three criteria:
 
-The outcome therefore tested whether manipulating the SAE feature changed the model's **actual next-token preference toward the feature-high linguistic realization**.
+1. specific-positive ablation;
+2. specific-positive steering;
+3. monotonic 0.5× → 1× → 2× steering response.
 
-The original diagnostic evaluation in bfloat16 exhibited quantized logit differences. The behavioral specification was therefore rerun in float32 without changing the primary cohort, features, controls, doses, test split, metric, or multiple-comparison procedure. The FP32 run is the canonical behavioral result.
+Fifteen variables met these conditions:
 
-Within the fifteen-variable cohort frozen before behavior, nine target interventions produced a positive mean behavioral effect, ten outperformed matched controls, and six produced a positive, control-specific effect surviving Benjamini-Hochberg correction across the fifteen primary variables. Nine also displayed monotonic behavioral dose response.
+- transitivity and valency;
+- morphological segmentation type;
+- agreement/indexing density;
+- definiteness and specificity;
+- gender/noun class;
+- animacy and humanness;
+- inclusive/exclusive distinction;
+- pronoun richness and reduction;
+- possession and alienability;
+- aspect and event structure;
+- modality and mood;
+- mirativity, stance, and affect marking;
+- quantifier scope and distributivity;
+- quotation and reported-speech structure;
+- social deixis, honorifics, and status encoding.
 
-Thus, **40% of the frozen mechanistic cohort survived the full behavioral standard**.
-
-This is a meaningful positive result, but the selectivity is just as important as the success rate. Internal causal mediation was considerably more common than demonstrable next-token behavioral control.
-
-The intervention can therefore manipulate some internal linguistic distinctions without necessarily altering the immediate output probability in the same direction.
-
----
-
-## 10. The six full-chain causal results
-
-The final full-chain variables were:
-
-| Variable | SAE feature | Inspection grade | Natural-text interpretation |
-|---|---:|---:|---|
-| Morphological segmentation type | 15843 | B | Turkish suffixal/person/possessive morphology |
-| Animacy and humanness | 6618 | D | Lexical proxy with strong artificial-intelligence/human-reference associations |
-| Inclusive/exclusive distinction | 6062 | C | First-person-pronoun proxy rather than clean inclusivity |
-| Possession and alienability | 15325 | C | Kinship/possession proxy rather than alienability itself |
-| Aspect and event structure | 6216 | B | Strong English progressive `-ing` / aspectual morphology |
-| Mirativity, stance and affect marking | 1887 | C | Mirative contexts entangled with Japanese punctuation/language identity |
-
-### Morphological segmentation type
-
-Feature 15843 is one of the clearest examples of why alternative-feature inspection mattered. The original statistically strong feature for this variable was dominated by a lexical/tokenization pattern around *İstanbul*. Returning to alternative candidates identified feature 15843, which tracks Turkish suffixal morphology, including person- and possessive-like material.
-
-The feature remains narrower than an abstract representation of morphological segmentation type. Nevertheless, it survived ablation, steering, both dose-response stages, matched controls, and behavioral FDR correction. Its final behavioral target-minus-control effect was approximately **+0.00593**.
-
-The defensible conclusion is that a sparse direction associated with Turkish suffixal morphological structure contributes causally to the controlled segmentation contrast. The result does not establish a language-universal latent for agglutinative morphology.
-
-### Animacy and humanness
-
-Feature 6618 is methodologically perhaps the most interesting success. Its inspection grade was D because top natural activations did not cleanly describe general animacy or humanness; they were heavily associated with artificial-intelligence-related lexical material.
-
-Despite this poor semantic interpretation, the feature produced strong ablation, steering, monotonic response, and behavioral evidence. Its final target-minus-control behavioral effect was approximately **+0.00690**, with primary-family FDR \(q \approx 0.00214\).
-
-This result demonstrates that a feature can be causally useful without being cleanly interpretable from top activations. It does **not** justify relabeling feature 6618 as an abstract animacy representation. Instead, it shows that the controlled animacy contrast depends on a sparse direction whose exact semantics remain entangled.
-
-### Inclusive/exclusive distinction
-
-Feature 6062 was graded C because it behaved most clearly as a first-person-pronoun feature, especially in Chinese, rather than as a direct representation of inclusive versus exclusive reference.
-
-Its final behavioral effect was small but consistent: approximately **+0.00073** relative to matched controls, with FDR \(q \approx 0.0233\). It also showed monotonic dose response and passed the earlier causal stages.
-
-This result is compatible with inclusive/exclusive distinctions being mediated through a lower-level person-reference representation rather than a dedicated inclusivity feature. It therefore supports causal relevance of the representation without establishing that the SAE has disentangled the higher-level typological distinction.
-
-### Possession and alienability
-
-Feature 15325 activated strongly in kinship and possessive contexts. It was therefore considered possession-related but insufficiently specific to demonstrate alienability as such.
-
-Nevertheless, it produced the largest final behavioral effect among the six full-chain variables: the target-minus-control effect was approximately **+0.01959**, with FDR \(q \approx 0.00214\).
-
-The natural interpretation and causal result together suggest that the controlled alienability manipulation may recruit a more general possession/kinship representation. This is a useful example of how a typological variable can be behaviorally mediated by a lower-level correlate rather than by an explicitly matching sparse abstraction.
-
-### Aspect and event structure
-
-Feature 6216 strongly tracks progressive `-ing` morphology and is relatively straightforwardly aspect-related, although narrower than the full event-structure variable.
-
-This variable is particularly informative because it had weak earlier evidence: the original SAE evidence tier was D, its held-out candidate direction was unstable, and the strict probe comparison classified the variable as weak under both the probe and initial SAE systems. Yet the later manually selected feature produced specific ablation, steering, monotonicity, and an FDR-corrected behavioral effect of approximately **+0.00303** relative to controls.
-
-Had the causal stage excluded all variables that failed an earlier evidence threshold, this result would have been missed.
-
-Aspect/event structure therefore provides direct evidence against treating early statistical screening as an absolute mechanistic gate.
-
-### Mirativity, stance and affect marking
-
-Feature 1887 consistently activated in several mirative or surprise-related contexts but was heavily entangled with Japanese punctuation and language identity. It was accordingly graded C.
-
-Despite that entanglement, it produced strong causal evidence throughout the intervention pipeline and a final target-minus-control behavioral effect of approximately **+0.00521**, with FDR \(q \approx 0.00214\).
-
-This again demonstrates the distinction between causal participation and clean abstraction. The result supports the causal relevance of the selected sparse direction to the controlled mirativity contrast while leaving open whether the model internally separates mirativity from the language-specific surface pattern through which it was induced.
+This freeze is important for interpreting the final behavioral statistics. The behavioral primary family was not selected from behavioral performance itself.
 
 ---
 
-## 11. Negative results reveal a dissociation between internal representation and behavioral output
+## 8. Behavioral effects are real but substantially more selective than internal causal effects
 
-The most informative counterexamples may be as important as the six successes.
+The behavioral evaluation tested whether SAE steering changed the model's actual next-token preference at the first controlled divergence between the feature-high and feature-low sentences.
 
-Gender/noun class was one of the strongest and most interpretable sparse features in the entire analysis. Feature 5205 received inspection grade A and strongly tracked feminine morphology in Arabic and Urdu. It produced by far the strongest ablation result and a strong steering result. Yet its behavioral effect was significantly negative: the target intervention changed the feature-high versus feature-low logit margin in the opposite direction, with a target-minus-control effect of approximately **−0.01328** and FDR \(q \approx 0.00214\).
+For each pair, the next-token logit margin between the two alternative realizations was measured before and after intervention. When the pair diverged at the first token, the XGLM beginning-of-sequence token provided the common context. The primary 1× dose and the matched control features were inherited from the already frozen intervention design.
 
-Transitivity/valency displayed a similar dissociation. Feature 164 produced a large specific-positive ablation result and specific-positive steering, but its final behavioral target-minus-control effect was approximately **−0.02491**, again significant in the opposite direction.
+The initial diagnostic behavioral run used bfloat16 model computation and exhibited quantized logit differences. The same experiment was therefore rerun in float32 without changing the cohort, candidate features, controls, doses, metric, test split, or multiple-comparison procedure. The float32 evaluation is the canonical behavioral result.
 
-Social deixis/honorifics provides another example. Feature 2081 had grade A interpretation as Korean formal/honorific morphology and passed both internal causal tests with monotonic steering, yet behavioral intervention moved the tested output preference in the wrong direction.
+Within the fifteen-variable frozen mechanistic cohort:
 
-Quotation/reported speech also passed both internal causal stages, but its next-token behavioral result was null or slightly reversed.
+- 9 of 15 produced a positive target behavioral effect;
+- 10 of 15 outperformed their matched controls;
+- 6 of 15 produced a positive, control-specific effect surviving FDR correction across the primary family;
+- 9 of 15 showed monotonic behavioral dose response.
 
-These cases rule out an overly simple interpretation of SAE features as direct behavioral switches.
+The reduction from fifteen internally convergent candidates to six full-chain behavioral results is a central finding rather than a weakness of the experiment. Internal causal mediation was considerably more common than predictable output-level control.
 
-A decoder direction can contribute causally to the internal representation of a linguistic contrast while its addition does not increase—or may even decrease—the local probability of the corresponding surface realization. Several mechanisms could produce this dissociation: the relevant information may participate in later compensatory computation; the feature may be entangled with additional properties; the model may encode a distinction in a direction that is not aligned with its generative decision boundary; multiple features may interact nonlinearly; or the next-token branch-point metric may interrogate only one local consequence of a broader internal representation.
-
-Whatever the mechanism, the empirical conclusion is clear:
-
-**causal control of an internal representation does not imply predictable control of model output.**
-
-This distinction should be retained prominently in the paper.
+The behavioral metric is deliberately narrow. It measures a local shift in the probability of the feature-high linguistic realization, not complete sentence rewriting or a high-level semantic decision. It therefore establishes that selected sparse interventions can influence the model's output distribution without implying that the corresponding feature acts as a general-purpose behavioral control knob.
 
 ---
 
-## 12. Human interpretability, statistical recoverability, and causal importance are separate axes
+## 9. Final full-chain causal features
 
-The combined results support a stronger methodological conclusion than any individual variable result.
+Six variables satisfied the strongest complete criterion: specific-positive ablation, specific-positive steering, monotonic representation-level steering, positive control-specific behavioral influence surviving primary-family FDR correction, and monotonic behavioral dose response.
 
-Feature quality cannot be represented by a single scalar notion of "interpretability."
+| ID | Variable | Feature | Inspection grade | Target-minus-control behavioral effect | Primary FDR q |
+|---:|---|---:|:---:|---:|---:|
+| 10 | morphological segmentation type | 15843 | B | +0.005927 | 0.002142 |
+| 17 | animacy and humanness | 6618 | D | +0.006903 | 0.002142 |
+| 19 | inclusive/exclusive distinction | 6062 | C | +0.000734 | 0.023322 |
+| 21 | possession and alienability | 15325 | C | +0.019592 | 0.002142 |
+| 23 | aspect and event structure | 6216 | B | +0.003034 | 0.009370 |
+| 27 | mirativity, stance, and affect marking | 1887 | C | +0.005211 | 0.002142 |
 
-At least four questions must be asked separately:
+### 9.1 Morphological segmentation type — feature 15843
 
-1. Can the target distinction be decoded from the representation?
-2. Can a sparse component be statistically associated with that distinction?
-3. Does the sparse component have a human-readable interpretation consistent with the intended variable?
-4. Does intervention on the component causally change downstream representation or output?
+Feature 15843 was interpreted as a Turkish suffixal morphology feature, including person- and possessive-like morphology. Its natural activations were relevant to morphological segmentation but narrower than an abstract, language-general representation of segmentation type. It nevertheless survived the complete causal pipeline.
 
-The experiments produced every relevant kind of disagreement.
+The appropriate interpretation is therefore that a sparse direction associated with Turkish suffixal morphological structure contributes causally to the controlled morphological-segmentation contrast. The result does not establish a language-universal latent for agglutinative or synthetic morphology.
 
-Some variables were easily decoded but lacked a clean sparse feature. Some had statistically strong sparse features that turned out to be lexical or punctuation artifacts. Some poorly interpreted features produced strong causal effects. Some exceptionally interpretable features changed internal representations but failed or reversed at the output layer. Some variables weak under the initial probe and SAE evidence pipelines later yielded full-chain causal candidates.
+### 9.2 Animacy and humanness — feature 6618
 
-The final cohort makes this especially vivid: none of the six full-chain successes had inspection grade A. Conversely, several grade-A features did not survive the behavioral stage.
+Feature 6618 received the weakest inspection grade among the full-chain features. Natural activations primarily reflected artificial-intelligence-related lexical material rather than a clean general animacy/humanness distinction. Despite this, it produced robust ablation, steering, dose-response, and behavioral evidence.
 
-This does not imply that inspection should be abandoned in favor of intervention. Without inspection, the six full-chain features would be vulnerable to stronger claims than the evidence permits. Instead, the findings argue for **triangulation**: semantic inspection determines what a causal effect can be called, while intervention determines whether the inspected feature actually matters computationally.
+This is a particularly important counterexample to the assumption that top-activation interpretability predicts causal importance. The feature is causally relevant to the controlled contrast even though its semantics remain entangled. It should therefore be described as an animacy-related lexical proxy with demonstrated causal participation, not as a clean animacy feature.
 
----
+### 9.3 Inclusive/exclusive distinction — feature 6062
 
-## 13. The results do not support a one-feature-per-variable model
+Feature 6062 was primarily interpreted as a first-person-pronoun feature, with particularly strong Chinese first-person-pronoun activation. It is relevant to person reference but does not isolate inclusive versus exclusive reference as an abstract distinction.
 
-The original research question naturally invites a search for individual sparse latents corresponding to individual linguistic variables. The results argue against treating that as the default expectation.
+Its full-chain causal success suggests that the controlled inclusive/exclusive manipulation may recruit a lower-level person-reference representation. The result supports causal participation without demonstrating that the SAE independently encodes grammatical inclusivity.
 
-Several variables were represented by features that were clearly narrower than the target abstraction. Others appeared distributed across multiple features or shared features with other linguistic transformations. Final-token representations showed particularly high feature reuse. Some variables had stronger supervised probe evidence than sparse-feature evidence, suggesting that the relevant information may be distributed across activation space. Others had SAE evidence where strict probe evidence was weaker.
+### 9.4 Possession and alienability — feature 15325
 
-The causal stage similarly showed cases where matched control features had substantial effects, particularly for variables such as number marking. This suggests distributed or overlapping representation rather than a single privileged causal feature.
+Feature 15325 repeatedly activated in kinship and possessive contexts. It was therefore interpreted as a kinship/possession proxy rather than a clean representation of alienability.
 
-Accordingly, the strongest general model supported by the data is not:
+This feature produced the largest target-minus-control behavioral effect in the final cohort. The combined evidence suggests that the controlled alienability manipulation is mediated partly through a more general possession/kinship representation. The typological distinction and the model feature are therefore related but should not be treated as semantically identical.
 
-> one linguistic variable → one sparse latent.
+### 9.5 Aspect and event structure — feature 6216
 
-It is closer to:
+Feature 6216 strongly tracked English progressive `-ing` morphology and was interpreted as a progressive-aspect feature. It is linguistically relevant but narrower than the full category of event structure.
 
-> a linguistic distinction can recruit one or more sparse, partially shared, and often surface-grounded representational directions, some of which make causal contributions to downstream computation.
+This result is particularly informative because the variable was weak under the original combined probe/SAE classification. Its later manually selected feature nevertheless survived specific ablation, specific steering, monotonicity, and behavioral correction. The case demonstrates that an early statistical screen should not be treated as an absolute mechanistic exclusion criterion.
 
-This interpretation is less visually appealing than a clean dictionary of linguistic concepts, but it is better supported by the evidence.
+### 9.6 Mirativity, stance, and affect marking — feature 1887
 
----
+Feature 1887 occurred in contexts containing surprise or mirative content but was strongly entangled with Japanese punctuation and language identity. It was therefore graded as a partial and language-specific correlate.
 
-## 14. What the project establishes
-
-The experiments support several conclusions with different levels of strength.
-
-First, **low-level structural linguistic distinctions are widely encoded in XGLM-564M activations**. This is supported by cross-seed supervised probing, directional tests, and held-out marker/domain generalization.
-
-Second, **a sparse autoencoder trained independently of the controlled feature dataset recovers substantial structure associated with these distinctions**. The signal is not merely an artifact of supervised probe training on the controlled labels.
-
-Third, **supervised and sparse evidence converge for a majority of variables but are not equivalent**. Sparse decomposition and linear recoverability expose overlapping aspects of the representation.
-
-Fourth, **statistical SAE association substantially overestimates clean semantic interpretability**. Strong features frequently correspond to lexical, morphological, punctuation, language, or tokenization correlates of the intended variable.
-
-Fifth, **individual SAE directions can causally contribute to downstream representation of linguistic contrasts**. This is supported by specific ablation and steering effects relative to matched controls, dose response, and extremely small global perturbations.
-
-Sixth, **some of these causal directions also influence actual model output probabilities**. Six pre-frozen mechanistic candidates produced positive, control-specific, FDR-corrected next-token effects with monotonic behavioral response.
-
-Seventh, **internal causal mediation is more common than behavioral control**. Many features that strongly affect internal representations fail to alter output in the predicted direction.
-
-Eighth, **semantic interpretability is not a reliable predictor of causal efficacy**. Poorly interpreted features can be causal, while highly interpretable features can fail behaviorally.
-
-Ninth, **strict early filtering would have hidden scientifically relevant effects**. The final aspect/event-structure result and the animacy result demonstrate the value of retaining imperfect candidates as exploratory causal targets rather than equating one failed criterion with absence of representation.
-
-Together, these conclusions support a methodology in which representation recovery, feature inspection, causal intervention, and behavioral evaluation are treated as cumulative but non-redundant forms of evidence.
+Its causal success shows that such entanglement does not prevent a sparse direction from participating in the controlled linguistic transformation. The result supports causal relevance to the mirativity contrast while leaving unresolved how much of the direction corresponds to mirativity itself versus the language-specific surface form used to express it.
 
 ---
 
-## 15. What the project does not establish
+## 10. Strong internal features can fail or reverse behaviorally
 
-The experiments do not demonstrate that XGLM contains forty discrete, abstract linguistic features corresponding directly to the typological inventory.
+The full-chain successes are only part of the final result. Several variables exhibited strong internal causal effects but failed to influence next-token behavior in the predicted direction.
 
-They do not demonstrate that the six final causal features are language-universal representations. Several are visibly tied to one language or one family of surface markers.
+Gender/noun class is the clearest example. Feature 5205 was graded A and showed strong natural alignment with feminine morphology. It produced the largest specific ablation effect in the entire causal screen and also passed the steering criteria. Nevertheless, its final target-minus-control behavioral effect was approximately **−0.01328**, significant in the opposite direction within the primary family.
 
-They do not establish that the natural-language meaning assigned to an SAE feature is exhausted by the controlled variable used to discover it. Polysemanticity and feature entanglement remain plausible, particularly for the weaker inspection grades.
+Transitivity/valency showed a similar dissociation. Feature 164 produced a large specific-positive ablation effect and specific-positive steering, but the final target-minus-control behavioral effect was approximately **−0.02491**.
 
-They do not establish formal necessity or sufficiency of individual latents. The ablation and steering results are better described as necessity-like and sufficiency-like causal evidence because linguistic information may be redundantly or distributively encoded.
+Social deixis/honorifics and quotation/reported speech also passed the internal mechanistic freeze while failing to produce the predicted final behavioral result.
 
-They do not demonstrate that SAE features are superior to supervised probes as representations of linguistic information. The two methods answer different questions, and each succeeded where the other sometimes failed.
+These cases demonstrate that **causal control of an internal linguistic representation does not guarantee predictable control of the model's immediate output distribution**.
 
-They do not establish high-level behavioral consequences such as changes in truthfulness, bias, deference, refusal, social judgment, responsibility attribution, or epistemic reasoning. Step 9 measured local next-token preference at the first controlled linguistic divergence. It is a genuine behavioral output measure, but it is deliberately narrow.
+Several mechanisms are compatible with this dissociation. The sparse feature may participate in a broader distributed representation; downstream layers may compensate for the intervention; the decoder direction may be entangled with additional properties; the output decision boundary may not align with the internal feature direction; or the first-divergence metric may capture only one local consequence of a broader linguistic state. The present experiments do not distinguish among these mechanisms.
 
-Finally, the experiments do not yet establish the broader "constitutional language" hypothesis that low-level linguistic structures systematically alter alignment-relevant model behavior. They provide a mechanistic foundation for testing that hypothesis: some structural linguistic signals can be isolated and causally manipulated internally, and a subset already affects local model output. The downstream behavioral and alignment consequences remain a separate empirical question.
-
----
-
-## 16. Limitations
-
-The strongest limitation is model scope. All sparse causal results come from a single multilingual model, `facebook/xglm-564M`, with the SAE trained at hidden-state index 12. Raw probes examined a broader layer profile, but the causal claims concern one model and one SAE intervention site. Replication across model families, scales, layers, and independently trained SAEs is necessary before treating the observed patterns as general properties of language models.
-
-The controlled dataset is synthetic by design. This gives experimental control but increases the risk that linguistic variables are represented through recurring surface realizations. Marker-family and lexical-domain holdouts significantly improve the split design, and natural-text feature inspection provides an additional safeguard, but neither guarantees abstraction. Several feature interpretations confirm that this concern is real.
-
-The multilingual design is also intentionally compact. Variables requiring non-English evidence were generally assigned one selected language rather than being instantiated independently across multiple typologically different languages. Consequently, a feature associated with Turkish morphology or Korean honorifics cannot yet be assumed to represent the same structural property in another language.
-
-The SAE corpus was separate from the controlled evaluation set and used no target supervision, which is a major strength. However, it was itself a generated multilingual natural-language corpus rather than a corpus composed entirely of naturally occurring text. This may affect the feature distribution learned by the SAE.
-
-Candidate selection and interpretation also involved researcher judgment. The final behavioral cohort was cleanly frozen before behavioral outcomes were observed, but the causal candidate pool emerged after statistical analysis and natural-example inspection. Steps 7 and 8 should therefore be interpreted as strong causal validation of selected candidates, not as a preregistered test of a fully fixed feature map.
-
-The SAE itself was trained once. Probe robustness was evaluated across multiple seeds, but the causal experiment does not establish robustness to independently retraining the SAE dictionary. Sparse dictionaries can permute, split, merge, or otherwise reorganize features across training runs.
-
-The interventions modify a decoder direction across token positions. SAE decoder features are not guaranteed to be orthogonal or causally independent, and subtracting or adding one component can indirectly affect computations associated with correlated features. Matched controls and the extremely high representation cosines reduce concern about nonspecific disruption but do not eliminate this issue.
-
-The behavioral evaluation is intentionally local. It compares competing next-token realizations at the first divergence between controlled sentences. This produces a clean and comparable metric, but it does not test complete generated sequences. Sentence-initial divergences use BOS as the common context, which means those cases are evaluated under less contextual information than later-divergence examples.
-
-Behavioral test sets also contain only fifty pairs per variable. Bootstrap inference and the frozen multiple-comparison family address statistical uncertainty, but larger held-out evaluation sets would provide more precise estimates, particularly for the smaller effects.
-
-The initial bfloat16 behavioral diagnostic showed quantized logit differences, requiring a float32 rerun. Because the hypothesis family, intervention specification, dose, controls, test split, and metric remained frozen, this is best understood as numerical correction rather than outcome-dependent redesign. Nevertheless, the episode illustrates that extremely small logit interventions require careful numerical treatment.
+The empirical conclusion, however, is unambiguous: representation-level causal evidence and behavioral causal evidence must be measured separately.
 
 ---
 
-## 17. Implications for mechanistic interpretability
+## 11. Interpretability and causal importance are distinct dimensions
 
-The results suggest several broader methodological lessons.
+The strongest methodological conclusion of the study is that no single measure captures "feature quality."
 
-The first is that **decodability should be treated as evidence of information presence, not mechanistic localization**. High probe accuracy can coexist with distributed representations and does not imply a causal axis.
+At least four distinct questions emerged:
 
-The second is that **SAE feature ranking should not be treated as semantic labeling**. Controlled contrasts are excellent tools for discovering candidate features, but a feature's statistical association with a label does not tell us its full meaning. Natural activation inspection remains necessary.
+1. **Recoverability:** can the linguistic distinction be decoded from model activations?
+2. **Sparse isolation:** does an individual SAE latent reliably covary with the distinction?
+3. **Semantic interpretability:** do natural activations support the intended human linguistic interpretation?
+4. **Causal influence:** does intervening on the latent change downstream representation or output in the predicted direction?
 
-The third is that **top-activation interpretability is itself insufficient**. Feature 6618 provides a clear counterexample: its natural interpretation was poor, yet it became one of the strongest causal candidates. Causal validation can therefore reveal computational importance that descriptive inspection misses.
+The experiments produced substantial disagreement among these axes.
 
-The fourth is that **matched intervention controls matter**. Several variables showed positive target effects that were no stronger than the effects of unrelated matched SAE features. Without control directions, these would have looked like positive causal findings.
+A feature could be statistically strong but semantically shallow. A feature could be poorly interpretable but causally powerful. A highly interpretable feature could strongly alter hidden representations yet fail behaviorally. A variable could be robustly probe-decodable while lacking a stable sparse correlate, or possess a sparse correlate while failing the stricter cross-seed probe criterion.
 
-The fifth is that **dose response provides valuable evidence**. The consistent effects of 0.5×, 1×, and 2× intervention levels strengthen the interpretation that some results arise from controlled manipulation of a relevant direction rather than a binary perturbation accident.
+The final six full-chain features make this particularly clear: their inspection grades were B, D, C, C, B, and C. **None was grade A.** Conversely, several grade-A candidates did not survive the full behavioral stage.
 
-The sixth is that **representation-level and output-level causality should be evaluated separately**. The large gap between fifteen internally convergent candidates and six full behavioral successes demonstrates why mechanistic work should not stop once a hidden-state direction moves predictably.
+This does not diminish the value of semantic inspection. Without inspection, the causal results would be easy to overstate. A causally successful feature whose natural activations are dominated by a lexical proxy should not be relabeled as a clean abstract linguistic feature. Instead, semantic inspection determines what the causal effect can legitimately be called, while intervention determines whether the feature matters computationally.
 
-Taken together, the pipeline offers a useful template for linguistic mechanistic interpretability:
-
-**controlled contrast → supervised recovery → unsupervised sparse recovery → natural-text inspection → matched ablation → matched steering → pre-behavior freeze → output-level causal evaluation.**
-
-The value of this framework is not merely that it produces positive findings. It systematically exposes where an apparently strong interpretation fails.
-
----
-
-## 18. Implications for low-level linguistic influence and constitutional-language research
-
-The broader motivation behind studying low-level linguistic features is that structural properties of language may affect model computation even when propositional content is held approximately constant.
-
-The present results provide a necessary mechanistic precursor to that hypothesis.
-
-They demonstrate that controlled changes in morphology, person reference, possession, aspect, stance-related marking, and other structural dimensions can correspond to internal directions that are not merely decodable but experimentally manipulable. For six variables, manipulating those directions also changes the model's immediate probability distribution over linguistic alternatives.
-
-This makes it plausible that low-level linguistic form can participate causally in computations that later influence higher-level behavior.
-
-However, the current work stops before demonstrating the stronger alignment claim. A change in next-token preference toward a morphological or stance-marked realization is not equivalent to a change in truthfulness, deference, social bias, uncertainty calibration, or refusal behavior.
-
-The next phase of constitutional-language research should therefore use the present feature map and causal methodology to ask whether these linguistic interventions alter **semantic decisions while propositional content is controlled**.
-
-The most informative experiment would not merely ask whether steering a mirativity feature generates more mirative morphology. It would ask whether activating that representation changes confidence, evidence weighting, epistemic caution, or downstream judgment on an otherwise matched task.
-
-Likewise, social-deixis or honorific representations should ultimately be evaluated for their effects on deference, authority weighting, and social reasoning; evidentiality for evidence-sensitive confidence; agent-prominence and voice representations for responsibility attribution; modality for obligation and permission judgments; and discourse or perspective features for framing sensitivity.
-
-The present work therefore provides evidence that such a program is mechanically plausible while leaving its most consequential behavioral hypotheses open.
+The appropriate methodology is therefore triangulation rather than reliance on any single indicator.
 
 ---
 
-## 19. Recommended interpretation of the final six variables
+## 12. The evidence does not support a one-feature-per-variable model
 
-The six full-chain variables should be presented as **causally validated sparse correlates of controlled linguistic distinctions**, not as six fully discovered abstract concepts.
+The combined results argue against a simple dictionary in which each linguistic variable maps to one independent sparse latent.
 
-This wording captures the strongest common evidence shared by all six.
+Several variables were represented by features narrower than the target abstraction. Others showed evidence of shared features, distributed information, or substantial effects from matched control directions. The supervised probe and SAE analyses also disagreed for a meaningful minority of variables, indicating that linear recoverability and sparse localization are not identical.
 
-For the better-interpreted B-grade features, such as morphological suffixal structure and progressive aspect morphology, stronger linguistic language is reasonable so long as its scope is explicit.
+The most defensible model is therefore:
 
-For C- and D-grade features, the paper should retain the proxy interpretation established during natural-text inspection. Their causal success is scientifically interesting precisely because the direction can matter computationally even when its semantic decomposition remains unclear.
+> Linguistic distinctions can recruit one or more sparse, partially shared, and often surface-grounded representational directions, some of which make causal contributions to downstream computation.
 
-This distinction prevents the final results from being weakened by overclaiming.
-
-A reader should leave with two conclusions simultaneously:
-
-**some sparse linguistic directions are genuinely causal**, and **their causal role does not guarantee that the SAE has discovered the human linguistic abstraction used to name the controlled dataset variable**.
-
-Both conclusions are supported by the data.
+This formulation accommodates the successful interventions without assuming that the SAE has recovered a human-designed linguistic ontology directly.
 
 ---
 
-## 20. Recommended overall claim for the paper
+## 13. Claims supported by the evidence
 
-The strongest compact claim supported by the completed experiments is:
+The completed experiments support the following claims.
 
-> Across forty controlled structural linguistic contrasts in XGLM-564M, linguistic information was broadly recoverable from both supervised activations and an independently trained sparse autoencoder, but statistical feature recovery frequently reflected narrower lexical, morphological, language-specific, or orthographic correlates rather than clean abstract linguistic features. Causal intervention nevertheless identified a subset of sparse directions that specifically mediated downstream representations. Fifteen variables showed convergent ablation and steering evidence with monotonic dose response, and six of these produced FDR-corrected, control-specific changes in next-token linguistic preference after the behavioral cohort had been frozen. These results show that sparse representations can capture causally relevant linguistic structure while also demonstrating that recoverability, human interpretability, internal causal mediation, and behavioral influence are distinct properties.
+### 13.1 Low-level linguistic structure is widely recoverable
 
-That claim incorporates the positive result without erasing the negative evidence that makes the project scientifically credible.
+A majority of the forty controlled linguistic distinctions were robustly recoverable across supervised probe seeds, and a majority also received strong SAE evidence. Structural linguistic information is therefore broadly present in XGLM-564M activations.
+
+### 13.2 Unsupervised sparse decomposition recovers overlapping linguistic structure
+
+The SAE was trained independently of the controlled linguistic labels, yet its evidence substantially overlapped the supervised probe results. The linguistic signal is therefore not solely an artifact of fitting supervised probes to the contrast-pair dataset.
+
+### 13.3 Sparse statistical evidence is not sufficient for semantic interpretation
+
+Natural-text inspection repeatedly showed that statistically strong candidates corresponded to narrower lexical, morphological, orthographic, tokenization, or language-specific correlates.
+
+### 13.4 Individual sparse directions can causally mediate internal linguistic distinctions
+
+Matched ablation and steering produced corrected, target-specific effects for substantial subsets of variables while causing extremely small global representational disturbance.
+
+### 13.5 Some sparse linguistic directions causally influence output probabilities
+
+Six variables in a cohort frozen before behavioral evaluation produced positive, control-specific, FDR-corrected changes in next-token preference together with monotonic behavioral dose response.
+
+### 13.6 Internal causal mediation is more common than behavioral control
+
+Fifteen variables satisfied the representation-level mechanistic freeze, but only six satisfied the complete behavioral criterion. Internal causal involvement is therefore not equivalent to predictable output control.
+
+### 13.7 Human interpretability is not a reliable proxy for causal efficacy
+
+The final full-chain cohort contained no grade-A feature, while several grade-A candidates failed or reversed behaviorally. Natural interpretability and causal importance must therefore be evaluated separately.
+
+### 13.8 Early screening failures should be treated as evidence weight, not absolute absence
+
+The aspect/event-structure result demonstrates that a variable weak under the initial combined evidence framework can still yield a later causally validated feature. Strict early filtering can therefore discard scientifically relevant representations.
 
 ---
 
-## 21. Final conclusion
+## 14. Claims not supported by the evidence
 
-The experiments began with a broad question: whether basic structural properties of language can be found inside a language model as measurable internal features and whether those features matter causally.
+The experiments do **not** establish that XGLM contains forty clean, discrete, language-universal linguistic features.
 
-The answer is **yes, but not in the simplest possible form**.
+They do not establish that the six full-chain SAE features are semantically equivalent to the typological variables used to discover them. Several are explicitly narrower proxies.
 
-Structural linguistic contrasts are widely recoverable from XGLM activations. Sparse autoencoding exposes substantial corresponding structure without being trained on the controlled linguistic labels. Supervised and sparse representations converge across a majority of variables. Yet the sparse dictionary does not resolve neatly into one abstract typological concept per feature. Many candidates encode the surface machinery through which the linguistic distinction is expressed: a suffix, pronoun, complementizer, punctuation pattern, lexical class, or language-specific morphology.
+They do not establish strict necessity or sufficiency of individual latents. Ablation and steering provide necessity-like and sufficiency-like evidence within the tested intervention framework, but representations may be distributed or redundant.
 
-That does not make those representations irrelevant. Causal experiments show that several of these imperfect and sometimes poorly interpreted sparse directions actively participate in the model's computation. Removing them weakens downstream linguistic distinctions; adding them moves representations in the predicted direction; and for a smaller set, those internal changes propagate to the model's token probabilities.
+They do not establish that SAEs are superior to supervised probes for linguistic representation. The two methods answer different questions and exhibit complementary strengths and failures.
 
-At the same time, some of the most interpretable and internally causal features fail or reverse at the behavioral stage. This establishes a meaningful boundary between **representation** and **behavior**. A model may internally encode and causally use a linguistic distinction without that representation functioning as a simple output control knob.
+They do not establish that the identified directions control complete linguistic generation. The final behavioral metric measures local next-token preference at the first controlled divergence.
 
-The final result is therefore more informative than either a universal success or a universal failure.
+They do not establish that low-level linguistic structure already causes alignment-relevant behavioral changes such as shifts in truthfulness, deference, bias, refusal, responsibility attribution, or epistemic calibration. Those are downstream hypotheses requiring separate experiments.
 
-It demonstrates that low-level linguistic structure is mechanistically accessible, that sparse representations can isolate components with real causal influence, and that such influence occasionally reaches observable model behavior. It also demonstrates why strong interpretability claims require more than decoding, more than SAE feature ranking, and even more than an apparently interpretable activation pattern.
+Finally, the results are not sufficient to claim that the model internally organizes language according to the same discrete categories used in linguistic theory. The controlled variables are experimental interventions and discovery labels, not guaranteed descriptions of the model's own ontology.
 
-The most defensible picture is one in which linguistic structure is encoded through **partially sparse, partially distributed, and frequently surface-grounded representations whose causal influence varies across the computational pathway from hidden state to output**.
+---
 
-This provides a concrete mechanistic foundation for studying how structural language may influence higher-level model behavior. The next question is no longer simply whether linguistic form exists inside the model. The evidence indicates that it does, and that some of it matters causally.
+## 15. Limitations
 
-The remaining question is **what those representations ultimately make the model do**.
+### 15.1 Single model and intervention site
+
+The causal experiments were conducted on `facebook/xglm-564M`, with the SAE operating at hidden-state index 12. Replication across model families, scales, layers, and independently trained SAEs is necessary before treating the findings as general properties of multilingual language models.
+
+### 15.2 Synthetic controlled evaluation data
+
+The contrast-pair dataset was synthetically constructed to isolate linguistic variables. This provides strong control but creates a risk that variables are learned or recovered through recurring surface cues. Held-out marker families, held-out lexical domains, natural-text inspection, and matched causal controls reduce this concern but do not eliminate it.
+
+### 15.3 Limited cross-linguistic instantiation per variable
+
+Many non-English variables were instantiated in a selected language rather than independently across multiple unrelated languages. A causal feature associated with Turkish morphology, Korean honorifics, Chinese pronouns, or Japanese punctuation should therefore not be assumed to represent the same structural property universally.
+
+### 15.4 SAE corpus and dictionary dependence
+
+The SAE was trained on a separate multilingual corpus without controlled feature labels, which is an important safeguard. However, the causal analysis uses one trained dictionary. Independent SAE retraining could split, merge, rotate, or otherwise reorganize features even if the same linguistic information remains present.
+
+### 15.5 Candidate selection involved post-hoc scientific judgment
+
+Natural-text inspection and alternative-candidate selection necessarily involved researcher judgment. The behavioral cohort was frozen before behavioral evaluation, but the full feature-discovery and causal-candidate process was not a preregistered procedure. Causal results should therefore be understood as validation of selected mechanistic candidates rather than as a fully confirmatory test of a predetermined feature map.
+
+### 15.6 SAE feature interventions are not orthogonal interventions
+
+SAE decoder directions are not guaranteed to be orthogonal or causally independent. Adding or subtracting one direction may affect computations associated with correlated features. Matched control directions and the very high final-representation cosines reduce the likelihood of generic disruption but do not provide complete isolation.
+
+### 15.7 Behavioral evaluation is local
+
+The first-divergence next-token test gives a clean, model-native output metric but measures only a local linguistic preference. It does not establish that steering would transform an entire generated sentence or produce a stable high-level behavioral change.
+
+### 15.8 Behavioral sample size
+
+The held-out behavioral evaluation used fifty test pairs per variable. Bootstrap inference and FDR correction address uncertainty, but larger evaluation sets would improve power and effect-size precision, especially for the smallest full-chain effects.
+
+### 15.9 Numerical precision in behavioral inference
+
+A diagnostic bfloat16 behavioral run produced quantized logit changes. The experiment was therefore repeated in float32 with the hypothesis family and intervention specification unchanged. The float32 run should be treated as canonical. This episode illustrates that small output-logit interventions require explicit numerical validation.
+
+---
+
+## 16. Implications for mechanistic interpretability
+
+Several general methodological lessons follow from the study.
+
+First, **decodability is evidence of information presence, not mechanistic localization**. A high-performing probe does not establish that the information resides in a single feature or that the decoded direction is used causally.
+
+Second, **SAE feature ranking is not semantic labeling**. Controlled contrasts can discover candidate latents effectively, but statistical selectivity does not define the full meaning of a latent.
+
+Third, **natural-text inspection is necessary but not sufficient**. Inspection protects against semantic overclaiming, yet poor top-activation interpretability does not imply causal irrelevance.
+
+Fourth, **matched intervention controls are essential**. Some target interventions produced positive effects no larger than matched non-target SAE directions. Without these controls, generic perturbation effects would be mistaken for linguistic causality.
+
+Fifth, **dose response materially strengthens causal evidence**. Monotonic change across fixed intervention strengths is more informative than a single arbitrary steering coefficient.
+
+Sixth, **internal and behavioral causality should be tested separately**. The transition from fifteen internally convergent variables to six behaviorally specific variables demonstrates that a hidden representation can be causally active without functioning as a direct output-control direction.
+
+A robust linguistic mechanistic-interpretability pipeline should therefore combine:
+
+> controlled contrast construction → supervised recovery → unsupervised sparse recovery → natural-text inspection → matched ablation → matched steering → pre-behavior evidence freeze → output-level causal evaluation.
+
+The value of this sequence is not only that it identifies positive results. It also reveals exactly where an apparently strong feature interpretation fails.
+
+---
+
+## 17. Implications for structural-language and constitutional-language research
+
+The broader motivation for studying low-level linguistic structure is the possibility that formal properties of language influence model computation even when higher-level propositional content is held approximately constant.
+
+The present evidence establishes an important prerequisite for that research direction. Controlled changes in morphology, person reference, possession, aspect, stance-related marking, and other structural properties correspond to internal directions that are not merely decodable but experimentally manipulable. For six variables, intervention on those directions also changes the model's local output probability in the predicted direction.
+
+This makes it plausible that structural linguistic signals could influence higher-level model behavior through identifiable internal mechanisms. It does not yet establish that they affect alignment-relevant outcomes.
+
+A subsequent research stage should therefore test whether interventions on these representations change **semantic decisions under controlled propositional content**, rather than only the linguistic realization itself. Candidate outcomes include confidence and evidence weighting for evidential or epistemic features, deference and authority weighting for honorific or social-deixis features, responsibility attribution for voice and agent-prominence features, or framing sensitivity for discourse and perspective features.
+
+The present study supplies the mechanistic basis for such experiments while leaving the high-level behavioral hypothesis open.
+
+---
+
+## 18. Recommended interpretation of the six final variables
+
+The six full-chain results are best described as **causally validated sparse correlates of controlled linguistic distinctions**.
+
+This terminology preserves both sides of the evidence. The directions are not merely correlated: they survived matched causal intervention and behavioral evaluation. At the same time, their natural-text semantics are often narrower than the linguistic variable names used for discovery.
+
+For B-grade candidates such as Turkish suffixal morphology and progressive aspect morphology, relatively specific linguistic interpretation is justified as long as its language and construction scope is stated explicitly. For C- and D-grade candidates, the proxy interpretation established during feature inspection should be retained even when the causal evidence is strong.
+
+A causal result should therefore strengthen the claim that the feature **matters**, not automatically broaden the claim about what the feature **means**.
+
+---
+
+## 19. Overall claim
+
+The strongest conclusion supported by the complete evidence is:
+
+> Across forty controlled structural linguistic contrasts in XGLM-564M, linguistic information was broadly recoverable from both supervised activations and an independently trained sparse autoencoder, but statistical sparse-feature recovery frequently reflected narrower lexical, morphological, language-specific, orthographic, or tokenization correlates rather than clean abstract linguistic features. Causal intervention nevertheless identified a subset of sparse directions that specifically mediated downstream representations. Fifteen variables showed convergent ablation and steering evidence with monotonic dose response and were frozen before behavioral evaluation. Six of these subsequently produced FDR-corrected, control-specific changes in next-token linguistic preference together with monotonic behavioral dose response. These results show that sparse representations can capture causally relevant linguistic structure while demonstrating that recoverability, sparse isolation, human interpretability, internal causal mediation, and behavioral influence are distinct properties.
+
+---
+
+## 20. Final conclusion
+
+Low-level linguistic structure is mechanistically accessible in XGLM-564M, but it is not organized as a simple dictionary of clean human linguistic concepts.
+
+Many controlled linguistic distinctions can be recovered from model activations, and an unsupervised sparse decomposition recovers substantially overlapping information. Yet the strongest statistical SAE candidates often correspond to the surface machinery through which a distinction is expressed rather than to the abstract typological distinction itself. Sparse representations therefore appear to be partly structural, partly distributed, and frequently grounded in language-specific morphology, lexical material, punctuation, or other surface cues.
+
+Causal intervention establishes that this imperfection does not make the representations epiphenomenal. Removing selected sparse components can specifically weaken downstream linguistic distinctions, and adding the corresponding decoder directions can move internal states toward the associated linguistic condition. For a smaller but statistically robust subset, these interventions also change the model's next-token preference in the predicted direction.
+
+At the same time, several of the strongest internal features fail or reverse at the behavioral stage. This dissociation shows that a causally active hidden representation need not constitute a direct behavioral control axis. Representation and output are connected through additional computation that cannot be inferred from feature association or internal intervention alone.
+
+The completed evidence therefore supports a layered account of linguistic representation in language models. **Information can be present without being sparsely isolated; a sparse feature can be isolated without being cleanly interpretable; an interpretable or statistically strong feature can participate causally without controlling output; and a subset of sparse directions can survive all of these tests and exert measurable behavioral influence.**
+
+The main scientific contribution is consequently not a catalog of six linguistic neurons. It is evidence that structural linguistic information can be traced across progressively stronger levels of analysis—from recoverability, through sparse representation and causal mediation, to observable output—while showing where those levels diverge.
+
+This distinction provides a stronger foundation for future work on how low-level linguistic form influences model reasoning and behavior. The relevant question is no longer only whether structural language is represented internally. The evidence indicates that it is, and that some of those representations matter causally. The next question is which downstream computations and decisions those representations influence beyond linguistic form itself.
+
+---
+
+## Repository evidence used for this synthesis
+
+The conclusions above are grounded in the final repository artifacts, particularly:
+
+- `SAE/canonical_sae/sae_canonical/inference_evaluation.json`
+- `SAE/canonical_sae/sae_canonical/model_selection.json`
+- `SAE/post_canonical/post_canonical/evidence/sae/sae_variable_evidence.csv`
+- `SAE/post_canonical/post_canonical/evidence/sae/sae_variable_evidence_summary.json`
+- `SAE/post_canonical/post_canonical/evidence/probe/probe_sae_comparison.csv`
+- `SAE/post_canonical/post_canonical/evidence/probe/probe_sae_comparison_summary.json`
+- `SAE/post_canonical/post_canonical/evidence/probe/probe_sae_agreement_summary.json`
+- `SAE/feature_inspection/all_variables/causal_candidate_ranking.csv`
+- `SAE/feature_inspection/all_variables/ALL_VARIABLE_FEATURE_REVIEW.md`
+- `causal_steps/causal_interventions/ablation_screen/ablation_variable_summary.csv`
+- `causal_steps/causal_interventions/steering_screen/steering_variable_summary.csv`
+- `causal_steps/causal_interventions/mechanistic_convergence/PREBEHAVIOR_PRIMARY_COHORT.csv`
+- `causal_steps/causal_interventions/mechanistic_convergence/mechanistic_convergence.csv`
+- `causal_steps/causal_interventions/behavioral_evaluation/behavioral_variable_summary.csv`
+- `causal_steps/causal_interventions/final_summary/final_causal_evidence.csv`
+- `causal_steps/causal_interventions/final_summary/FULL_CHAIN_PRIMARY_RESULTS.csv`
+- `causal_steps/causal_interventions/final_summary/final_causal_evidence.json`
