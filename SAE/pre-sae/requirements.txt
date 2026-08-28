@@ -1,0 +1,8 @@
+transformers>=4.49,<6
+sentencepiece>=0.2
+protobuf>=5
+safetensors>=0.4
+PyYAML>=6
+tqdm>=4.66
+numpy>=1.26
+accelerate>=1.0

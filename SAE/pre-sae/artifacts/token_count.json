@@ -1,0 +1,68 @@
+{
+  "model": "facebook/xglm-564M",
+  "tokenizer": "facebook/xglm-564M",
+  "add_special_tokens": false,
+  "padding_tokens_counted": false,
+  "max_context_tokens_for_caching": 192,
+  "rows": {
+    "train": 141807,
+    "all": 149338,
+    "val": 7531
+  },
+  "tokens": {
+    "train": 3101336,
+    "all": 3266346,
+    "val": 165010
+  },
+  "chunks": {
+    "train": 141807,
+    "all": 149338,
+    "val": 7531
+  },
+  "max_sentence_tokens": 130,
+  "max_sentence_id": "sae_train_028934",
+  "tokens_by_language": {
+    "ar": 133924,
+    "bg": 41850,
+    "de": 336186,
+    "en": 349878,
+    "es": 500644,
+    "eu": 92279,
+    "fi": 54544,
+    "fr": 363168,
+    "hi": 152693,
+    "id": 12409,
+    "it": 57909,
+    "ja": 228727,
+    "ko": 89005,
+    "pt": 18388,
+    "ru": 233638,
+    "ta": 28589,
+    "te": 26186,
+    "tr": 486642,
+    "ur": 14145,
+    "zh": 45542
+  },
+  "rows_by_language": {
+    "ar": 5026,
+    "bg": 1898,
+    "de": 15406,
+    "en": 17257,
+    "es": 23178,
+    "eu": 3383,
+    "fi": 2342,
+    "fr": 14719,
+    "hi": 7595,
+    "id": 749,
+    "it": 2692,
+    "ja": 10035,
+    "ko": 3736,
+    "pt": 898,
+    "ru": 11179,
+    "ta": 1550,
+    "te": 1445,
+    "tr": 23548,
+    "ur": 699,
+    "zh": 2003
+  }
+}
