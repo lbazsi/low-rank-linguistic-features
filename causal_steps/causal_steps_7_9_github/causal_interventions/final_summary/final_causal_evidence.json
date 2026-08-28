@@ -1,0 +1,58 @@
+{
+  "status": "Steps 7-9 complete and frozen",
+  "variables_total": 40,
+  "prebehavior_primary_cohort": 15,
+  "positive_behavioral_effect_primary": 9,
+  "target_better_than_controls_primary": 10,
+  "behavioral_fdr_specific_primary": 6,
+  "full_chain_primary_count": 6,
+  "full_chain_variable_ids": [
+    10,
+    17,
+    19,
+    21,
+    23,
+    27
+  ],
+  "full_chain_variables": [
+    {
+      "variable_id": 10,
+      "variable": "morphological_segmentation_type",
+      "target_feature": 15843,
+      "inspection_grade": "B"
+    },
+    {
+      "variable_id": 17,
+      "variable": "animacy_and_humanness",
+      "target_feature": 6618,
+      "inspection_grade": "D"
+    },
+    {
+      "variable_id": 19,
+      "variable": "inclusive_exclusive_distinction",
+      "target_feature": 6062,
+      "inspection_grade": "C"
+    },
+    {
+      "variable_id": 21,
+      "variable": "possession_and_alienability",
+      "target_feature": 15325,
+      "inspection_grade": "C"
+    },
+    {
+      "variable_id": 23,
+      "variable": "aspect_and_event_structure",
+      "target_feature": 6216,
+      "inspection_grade": "B"
+    },
+    {
+      "variable_id": 27,
+      "variable": "mirativity_stance_and_affect_marking",
+      "target_feature": 1887,
+      "inspection_grade": "C"
+    }
+  ],
+  "primary_definition": "Primary mechanistic cohort was frozen before behavioral evaluation. Behavioral significance was evaluated using BH FDR across those 15 variables.",
+  "full_chain_definition": "Frozen primary mechanistic candidate with specific-positive Step-9 behavioral evidence and monotonic 0.5x→1x→2x behavioral dose response.",
+  "interpretation": "Six variables show convergent evidence across ablation, steering, matched controls, steering dose response, and next-token behavioral effects."
+}

@@ -1,0 +1,23 @@
+{
+  "stage": "Step 8 — SAE feature steering",
+  "variables": 40,
+  "all_variables_included": true,
+  "intervention": "Add the selected SAE decoder direction to the feature-low member of each pair at XGLM hidden state 12.",
+  "steering_coefficient": "Target feature coefficient is the absolute train mean activation gap multiplied by dose. Control feature coefficients are decoder-norm adjusted so residual perturbation L2 matches the target perturbation.",
+  "doses": [
+    0.5,
+    1.0,
+    2.0
+  ],
+  "primary_dose": 1.0,
+  "dose_selection": "Fixed before heldout evaluation. 0.5x and 2.0x are descriptive dose-response conditions; 1.0x is the primary inferential test.",
+  "primary_outcome": "Attenuation of the train-only final-layer linguistic pair-difference direction.",
+  "positive_attenuation_means": "Steering the feature-low sentence toward the feature-high SAE direction reduced the downstream linguistic distinction.",
+  "controls": "Three Step-7 training-only matched SAE control features per variable, with exact decoder-vector L2 perturbation matching during steering.",
+  "multiple_comparisons": "Benjamini-Hochberg FDR across the 40 variables for the primary 1.0x test condition.",
+  "bootstrap_resamples": 2000,
+  "seed": 42,
+  "model": "facebook/xglm-564M",
+  "hidden_state_index": 12,
+  "intervention_decoder_layer": 11
+}

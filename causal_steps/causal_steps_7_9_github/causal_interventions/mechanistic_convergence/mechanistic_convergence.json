@@ -1,0 +1,30 @@
+{
+  "stage": "Steps 7-8 mechanistic freeze",
+  "behavior_results_consulted": false,
+  "variables": 40,
+  "primary_mechanistic_count": 15,
+  "primary_definition": "Ablation specific_positive AND steering specific_positive AND monotonic 0.5x→1x→2x steering dose response.",
+  "primary_variable_ids": [
+    6,
+    10,
+    11,
+    14,
+    16,
+    17,
+    19,
+    20,
+    21,
+    23,
+    24,
+    27,
+    29,
+    32,
+    37
+  ],
+  "cohort_counts": {
+    "primary_bidirectional": 15,
+    "exploratory": 13,
+    "secondary_one_direction": 12
+  },
+  "behavior_plan": "Primary behavioral inference is performed on the frozen primary mechanistic cohort. All 40 variables may additionally be evaluated and reported exploratorily."
+}

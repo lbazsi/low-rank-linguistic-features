@@ -1,0 +1,36 @@
+{
+  "stage": "Step 9 — behavioral branch-point evaluation",
+  "model": "facebook/xglm-564M",
+  "primary_cohort_frozen_before_behavior": true,
+  "primary_variable_count": 15,
+  "primary_variable_ids": [
+    6,
+    10,
+    11,
+    14,
+    16,
+    17,
+    19,
+    20,
+    21,
+    23,
+    24,
+    27,
+    29,
+    32,
+    37
+  ],
+  "primary_dose": 1.0,
+  "descriptive_doses": [
+    0.5,
+    2.0
+  ],
+  "behavioral_outcome": "Change in next-token logit margin between the feature-high and feature-low linguistic realizations at the first token divergence.",
+  "zero_shared_prefix_handling": "When the two members diverge at token 1, XGLM BOS is used as the common context.",
+  "positive_effect_means": "SAE steering increases model preference for the feature-high linguistic realization.",
+  "controls": "The same three Step-7 training-only matched SAE features, residual-L2 matched to the target steering perturbation.",
+  "primary_multiple_comparison_family": "Benjamini-Hochberg FDR across the frozen 15-variable primary mechanistic cohort only.",
+  "exploratory_multiple_comparison_family": "Separate Benjamini-Hochberg FDR across all 40 variables.",
+  "bootstrap_resamples": 2000,
+  "seed": 42
+}
