@@ -1,0 +1,99 @@
+{
+  "features_inspected": 11,
+  "status_counts": {
+    "mixed_not_confirmed": 2,
+    "surface_artifact": 4,
+    "target_aligned_language_specific": 1,
+    "partial_target_alignment_lexical": 1,
+    "mixed_language_punctuation": 1,
+    "partial_target_alignment": 1,
+    "surface_target_proxy": 1
+  },
+  "plausible_for_deeper_inspection": [
+    5205,
+    15951
+  ],
+  "surface_control_candidate": [
+    1754
+  ],
+  "main_conclusion": "Strong quantitative SAE association does not by itself establish a clean structural linguistic feature. Most inspected Tier-A candidates were dominated by lexical, language-specific, tokenization, or punctuation patterns.",
+  "verdicts": [
+    {
+      "variable_id": 4,
+      "variable": "case_marking",
+      "feature_id": 13269,
+      "status": "mixed_not_confirmed",
+      "interpretation": "Nominal/lexical behavior; natural examples do not cleanly identify case marking."
+    },
+    {
+      "variable_id": 10,
+      "variable": "morphological_segmentation_type",
+      "feature_id": 6125,
+      "status": "surface_artifact",
+      "interpretation": "Strongly dominated by Turkish lexical/tokenization patterns, especially İstanbul."
+    },
+    {
+      "variable_id": 13,
+      "variable": "redundancy_cumulative_exponence",
+      "feature_id": 9749,
+      "status": "surface_artifact",
+      "interpretation": "Top natural activations are dominated by the Spanish token para."
+    },
+    {
+      "variable_id": 16,
+      "variable": "gender_noun_class",
+      "feature_id": 5205,
+      "status": "target_aligned_language_specific",
+      "interpretation": "Strong feminine morphology in Arabic and Urdu; plausible grammatical-gender feature, but language-specific."
+    },
+    {
+      "variable_id": 20,
+      "variable": "pronoun_richness_and_reduction",
+      "feature_id": 7551,
+      "status": "partial_target_alignment_lexical",
+      "interpretation": "Dominated by Chinese 他; pronoun-related but primarily lexical/language-specific."
+    },
+    {
+      "variable_id": 21,
+      "variable": "possession_and_alienability",
+      "feature_id": 9576,
+      "status": "surface_artifact",
+      "interpretation": "Dominated by German letzten/letzte and equivalents of last; target interpretation unsupported."
+    },
+    {
+      "variable_id": 27,
+      "variable": "mirativity_stance_and_affect_marking",
+      "feature_id": 1887,
+      "status": "mixed_language_punctuation",
+      "interpretation": "Several mirative contexts occur, but activation is heavily entangled with Japanese punctuation/language identity."
+    },
+    {
+      "variable_id": 30,
+      "variable": "conditional_and_counterfactual_marking",
+      "feature_id": 15951,
+      "status": "partial_target_alignment",
+      "interpretation": "Several strong natural examples contain if/would/could-have constructions, but unrelated examples also occur."
+    },
+    {
+      "variable_id": 31,
+      "variable": "subordination_and_embedding",
+      "feature_id": 7643,
+      "status": "mixed_not_confirmed",
+      "interpretation": "Clause-rich Romance-language contexts occur, but activation is not clearly localized to embedding structure."
+    },
+    {
+      "variable_id": 32,
+      "variable": "quotation_and_reported_speech_structure",
+      "feature_id": 1754,
+      "status": "surface_target_proxy",
+      "interpretation": "Highly specific quotation-mark detector; useful surface correlate but not evidence for deeper reported-speech structure."
+    },
+    {
+      "variable_id": 38,
+      "variable": "speech_act_force_and_request_directness",
+      "feature_id": 3396,
+      "status": "surface_artifact",
+      "interpretation": "Natural activations are dominated by wait/waiting lexical material across languages."
+    }
+  ]
+}

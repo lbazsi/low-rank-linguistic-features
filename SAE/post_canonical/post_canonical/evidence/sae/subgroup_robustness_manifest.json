@@ -1,0 +1,21 @@
+{
+  "selected_features": "train+validation selections from trainval_selected_features.csv",
+  "test_used_for_feature_selection": false,
+  "metadata_dimensions": [
+    "marker_family",
+    "lexical_domain"
+  ],
+  "splits": [
+    "train",
+    "val",
+    "test"
+  ],
+  "minimum_group_size": 5,
+  "reference_direction": "overall train effect",
+  "unseen_group_definition": "metadata group absent from the variable's train split",
+  "outputs": {
+    "group_structure": "artifacts/linguistic_feature_eval/summary/dataset_group_structure.csv",
+    "detail": "artifacts/linguistic_feature_eval/summary/subgroup_robustness_detail.csv",
+    "summary": "artifacts/linguistic_feature_eval/summary/subgroup_robustness_summary.csv"
+  }
+}

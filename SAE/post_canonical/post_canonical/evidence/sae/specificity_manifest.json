@@ -1,0 +1,20 @@
+{
+  "purpose": "Measure whether SAE candidate features are selective for their target linguistic variable rather than broadly responding across many controlled transformations.",
+  "specificity_data": "train association matrices only",
+  "candidate_filter": "train maxT FWER significant and validation same direction",
+  "test_used_for_selection": false,
+  "specificity_metrics": [
+    "rank among 40 variables",
+    "ratio versus strongest other variable",
+    "margin versus strongest other variable",
+    "z score relative to other variables",
+    "share of total absolute effect"
+  ],
+  "outputs": {
+    "candidate_specificity": "artifacts/linguistic_feature_eval/summary/cross_variable_specificity.csv",
+    "feature_reuse": "artifacts/linguistic_feature_eval/summary/feature_reuse.csv",
+    "trainval_selected_features": "artifacts/linguistic_feature_eval/summary/trainval_selected_features.csv",
+    "mean_variable_similarity": "artifacts/linguistic_feature_eval/summary/variable_similarity_mean_train.npy",
+    "final_variable_similarity": "artifacts/linguistic_feature_eval/summary/variable_similarity_final_train.npy"
+  }
+}

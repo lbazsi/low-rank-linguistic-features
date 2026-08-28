@@ -1,0 +1,12 @@
+variable_id,variable,feature_id,natural_examples,controlled_examples,controlled_target_fraction,natural_unique_top_tokens,controlled_unique_top_tokens
+4,case_marking,13269,50,50,0.3,18,19
+10,morphological_segmentation_type,6125,50,50,0.0,5,2
+13,redundancy_cumulative_exponence,9749,50,50,0.0,1,1
+16,gender_noun_class,5205,50,50,0.14,17,9
+20,pronoun_richness_and_reduction,7551,50,50,0.0,1,2
+21,possession_and_alienability,9576,50,50,0.0,7,4
+27,mirativity_stance_and_affect_marking,1887,50,50,0.0,2,1
+30,conditional_and_counterfactual_marking,15951,50,50,0.0,20,4
+31,subordination_and_embedding,7643,50,50,0.0,9,1
+32,quotation_and_reported_speech_structure,1754,50,50,1.0,4,2
+38,speech_act_force_and_request_directness,3396,50,50,0.0,17,3

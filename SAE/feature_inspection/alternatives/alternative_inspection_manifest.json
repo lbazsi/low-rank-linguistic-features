@@ -1,0 +1,14 @@
+{
+  "selection_csv": "artifacts/linguistic_feature_eval/inspection/alternative_feature_candidates.csv",
+  "selection_rule": "mean pooling; train FWER significant; validation same direction; exclude previously inspected feature; prioritize target rank, specificity ratio, and train effect; test not used",
+  "candidate_rows": 24,
+  "unique_features": 24,
+  "natural_corpus": "data/inspection_corpus/sae_train_150k_v1_2_final.jsonl",
+  "natural_rows": 149338,
+  "possible_truncations": 0,
+  "top_k": 30,
+  "model": "facebook/xglm-564M",
+  "hidden_state_index": 12,
+  "activation_scale": 0.02065550797801016,
+  "output": "artifacts/linguistic_feature_eval/inspection/alternatives/alternative_natural_top_activations.jsonl"
+}

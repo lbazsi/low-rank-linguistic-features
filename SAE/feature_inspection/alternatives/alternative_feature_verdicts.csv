@@ -1,0 +1,9 @@
+variable_id,variable,selected_feature,verdict,reason
+4,case_marking,,no_interpretable_candidate,"Alternative features were dominated by Russian existential/possessive lexical items, French tableau, or German token fragments."
+10,morphological_segmentation_type,15843,secondary_surface_morphology_only,"Feature tracks Turkish m-like possessive/person morphology, but does not establish the abstract segmentation-type variable."
+13,redundancy_cumulative_exponence,4814,promising_language_specific_structural,Natural activations are dominated by Russian inflectional endings consistent with cumulative case/number/gender morphology.
+20,pronoun_richness_and_reduction,6944,promising_crosslingual_grammatical_surface,Feature activates on third-person pronouns across multiple languages. Best interpreted as explicit pronoun realization rather than abstract pronoun richness.
+21,possession_and_alienability,,no_interpretable_candidate,"Alternatives track objects/containers, kinship, or unrelated lexical material."
+27,mirativity_stance_and_affect_marking,,no_interpretable_candidate,Alternatives are dominated by language-specific lexical items rather than mirativity.
+31,subordination_and_embedding,11461,promising_crosslingual_grammatical_surface,Feature strongly tracks English/French complementizers that/qu/que in embedded clauses. It is narrower than abstract embedding but directly target-aligned.
+38,speech_act_force_and_request_directness,,no_interpretable_candidate,"Alternatives track conditional/negative clauses, mixed lexical material, or exclamation punctuation."

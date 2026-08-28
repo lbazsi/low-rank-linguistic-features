@@ -1,0 +1,18 @@
+{
+  "purpose": "Broad natural-text inspection of five SAE candidates for every controlled linguistic variable.",
+  "variables": 40,
+  "candidate_variable_pairs": 200,
+  "unique_sae_features": 194,
+  "candidate_selection_used_test": false,
+  "interpretation_policy": "Candidates are not automatically rejected for small test, specificity, or subgroup failures. Natural interpretability and the full evidence profile are reviewed jointly before causal selection.",
+  "natural_rows": 149338,
+  "possible_truncations": 0,
+  "top_k": 20,
+  "model": "facebook/xglm-564M",
+  "hidden_state_index": 12,
+  "activation_scale": 0.02065550797801016,
+  "outputs": {
+    "activations": "artifacts/linguistic_feature_eval/inspection/all_variables/all_variable_natural_top_activations.jsonl",
+    "summary": "artifacts/linguistic_feature_eval/inspection/all_variables/all_variable_inspection_summary.csv"
+  }
+}

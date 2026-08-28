@@ -1,0 +1,386 @@
+{
+  "model": "facebook/xglm-564M",
+  "hidden_state_index": 12,
+  "d_in": 1024,
+  "d_sae": 16384,
+  "activation_scale": 0.02065550797801016,
+  "inference_architecture": "JumpReLU",
+  "threshold": 0.11494007706642151,
+  "max_length": 192,
+  "add_special_tokens": false,
+  "pooling": [
+    "final_token",
+    "mean_token"
+  ],
+  "delta_definition": "changed_minus_basis",
+  "files": [
+    {
+      "variable_id": 10,
+      "variable": "morphological_segmentation_type",
+      "input_file": "data/feature_dataset/feature10_001_500.jsonl",
+      "input_sha256": "26297da30dc7b76148385e60d5f12ae869029bc72e31144f9d5a09ad179c5d37",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_10.npz",
+      "output_sha256": "d99540693a469bad373493cc3cc79ad2ea051b73dbf44ec7b8b6b9518198eff2"
+    },
+    {
+      "variable_id": 11,
+      "variable": "agreement_indexing_density",
+      "input_file": "data/feature_dataset/feature11_001_500.jsonl",
+      "input_sha256": "34becf944b829e283003b734d7b07fc0f1f8f84e6db2443a5779a0b6e34a2834",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_11.npz",
+      "output_sha256": "5b1b01a08b540255de958995d092e4e478ef22240da586fc1b7b91bb63fe11f1"
+    },
+    {
+      "variable_id": 12,
+      "variable": "optionality_vs_obligatoriness_of_marking",
+      "input_file": "data/feature_dataset/feature12_001_500.jsonl",
+      "input_sha256": "dda3c075be247ff55a5df805202985f66ba9dcba32895a35ae41338f43e0d188",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_12.npz",
+      "output_sha256": "1e4a08e2920a9b2c6453c1294236d5c7f6820f53e07ce79befd6987c8711a87c"
+    },
+    {
+      "variable_id": 13,
+      "variable": "redundancy_cumulative_exponence",
+      "input_file": "data/feature_dataset/feature13_001_500.jsonl",
+      "input_sha256": "638482ef07c282ef17393ecb877d3111834fe498703c959dee6fa56c28afa9a7",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_13.npz",
+      "output_sha256": "be8a0b4657313654950c280c6b288669a5e6e8a13c0495ace8e72edd5c1d6163"
+    },
+    {
+      "variable_id": 14,
+      "variable": "definiteness_and_specificity",
+      "input_file": "data/feature_dataset/feature14_001_500.jsonl",
+      "input_sha256": "754602a0866e9cac7d4adacad2c6d7f5388db65a54318326865cb5f15863ac20",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_14.npz",
+      "output_sha256": "b17bbf8898f5b9fe53a2ac0f449ec3d51c416c8f90c12bb0fc38c5b8a03f5323"
+    },
+    {
+      "variable_id": 15,
+      "variable": "number_marking",
+      "input_file": "data/feature_dataset/feature15_001_500.jsonl",
+      "input_sha256": "39012239b2340d01afad9c4bcc514ed72063d541d5e14dc140700b79a062baee",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_15.npz",
+      "output_sha256": "a629be1a2beae636fc1947e084a9b7ed7520a4238a2b73444d301eadbcde0462"
+    },
+    {
+      "variable_id": 16,
+      "variable": "gender_noun_class",
+      "input_file": "data/feature_dataset/feature16_001_500.jsonl",
+      "input_sha256": "61b322eec2f1fc7a8a58bf25bacbba4c183fd8d7ccd068930ed774bff89bd7ca",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_16.npz",
+      "output_sha256": "12d9a7c17d50cbc6e92e136e45ebec5fabafd1675c24ec3a2706334c30df1d58"
+    },
+    {
+      "variable_id": 17,
+      "variable": "animacy_and_humanness",
+      "input_file": "data/feature_dataset/feature17_001_500.jsonl",
+      "input_sha256": "c6fd849b84c552e04fdaf06d22d7f72d6e2569399b61ca24dab1dd5b97197db1",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_17.npz",
+      "output_sha256": "22290d01b6ad6f435797803e994e9b85f8e8e80aae2b4bb44a9124c1ab004490"
+    },
+    {
+      "variable_id": 18,
+      "variable": "person_marking_and_person_hierarchy",
+      "input_file": "data/feature_dataset/feature18_001_500.jsonl",
+      "input_sha256": "b910e565991ea38fa755ce9ef3fc526772270f6fe235c883ec222cc2ecb41f6f",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_18.npz",
+      "output_sha256": "94fefad471d8fbff88a19a0b817be8dfd93789b89e5ff070fb321e246cb24601"
+    },
+    {
+      "variable_id": 19,
+      "variable": "inclusive_exclusive_distinction",
+      "input_file": "data/feature_dataset/feature19_001_500.jsonl",
+      "input_sha256": "cd58a5a5b3d254bd02cd4d47ce5dc04165e79688a6fd194c5ff66ce46a7db529",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_19.npz",
+      "output_sha256": "a6cc9b24dd3f1d8dc3dd2e0a36fe2b87d005456cb90dbdb5c0e3d0c6f2f5f4f0"
+    },
+    {
+      "variable_id": 1,
+      "variable": "Subject expression / pro-drop",
+      "input_file": "data/feature_dataset/feature1_001_500.jsonl",
+      "input_sha256": "295b6ac1856ae05bdcb99668b72a373192e0186bc8f359065fb35b8ae16bb751",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_01.npz",
+      "output_sha256": "83cc05f1fafff112bbd8a1a470a35585e9c502b299da0f37ddf5f6f19fced3db"
+    },
+    {
+      "variable_id": 20,
+      "variable": "pronoun_richness_and_reduction",
+      "input_file": "data/feature_dataset/feature20_001_500.jsonl",
+      "input_sha256": "d62bd923afc653dc0288c4ec104d1e80709f5ebf219a7ca96ab9ffad46eba4b0",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_20.npz",
+      "output_sha256": "3fd5a407cd40c056099e9cdc62be8ca295f96a5296c9c6939fb575f30f91f193"
+    },
+    {
+      "variable_id": 21,
+      "variable": "possession_and_alienability",
+      "input_file": "data/feature_dataset/feature21_001_500.jsonl",
+      "input_sha256": "a5185d448d8489522f38a84aaebecfad017194427abb0fd34bca6a39070aca5f",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_21.npz",
+      "output_sha256": "15ebad29cd25ba77f0b31486a301231bf11c7a2788b2008ba6b05410c92e4431"
+    },
+    {
+      "variable_id": 22,
+      "variable": "tense_prominence",
+      "input_file": "data/feature_dataset/feature22_001_500.jsonl",
+      "input_sha256": "e3f20e206755a5e1543e1bcb5750fbf997d7134be2c28f8a95aa85906403429c",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_22.npz",
+      "output_sha256": "fbbd7eba31610aa10a85340b96163537c451cb3058dcb5e5efd521482fd4fb2f"
+    },
+    {
+      "variable_id": 23,
+      "variable": "aspect_and_event_structure",
+      "input_file": "data/feature_dataset/feature23_001_500.jsonl",
+      "input_sha256": "582067b66fe3a23707e95fe506aa76f6a9c3ef86a430280d78a180d65b8167be",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_23.npz",
+      "output_sha256": "2c31e2ea3677e1cc859d0b395c686128be492c6c3e4f42b0f197cebf4bafb284"
+    },
+    {
+      "variable_id": 24,
+      "variable": "modality_and_mood",
+      "input_file": "data/feature_dataset/feature24_001_500.jsonl",
+      "input_sha256": "b9763cbd7995c1f34b796ed79cdcfc3bf35db307bb447dc6908c3414896a816f",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_24.npz",
+      "output_sha256": "6fe4a404ee40e5ad8e674567ebaa61ca1bea216c057d194646cb7b945af66cc8"
+    },
+    {
+      "variable_id": 25,
+      "variable": "epistemic_modality",
+      "input_file": "data/feature_dataset/feature25_001_500.jsonl",
+      "input_sha256": "fe52692d0226ca8b5102b37e36fa9ab07f7aa8823cab1fdc3b4b11f5f59fcf2e",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_25.npz",
+      "output_sha256": "79e9ed83087f0b912dec7f1c818b788718d4b19cba9e59050acb27523eae0dea"
+    },
+    {
+      "variable_id": 26,
+      "variable": "evidentiality",
+      "input_file": "data/feature_dataset/feature26_001_500.jsonl",
+      "input_sha256": "6a93925090294558ea900542ef3710d05693efecfea84cdc75fe63f2b9320e51",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_26.npz",
+      "output_sha256": "a7664ae59f1700b657227a936fe7de5800794076f8578223e60c6d430699e93c"
+    },
+    {
+      "variable_id": 27,
+      "variable": "mirativity_stance_and_affect_marking",
+      "input_file": "data/feature_dataset/feature27_001_500.jsonl",
+      "input_sha256": "bfa51df6014f3862f1605575ef2a57a217ec39f4d0e7096c21ef944bfab0e7da",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_27.npz",
+      "output_sha256": "5c1dcb180659cf8c40de53dbb123ea889167e7b765db2852dbef738c3b142891"
+    },
+    {
+      "variable_id": 28,
+      "variable": "negation_and_polarity_structure",
+      "input_file": "data/feature_dataset/feature28_001_500.jsonl",
+      "input_sha256": "ea166b464084a46ec6388b0d480f830e220abdf0862a31a4dae512e5f7ff0406",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_28.npz",
+      "output_sha256": "c4314d08c95c8e1a92f826fe75ff3e000adb14e339e2cce60ebd83558dd64fd2"
+    },
+    {
+      "variable_id": 29,
+      "variable": "quantifier_scope_and_distributivity",
+      "input_file": "data/feature_dataset/feature29_001_500.jsonl",
+      "input_sha256": "dc69d5b7c1de7e0ea2a825dd2833b8ac4d155086fc6c4c5bc937ef6e133ca4ac",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_29.npz",
+      "output_sha256": "8063769e92b9edd81b58e21bca4bd3353c8ca2dc262d2aa71f6cc8abcb73435d"
+    },
+    {
+      "variable_id": 2,
+      "variable": "basic_constituent_order",
+      "input_file": "data/feature_dataset/feature2_001_500.jsonl",
+      "input_sha256": "c90b43985a4d948811f3f86cd403a71408a84021970cb1a55520388a712939ad",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_02.npz",
+      "output_sha256": "705396093db75e6e1a3d3103da22c6c1a1c55662d93493abf5c31d5aec49bbec"
+    },
+    {
+      "variable_id": 30,
+      "variable": "conditional_and_counterfactual_marking",
+      "input_file": "data/feature_dataset/feature30_001_500.jsonl",
+      "input_sha256": "ac7746dbc1a7c04d3f2d4d9247ba4a5f7d959143cc7833f6dffc1e79d3fb5791",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_30.npz",
+      "output_sha256": "79342a512bcb5c96a825de8cb1c21b7b6c82e8a044183310e1a71c7043ae80a7"
+    },
+    {
+      "variable_id": 31,
+      "variable": "subordination_and_embedding",
+      "input_file": "data/feature_dataset/feature31_001_500.jsonl",
+      "input_sha256": "b8212d52c4d6b05023f7a1797fb9aaeb0c2da95716b9a1977614f72444e949e9",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_31.npz",
+      "output_sha256": "6f2ed42a3e0874755fc949f01d6bb1eb3f249d9898d2b9f34b95962fdfd1036d"
+    },
+    {
+      "variable_id": 32,
+      "variable": "quotation_and_reported_speech_structure",
+      "input_file": "data/feature_dataset/feature32_001_500.jsonl",
+      "input_sha256": "711b8afd385198c522675bd69ebf93ed6a01fc24f4eb27c9e08af8b4f29bf67c",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_32.npz",
+      "output_sha256": "8470ea73377cbdafc2b6fa9822ccf233f89803e18ec96bf68a30ecaaac5e8ecd"
+    },
+    {
+      "variable_id": 33,
+      "variable": "discourse_relation_marking",
+      "input_file": "data/feature_dataset/feature33_001_500.jsonl",
+      "input_sha256": "5a9f096058df82b7ac2506472d626d1a52f96e02a35ac8f2f59277844a1ebf24",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_33.npz",
+      "output_sha256": "c6584b176d0204c3a04181b93362cd86bed6b9e94aba52375ab97136bece968a"
+    },
+    {
+      "variable_id": 34,
+      "variable": "topic_comment_structure",
+      "input_file": "data/feature_dataset/feature34_001_500.jsonl",
+      "input_sha256": "88478f9c4d42398b5fd19674b3da84ddb8475d833d6bf46fd848ae8b324c2306",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_34.npz",
+      "output_sha256": "2925035526f8cc52e3bcfc8e904ffc0acdae658da27ecb4b8f8cac8732acfe79"
+    },
+    {
+      "variable_id": 35,
+      "variable": "focus_and_given_new_marking",
+      "input_file": "data/feature_dataset/feature35_001_500.jsonl",
+      "input_sha256": "8619ba9419910f9477f527c18e941857c665a3b0b84fc7ad56fe01cc49dc6ad3",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_35.npz",
+      "output_sha256": "f4fe2b69477ac0ed305c6758162e198ba4978126ce6dc16f21b752d394220211"
+    },
+    {
+      "variable_id": 36,
+      "variable": "genericity_and_kind_level_reference",
+      "input_file": "data/feature_dataset/feature36_001_500.jsonl",
+      "input_sha256": "df711ac5ee3b85ac667446108d61440fc9f918801bca89cefbd45260b51c8bc6",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_36.npz",
+      "output_sha256": "7e550c5c32dd54399b2fd52dfad0f34ed068708f368d673adb8c00f8b5f4a95b"
+    },
+    {
+      "variable_id": 37,
+      "variable": "social_deixis_honorifics_status_encoding",
+      "input_file": "data/feature_dataset/feature37_001_500.jsonl",
+      "input_sha256": "3f7e16f27d70c3e6ccd80463e720ce69b4a80e666fbec35455069ab3866db241",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_37.npz",
+      "output_sha256": "be97ea629017e13876b67c0ff78cda7acf21577f599a1bb2986434e093d26c8e"
+    },
+    {
+      "variable_id": 38,
+      "variable": "speech_act_force_and_request_directness",
+      "input_file": "data/feature_dataset/feature38_001_500.jsonl",
+      "input_sha256": "f90706e9b8376b67ef3660690ddc41e838a0aa805fe4a04aa7b845f1bff3bd8b",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_38.npz",
+      "output_sha256": "b0f23c79b4d1f2e8c40e3fe81cd0e88c00d930f3b2d81804f5f025c408d878c6"
+    },
+    {
+      "variable_id": 39,
+      "variable": "deixis_and_perspective_anchoring",
+      "input_file": "data/feature_dataset/feature39_001_500.jsonl",
+      "input_sha256": "a219205c5dd4a2290bda67995ea422fc148a8d2ae63629e5744a06666dcd67a0",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_39.npz",
+      "output_sha256": "79646df11db4d4401e93d6766daa8a52ff425d48bed7a673202c4a826d8e5279"
+    },
+    {
+      "variable_id": 3,
+      "variable": "nominal_modifier_order",
+      "input_file": "data/feature_dataset/feature3_001_500.jsonl",
+      "input_sha256": "f63fc44ec8ac46af46e99372deece263aef8972e07987977a962584a0aa69ff1",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_03.npz",
+      "output_sha256": "b59abc400a2dac40aa5fa9b704b24587f0db9fc7c34e8b1b609ef27ad811e9c2"
+    },
+    {
+      "variable_id": 40,
+      "variable": "orthographic_and_tokenization_interface",
+      "input_file": "data/feature_dataset/feature40_001_500.jsonl",
+      "input_sha256": "7821bef1604dd4ce7e59a9e3ed878bad952c704c6c02510081711dd027224d9b",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_40.npz",
+      "output_sha256": "46fa2333cc7ef2f86679682d2812d9d8a08c4dcb8217efb033dd39f402b7a098"
+    },
+    {
+      "variable_id": 4,
+      "variable": "case_marking",
+      "input_file": "data/feature_dataset/feature4_001_500.jsonl",
+      "input_sha256": "57fb2735a9d4b3353682fe190049d00eb5c260b47e341a9bd37e881ff5d46614",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_04.npz",
+      "output_sha256": "2d440873ba6382362b73e4fd2ddd944abfafe1d4ece4c24bc580500a8f1fc2d2"
+    },
+    {
+      "variable_id": 5,
+      "variable": "morphosyntactic_alignment",
+      "input_file": "data/feature_dataset/feature5_001_500.jsonl",
+      "input_sha256": "28b5bc16cb188b5604927bfa7180971ac146818d86a1091d99cc730672aa3115",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_05.npz",
+      "output_sha256": "80daa7a553934dc8759f6316472b5e235b0c2e2121511422c9d4ebe510da4d32"
+    },
+    {
+      "variable_id": 6,
+      "variable": "transitivity_valency",
+      "input_file": "data/feature_dataset/feature6_001_500.jsonl",
+      "input_sha256": "d665ddede44b4a0c4f592e377a9668230a3d7f3e109e5be285c54161592fb38a",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_06.npz",
+      "output_sha256": "398516e7cf2deeebffd0b5054f08cf1739580f08b538535f7290214836765703"
+    },
+    {
+      "variable_id": 7,
+      "variable": "voice_and_agent_prominence",
+      "input_file": "data/feature_dataset/feature7_001_500.jsonl",
+      "input_sha256": "6b2ad264c13ef329e6f01819282dd8a05cbb9603450be8149aff2549cbb803d2",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_07.npz",
+      "output_sha256": "99f0eb6f113fce284182c74af461960b6cf46ec62dcf0249f80a8df445de72f9"
+    },
+    {
+      "variable_id": 8,
+      "variable": "causativity_and_valency_change",
+      "input_file": "data/feature_dataset/feature8_001_500.jsonl",
+      "input_sha256": "4e82a067fead8939d9a1ca4d490321e867cd8a6006ff317f521081519925f1ad",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_08.npz",
+      "output_sha256": "013ac77d3be9b380873a101df6fe6c222a3c9a1eabc236a033059b514132e7aa"
+    },
+    {
+      "variable_id": 9,
+      "variable": "analytic_vs_synthetic_encoding",
+      "input_file": "data/feature_dataset/feature9_001_500.jsonl",
+      "input_sha256": "378a24062f8a7b8bfab10ce497521a2d27502306b93f1653c4cb421a2573bc4a",
+      "pairs": 500,
+      "output_file": "artifacts/linguistic_feature_eval/sae_pair_cache/variable_09.npz",
+      "output_sha256": "47915e2efdd566496aa2943eb851b523bb36d7546244450dba2aae9aa4509192"
+    }
+  ],
+  "total_pairs": 20000,
+  "total_sentences": 40000,
+  "total_tokens": 691959,
+  "possible_truncations": 0,
+  "mean_token_l0": 295.05449889372056,
+  "mean_final_token_l0": 73.03885,
+  "sae_weights_sha256": "72802a9c3a863f9e738880141118dbab394510d2addee986dabad0e38e79b634",
+  "sae_config_sha256": "0250ba55089e420b56f2942bb2d7776bf6288a36c187fc52145ebd19bca9c2a0"
+}

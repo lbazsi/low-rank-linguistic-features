@@ -1,0 +1,220 @@
+{
+  "variables": 40,
+  "d_sae": 16384,
+  "poolings": [
+    "mean",
+    "final"
+  ],
+  "candidate_selection": "train only",
+  "ranking_metric": "absolute normalized paired effect",
+  "normalized_effect_definition": "mean(delta) / sqrt(mean(delta^2))",
+  "delta": "changed_minus_basis",
+  "top_k_per_variable": 25,
+  "split_counts": {
+    "1": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "2": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "3": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "4": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "5": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "6": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "7": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "8": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "9": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "10": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "11": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "12": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "13": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "14": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "15": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "16": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "17": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "18": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "19": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "20": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "21": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "22": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "23": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "24": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "25": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "26": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "27": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "28": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "29": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "30": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "31": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "32": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "33": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "34": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "35": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "36": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "37": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "38": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "39": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    },
+    "40": {
+      "test": 50,
+      "train": 400,
+      "val": 50
+    }
+  },
+  "outputs": {
+    "association_matrices": "artifacts/linguistic_feature_eval/summary/association_matrices.npz",
+    "candidate_features": "artifacts/linguistic_feature_eval/summary/candidate_features.csv",
+    "best_features": "artifacts/linguistic_feature_eval/summary/best_features.csv"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "primary_representation": "mean-pooled SAE activation",
+  "variables": 40,
+  "selection": "candidate selected using training significance, validation direction, and training cross-variable specificity",
+  "test_used_for_selection": false,
+  "tier_counts": {
+    "D": 8,
+    "C": 3,
+    "A": 11,
+    "B1": 2,
+    "B2": 16
+  },
+  "tier_definitions": {
+    "A": "test direction survives; all eligible held-out marker and domain groups preserve direction; target is strongest associated variable for feature",
+    "B1": "complete construction robustness but feature is shared/non-specific",
+    "B2": "test direction survives with substantial but incomplete construction robustness",
+    "C": "overall test direction survives but subgroup robustness is poor",
+    "D": "selected feature does not preserve direction on overall held-out test"
+  },
+  "important_note": "Evidence tiers are descriptive summaries, not additional hypothesis tests."
+}

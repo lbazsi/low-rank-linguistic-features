@@ -1,0 +1,18 @@
+{
+  "permutations": 2000,
+  "seed": 42,
+  "null": "within-pair random sign flip (equivalent to random basis/changed swapping)",
+  "train_only_feature_search": true,
+  "feature_multiplicity_control": "maxT over all 16,384 SAE features within each variable/pooling analysis",
+  "top_feature_across_analysis_correction": {
+    "all_80": "Benjamini-Hochberg",
+    "within_each_pooling_40": "Benjamini-Hochberg"
+  },
+  "primary_pooling": "mean",
+  "secondary_pooling": "final",
+  "candidate_count_per_analysis": 25,
+  "outputs": {
+    "candidate_table": "artifacts/linguistic_feature_eval/summary/null_tested_candidates.csv",
+    "top_feature_table": "artifacts/linguistic_feature_eval/summary/null_tested_top_features.csv"
+  }
+}

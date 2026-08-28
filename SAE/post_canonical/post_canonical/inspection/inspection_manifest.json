@@ -1,0 +1,88 @@
+{
+  "purpose": "Top-activating-example inspection for Tier-A SAE features.",
+  "features": {
+    "13269": {
+      "variable_id": 4,
+      "variable": "case_marking",
+      "feature_id": 13269,
+      "sae_tier": "A"
+    },
+    "6125": {
+      "variable_id": 10,
+      "variable": "morphological_segmentation_type",
+      "feature_id": 6125,
+      "sae_tier": "A"
+    },
+    "9749": {
+      "variable_id": 13,
+      "variable": "redundancy_cumulative_exponence",
+      "feature_id": 9749,
+      "sae_tier": "A"
+    },
+    "5205": {
+      "variable_id": 16,
+      "variable": "gender_noun_class",
+      "feature_id": 5205,
+      "sae_tier": "A"
+    },
+    "7551": {
+      "variable_id": 20,
+      "variable": "pronoun_richness_and_reduction",
+      "feature_id": 7551,
+      "sae_tier": "A"
+    },
+    "9576": {
+      "variable_id": 21,
+      "variable": "possession_and_alienability",
+      "feature_id": 9576,
+      "sae_tier": "A"
+    },
+    "1887": {
+      "variable_id": 27,
+      "variable": "mirativity_stance_and_affect_marking",
+      "feature_id": 1887,
+      "sae_tier": "A"
+    },
+    "15951": {
+      "variable_id": 30,
+      "variable": "conditional_and_counterfactual_marking",
+      "feature_id": 15951,
+      "sae_tier": "A"
+    },
+    "7643": {
+      "variable_id": 31,
+      "variable": "subordination_and_embedding",
+      "feature_id": 7643,
+      "sae_tier": "A"
+    },
+    "1754": {
+      "variable_id": 32,
+      "variable": "quotation_and_reported_speech_structure",
+      "feature_id": 1754,
+      "sae_tier": "A"
+    },
+    "3396": {
+      "variable_id": 38,
+      "variable": "speech_act_force_and_request_directness",
+      "feature_id": 3396,
+      "sae_tier": "A"
+    }
+  },
+  "natural_corpus": "data/inspection_corpus/sae_train_150k_v1_2_final.jsonl",
+  "natural_corpus_sha256": "8bfb456921048ac3b875637a422c6678dd62f132ac76dfa50724f4e639899c2e",
+  "natural_rows": 149338,
+  "possible_natural_truncations": 0,
+  "controlled_data_dir": "data/feature_dataset",
+  "top_k": 50,
+  "ranking": "sentence maximum token activation",
+  "model": "facebook/xglm-564M",
+  "hidden_state_index": 12,
+  "activation_scale": 0.02065550797801016,
+  "threshold": 0.11494007418131039,
+  "sae_weights_sha256": "72802a9c3a863f9e738880141118dbab394510d2addee986dabad0e38e79b634",
+  "outputs": {
+    "natural": "artifacts/linguistic_feature_eval/inspection/natural_top_activations.jsonl",
+    "controlled": "artifacts/linguistic_feature_eval/inspection/controlled_top_activations.jsonl",
+    "summary": "artifacts/linguistic_feature_eval/inspection/feature_inspection_summary.csv"
+  }
+}

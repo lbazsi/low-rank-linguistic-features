@@ -1,0 +1,19 @@
+{
+  "kind": "final_validation",
+  "step": 3032,
+  "val_tokens": 165010,
+  "val_mse": 0.004497130579908258,
+  "val_explained_variance": 0.9986338738810925,
+  "val_cosine_similarity": 0.9945938009557186,
+  "val_mean_l0": 256.0,
+  "val_active_fraction": 0.015625,
+  "val_zero_fire_features": 505,
+  "val_zero_fire_fraction": 0.03082275390625,
+  "val_frequency_mean": 0.015625,
+  "val_frequency_median": 0.006969274487346411,
+  "val_batch_cutoff_mean": 0.11528130838783776,
+  "val_batch_cutoff_min": 0.10655234009027481,
+  "val_batch_cutoff_max": 0.1319427490234375,
+  "train_dead_features": 85,
+  "train_dead_fraction": 0.00518798828125
+}

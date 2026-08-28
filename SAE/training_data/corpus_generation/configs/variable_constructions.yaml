@@ -1,0 +1,687 @@
+schema_version: 1
+notes:
+- All 40 variables are used on equal terms.
+- Every variable has five construction families.
+- Only languages represented in the XGLM training language set are scheduled.
+- Construction/language assignments guide sentence generation but are not labels supplied
+  to the SAE.
+variables:
+- id: 1
+  name: subject_expression_pro_drop
+  description: Overt versus omitted subject expression and the licensing of null subjects
+  construction_families:
+  - overt_vs_null_subject
+  - discourse_recoverable_subject_omission
+  - coordinated_subject_omission
+  - contrastive_overt_pronoun
+  - agreement_supported_null_subject
+  preferred_languages:
+  - tr
+  - es
+  - it
+  - pt
+  - ja
+  avoid_shortcut: Do not reduce the distinction to one pronoun token; vary discourse
+    context and clause type.
+- id: 2
+  name: basic_constituent_order
+  description: Relative ordering of major clause constituents
+  construction_families:
+  - canonical_clause_order
+  - object_fronting
+  - verb_final_order
+  - verb_initial_or_predicate_initial_order
+  - topicalized_argument_order
+  preferred_languages:
+  - en
+  - de
+  - tr
+  - ar
+  - ja
+  avoid_shortcut: Vary lexical material and discourse context; do not make punctuation
+    alone signal the order pattern.
+- id: 3
+  name: nominal_modifier_order
+  description: Ordering of nominal modifiers relative to their heads
+  construction_families:
+  - adjective_head_order
+  - possessor_head_order
+  - numeral_head_order
+  - relative_clause_head_order
+  - multiple_modifier_order
+  preferred_languages:
+  - en
+  - es
+  - fr
+  - ar
+  - tr
+  avoid_shortcut: Use natural modifier orders for each language rather than literal
+    translations from English.
+- id: 4
+  name: case_marking
+  description: Morphological or analytic marking of grammatical and semantic case
+    relations
+  construction_families:
+  - accusative_object_marking
+  - dative_recipient_or_goal
+  - genitive_possession
+  - locative_ablative_or_instrumental
+  - differential_object_marking
+  preferred_languages:
+  - tr
+  - fi
+  - ru
+  - de
+  - hi
+  avoid_shortcut: Vary stems and case functions; avoid repeatedly using the same case
+    suffix or noun.
+- id: 5
+  name: morphosyntactic_alignment
+  description: Alignment of grammatical relations with semantic argument roles
+  construction_families:
+  - transitive_agent_patient_alignment
+  - intransitive_subject_alignment
+  - ergative_perfective_alignment
+  - experiencer_or_dative_subject
+  - alignment_under_voice_change
+  preferred_languages:
+  - eu
+  - hi
+  - ur
+  - tr
+  - ru
+  avoid_shortcut: Make the role structure clear in context; do not label the phenomenon
+    in the sentence.
+- id: 6
+  name: transitivity_valency
+  description: Argument-structure differences in transitivity and valency
+  construction_families:
+  - intransitive_clause
+  - monotransitive_clause
+  - ditransitive_clause
+  - ambitransitive_alternation
+  - valency_reduction_or_argument_omission
+  preferred_languages:
+  - en
+  - es
+  - tr
+  - de
+  - ru
+  avoid_shortcut: Vary verb classes and argument types; do not make sentence length
+    the main cue.
+- id: 7
+  name: voice_and_agent_prominence
+  description: Voice alternations and changes in agent prominence
+  construction_families:
+  - active_passive_alternation
+  - agentless_passive
+  - middle_or_reflexive_voice
+  - impersonal_passive
+  - resultative_or_stative_passive
+  preferred_languages:
+  - en
+  - de
+  - es
+  - tr
+  - ru
+  avoid_shortcut: Vary passive/middle constructions and avoid a single repeated passive
+    marker.
+- id: 8
+  name: causativity_and_valency_change
+  description: Causative constructions and related increases or changes in valency
+  construction_families:
+  - morphological_causative
+  - periphrastic_causative
+  - lexical_causative
+  - double_or_indirect_causation
+  - permissive_causation
+  preferred_languages:
+  - tr
+  - ja
+  - ko
+  - hi
+  - en
+  avoid_shortcut: Use several causative strategies; do not rely exclusively on equivalents
+    of 'make'.
+- id: 9
+  name: analytic_vs_synthetic_encoding
+  description: Whether grammatical information is expressed separately or morphologically
+    bundled
+  construction_families:
+  - analytic_tense_aspect
+  - synthetic_inflection
+  - periphrastic_modality
+  - morphologically_bundled_case_possession
+  - agglutinative_multi_feature_word
+  preferred_languages:
+  - en
+  - tr
+  - de
+  - es
+  - fi
+  avoid_shortcut: Do not let raw token count alone distinguish the construction; vary
+    sentence length independently.
+- id: 10
+  name: morphological_segmentation_type
+  description: How grammatical information is segmented across morphemes
+  construction_families:
+  - agglutinative_multi_affix_word
+  - fusional_inflection
+  - clitic_sequence
+  - productive_compounding
+  - derivation_plus_inflection
+  preferred_languages:
+  - tr
+  - fi
+  - ru
+  - es
+  - de
+  avoid_shortcut: Use real, natural word forms; never invent pseudo-morphology.
+- id: 11
+  name: agreement_indexing_density
+  description: Amount and distribution of agreement or argument indexing
+  construction_families:
+  - subject_verb_agreement
+  - rich_person_number_agreement
+  - nominal_gender_number_agreement
+  - multiple_agreement_targets
+  - multi_argument_indexing
+  preferred_languages:
+  - eu
+  - es
+  - ru
+  - ar
+  - tr
+  avoid_shortcut: Vary persons, numbers, genders/classes and lexical heads; do not
+    repeat one agreement ending.
+- id: 12
+  name: optionality_vs_obligatoriness_of_marking
+  description: Whether a grammatical marker is optional or obligatorily realized in
+    context
+  construction_families:
+  - optional_subject_expression
+  - article_obligatoriness_context
+  - optional_complementizer_context
+  - obligatory_agreement_context
+  - optional_particle_or_case_context
+  preferred_languages:
+  - en
+  - es
+  - tr
+  - ja
+  - fr
+  avoid_shortcut: Choose contexts where the optional/obligatory contrast is linguistically
+    defensible.
+- id: 13
+  name: redundancy_cumulative_exponence
+  description: Redundant or cumulative expression of grammatical information
+  construction_families:
+  - agreement_redundancy
+  - case_plus_adposition
+  - gender_number_across_phrase
+  - negative_concord
+  - tense_plus_temporal_adverb
+  preferred_languages:
+  - es
+  - ru
+  - fr
+  - tr
+  - en
+  avoid_shortcut: Vary which cues overlap; do not simply duplicate the same word.
+- id: 14
+  name: definiteness_and_specificity
+  description: Expression of definiteness and referential specificity
+  construction_families:
+  - definite_indefinite_article
+  - bare_vs_determined_noun
+  - demonstrative_definiteness
+  - specific_indefinite_reference
+  - specificity_sensitive_object_marking
+  preferred_languages:
+  - en
+  - es
+  - fr
+  - tr
+  - ar
+  avoid_shortcut: Vary nominal heads and discourse status; do not reduce the feature
+    to a single article.
+- id: 15
+  name: number_marking
+  description: Expression of singular, plural, dual, or other number distinctions
+  construction_families:
+  - singular_plural_nominal
+  - dual_number
+  - numeral_plus_number_morphology
+  - collective_or_group_reference
+  - number_agreement
+  preferred_languages:
+  - en
+  - ar
+  - ru
+  - tr
+  - hi
+  avoid_shortcut: Use varied nouns and quantities; do not rely on one plural suffix.
+- id: 16
+  name: gender_noun_class
+  description: Grammatical gender or noun-class distinctions and agreement effects
+  construction_families:
+  - adjective_gender_agreement
+  - article_gender_agreement
+  - pronoun_gender_agreement
+  - participle_or_predicate_agreement
+  - gender_assignment_across_nouns
+  preferred_languages:
+  - fr
+  - es
+  - ru
+  - ar
+  - hi
+  avoid_shortcut: Vary noun vocabulary and agreement targets so noun identity is not
+    the only cue.
+- id: 17
+  name: animacy_and_humanness
+  description: Grammatical or distributional sensitivity to animacy and humanness
+  construction_families:
+  - animate_inanimate_object_contrast
+  - human_nonhuman_reference
+  - animacy_sensitive_object_marking
+  - animacy_sensitive_case_or_order
+  - reflexive_or_reciprocal_humanness_context
+  preferred_languages:
+  - es
+  - ru
+  - hi
+  - ja
+  - tr
+  avoid_shortcut: Do not make the feature merely a list of person/animal nouns; vary
+    grammatical consequences.
+- id: 18
+  name: person_marking_and_person_hierarchy
+  description: Person distinctions and person-hierarchy effects
+  construction_families:
+  - first_second_third_person_agreement
+  - clitic_person_marking
+  - local_vs_nonlocal_participants
+  - person_sensitive_argument_marking
+  - multi_person_indexing
+  preferred_languages:
+  - es
+  - tr
+  - hi
+  - eu
+  - fr
+  avoid_shortcut: Vary pronouns and morphological indexing; avoid one fixed person
+    marker.
+- id: 19
+  name: inclusive_exclusive_distinction
+  description: Inclusive versus exclusive first-person plural reference
+  construction_families:
+  - inclusive_we_reference
+  - exclusive_we_reference
+  - inclusive_agreement_or_indexing
+  - exclusive_agreement_or_indexing
+  - inclusive_exclusive_planning_or_command_context
+  preferred_languages:
+  - id
+  - ta
+  - te
+  avoid_shortcut: Use languages that naturally distinguish inclusive/exclusive reference;
+    do not force this distinction into English.
+- id: 20
+  name: pronoun_richness_and_reduction
+  description: Variation in overt pronoun use, reduction, clitics, and weak/strong
+    forms
+  construction_families:
+  - overt_full_pronoun
+  - null_or_reduced_pronoun
+  - clitic_pronoun
+  - weak_vs_strong_pronoun
+  - pronoun_reduction_across_connected_clauses
+  preferred_languages:
+  - es
+  - it
+  - fr
+  - tr
+  - en
+  avoid_shortcut: Vary grammatical contexts; do not equate the feature with simple
+    pronoun counts.
+- id: 21
+  name: possession_and_alienability
+  description: Possessive constructions and alienable versus inalienable possession
+  construction_families:
+  - body_part_possession
+  - kinship_possession
+  - owned_object_possession
+  - genitive_or_possessive_marker
+  - existential_or_predicative_possession
+  preferred_languages:
+  - tr
+  - fr
+  - es
+  - ru
+  - hi
+  avoid_shortcut: Vary possessor/person and possessed nouns; do not let kinship vocabulary
+    alone define the class.
+- id: 22
+  name: tense_prominence
+  description: Grammatical prominence and realization of temporal reference
+  construction_families:
+  - simple_past_present_future
+  - perfect_or_anterior_tense
+  - sequence_of_tense
+  - future_marking
+  - tense_with_independent_time_adverb
+  preferred_languages:
+  - en
+  - es
+  - fr
+  - de
+  - tr
+  avoid_shortcut: Vary time adverbs and omit them in many cases so overt adverbs are
+    not the only cue.
+- id: 23
+  name: aspect_and_event_structure
+  description: Aspectual distinctions and internal event structure
+  construction_families:
+  - progressive_or_imperfective
+  - perfective_completed_event
+  - habitual_aspect
+  - telic_atelic_contrast
+  - inchoative_or_resultative_event
+  preferred_languages:
+  - ru
+  - es
+  - en
+  - tr
+  - bg
+  avoid_shortcut: Vary verb lexemes and event types; avoid a single aspect marker.
+- id: 24
+  name: modality_and_mood
+  description: Grammatical mood and modal distinctions
+  construction_families:
+  - imperative_mood
+  - subjunctive_or_irrealis
+  - deontic_obligation
+  - ability_or_possibility
+  - conditional_mood
+  preferred_languages:
+  - es
+  - fr
+  - en
+  - de
+  - tr
+  avoid_shortcut: Vary modal strategy and sentence type; do not rely on one modal
+    auxiliary.
+- id: 25
+  name: epistemic_modality
+  description: Expression of certainty, probability, inference, and epistemic commitment
+  construction_families:
+  - possibility_statement
+  - probability_statement
+  - inferential_epistemic
+  - certainty_or_high_commitment
+  - epistemic_auxiliary_or_particle
+  preferred_languages:
+  - en
+  - de
+  - fr
+  - es
+  - tr
+  avoid_shortcut: Avoid making a single adverb such as 'probably' the feature; vary
+    lexical and grammatical strategies.
+- id: 26
+  name: evidentiality
+  description: Encoding of information source
+  construction_families:
+  - grammatical_reportative
+  - grammatical_inferential
+  - lexical_reportative
+  - direct_evidence_statement
+  - hearsay_or_attributed_evidence
+  preferred_languages:
+  - tr
+  - bg
+  - en
+  - de
+  - es
+  avoid_shortcut: Use grammatical evidentials where natural and lexical source marking
+    elsewhere; keep source-of-information central.
+- id: 27
+  name: mirativity_stance_and_affect_marking
+  description: Marking of surprise, stance, or affect
+  construction_families:
+  - mirative_particle_or_form
+  - exclamative_surprise
+  - evaluative_stance_adverbial
+  - stance_particle
+  - unexpected_discovery_context
+  preferred_languages:
+  - tr
+  - ja
+  - ko
+  - es
+  - en
+  avoid_shortcut: Do not let exclamation marks or generic sentiment words be the only
+    signal.
+- id: 28
+  name: negation_and_polarity_structure
+  description: Negation, polarity, and the structural scope of negative marking
+  construction_families:
+  - sentential_negation
+  - negative_concord
+  - constituent_negation
+  - negative_polarity_item_context
+  - negation_scope_contrast
+  preferred_languages:
+  - en
+  - es
+  - fr
+  - ru
+  - tr
+  avoid_shortcut: Vary negative forms and scope; avoid a corpus where one token means
+    negation.
+- id: 29
+  name: quantifier_scope_and_distributivity
+  description: Scope relations among quantifiers and distributive/collective interpretations
+  construction_families:
+  - universal_existential_scope
+  - distributive_each
+  - collective_all
+  - negation_quantifier_scope
+  - numeral_or_indefinite_distributivity
+  preferred_languages:
+  - en
+  - de
+  - es
+  - fr
+  - ru
+  avoid_shortcut: Vary quantifier lexemes and word order; do not make one word such
+    as 'each' carry the entire signal.
+- id: 30
+  name: conditional_and_counterfactual_marking
+  description: Conditional and counterfactual constructions
+  construction_families:
+  - real_conditional
+  - hypothetical_conditional
+  - past_counterfactual
+  - inverted_or_markerless_conditional
+  - conditional_mood_form
+  preferred_languages:
+  - en
+  - es
+  - fr
+  - de
+  - tr
+  avoid_shortcut: Vary conditional markers and clause order; do not repeat one if-equivalent.
+- id: 31
+  name: subordination_and_embedding
+  description: Subordinate clauses and hierarchical embedding
+  construction_families:
+  - finite_complement_clause
+  - relative_clause
+  - adverbial_subordinate_clause
+  - nested_embedding
+  - nonfinite_or_infinitival_complement
+  preferred_languages:
+  - en
+  - de
+  - es
+  - tr
+  - ja
+  avoid_shortcut: Vary complementizers and embedding predicates; do not reduce the
+    feature to one connective.
+- id: 32
+  name: quotation_and_reported_speech_structure
+  description: Direct and indirect quotation and reported speech
+  construction_families:
+  - direct_quotation
+  - indirect_report
+  - quotative_particle_or_marker
+  - reported_question
+  - mixed_or_shifted_report_structure
+  preferred_languages:
+  - en
+  - ja
+  - tr
+  - de
+  - es
+  avoid_shortcut: Do not let quotation marks alone identify the feature; include indirect
+    and quotative constructions.
+- id: 33
+  name: discourse_relation_marking
+  description: Marking of discourse relations such as cause, contrast, concession,
+    and consequence
+  construction_families:
+  - causal_relation
+  - contrastive_relation
+  - concessive_relation
+  - temporal_sequence_relation
+  - consequence_or_result_relation
+  preferred_languages:
+  - en
+  - de
+  - fr
+  - es
+  - tr
+  avoid_shortcut: Vary connectives and include structurally expressed relations; avoid
+    one connective per relation.
+- id: 34
+  name: topic_comment_structure
+  description: Information structure organized around topic-comment relations
+  construction_families:
+  - topic_particle
+  - left_dislocation
+  - marked_topicalization
+  - hanging_topic
+  - contrastive_topic
+  preferred_languages:
+  - ja
+  - ko
+  - zh
+  - en
+  - fr
+  avoid_shortcut: Use natural information structure for each language; do not rely
+    only on punctuation.
+- id: 35
+  name: focus_and_given_new_marking
+  description: Marking of focus, givenness, and new information
+  construction_families:
+  - cleft_focus
+  - focus_particle
+  - fronted_or_marked_focus
+  - exclusive_only_focus
+  - wh_or_answer_focus_context
+  preferred_languages:
+  - en
+  - fr
+  - es
+  - de
+  - ja
+  avoid_shortcut: Vary focus strategies and lexical material; do not equate focus
+    with one particle.
+- id: 36
+  name: genericity_and_kind_level_reference
+  description: Generic statements and reference to kinds/classes
+  construction_families:
+  - bare_plural_generic
+  - singular_generic
+  - habitual_generic
+  - kind_denoting_reference
+  - generic_conditional_or_generalization
+  preferred_languages:
+  - en
+  - de
+  - fr
+  - es
+  - ru
+  avoid_shortcut: Vary noun classes and predicates; avoid repeating definitional textbook
+    sentences.
+- id: 37
+  name: social_deixis_honorifics_status_encoding
+  description: Honorifics, social deixis, and status relations
+  construction_families:
+  - tu_vous_or_t_v_distinction
+  - honorific_title_or_address
+  - honorific_verb_or_morphology
+  - humble_or_deferential_form
+  - status_conditioned_request_or_reference
+  preferred_languages:
+  - ja
+  - ko
+  - fr
+  - de
+  - hi
+  avoid_shortcut: Keep social relation central and vary titles/verbs; avoid name-title
+    memorization.
+- id: 38
+  name: speech_act_force_and_request_directness
+  description: Speech-act force and direct versus indirect requests
+  construction_families:
+  - direct_imperative_request
+  - interrogative_request
+  - declarative_hint_request
+  - performative_request
+  - mitigated_or_polite_request
+  preferred_languages:
+  - en
+  - de
+  - es
+  - fr
+  - ja
+  avoid_shortcut: Vary politeness markers and lexical content; distinguish force from
+    generic sentiment.
+- id: 39
+  name: deixis_and_perspective_anchoring
+  description: Person, spatial, temporal, and discourse deixis anchored to perspective
+  construction_families:
+  - proximal_distal_demonstrative
+  - here_there_spatial_deixis
+  - come_go_motion_perspective
+  - temporal_deixis
+  - perspective_shift_in_report_or_narration
+  preferred_languages:
+  - en
+  - ja
+  - es
+  - tr
+  - zh
+  avoid_shortcut: Vary deictic forms and viewpoints; do not let one demonstrative
+    token define the feature.
+- id: 40
+  name: orthographic_and_tokenization_interface
+  description: Systematic interactions between natural orthography, segmentation,
+    and tokenizer-visible form
+  construction_families:
+  - hyphenation_or_compound_orthography
+  - apostrophe_or_clitic_orthography
+  - script_specific_word_segmentation
+  - natural_punctuation_attachment
+  - alphanumeric_hashtag_or_filename_like_token
+  preferred_languages:
+  - en
+  - de
+  - fr
+  - tr
+  - zh
+  avoid_shortcut: Use authentic orthography only; never invent corrupt spellings or
+    pseudo-language solely to create tokenizer artifacts.

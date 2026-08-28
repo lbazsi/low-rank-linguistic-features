@@ -1,0 +1,35 @@
+{
+  "variables": 40,
+  "sae_primary_representation": "mean-pooled pair delta",
+  "sae_layer": 12,
+  "primary_probe_comparison": {
+    "probe_family": "delta_direction_basis_to_changed",
+    "representation": "mean_pooled",
+    "layer": 12
+  },
+  "available_probe_seeds": [
+    "seed1",
+    "seed2",
+    "seed42"
+  ],
+  "probe_core_definition": "Levels 1, 3, and 4 all pass. Learned activation direction viability is recorded separately and is NOT an explicit barrier.",
+  "sae_strong_definition": "Tier A, B1, or B2",
+  "sae_tier_counts": {
+    "D": 8,
+    "C": 3,
+    "A": 11,
+    "B1": 2,
+    "B2": 16
+  },
+  "probe_core_status_counts": {
+    "robust_3of3": 26,
+    "no_core_pass_0of3": 14
+  },
+  "combined_category_counts": {
+    "probe_robust_SAE_weak_or_unstable": 3,
+    "both_weak_or_unstable": 8,
+    "convergent_probe_and_sparse_SAE": 23,
+    "SAE_strong_probe_not_robust": 6
+  },
+  "output": "artifacts/probe_comparison/summary/probe_sae_comparison.csv"
+}

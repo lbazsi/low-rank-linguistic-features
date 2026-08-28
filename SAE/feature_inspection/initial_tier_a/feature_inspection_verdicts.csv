@@ -1,0 +1,12 @@
+variable_id,variable,feature_id,status,interpretation
+4,case_marking,13269,mixed_not_confirmed,Nominal/lexical behavior; natural examples do not cleanly identify case marking.
+10,morphological_segmentation_type,6125,surface_artifact,"Strongly dominated by Turkish lexical/tokenization patterns, especially İstanbul."
+13,redundancy_cumulative_exponence,9749,surface_artifact,Top natural activations are dominated by the Spanish token para.
+16,gender_noun_class,5205,target_aligned_language_specific,"Strong feminine morphology in Arabic and Urdu; plausible grammatical-gender feature, but language-specific."
+20,pronoun_richness_and_reduction,7551,partial_target_alignment_lexical,Dominated by Chinese 他; pronoun-related but primarily lexical/language-specific.
+21,possession_and_alienability,9576,surface_artifact,Dominated by German letzten/letzte and equivalents of last; target interpretation unsupported.
+27,mirativity_stance_and_affect_marking,1887,mixed_language_punctuation,"Several mirative contexts occur, but activation is heavily entangled with Japanese punctuation/language identity."
+30,conditional_and_counterfactual_marking,15951,partial_target_alignment,"Several strong natural examples contain if/would/could-have constructions, but unrelated examples also occur."
+31,subordination_and_embedding,7643,mixed_not_confirmed,"Clause-rich Romance-language contexts occur, but activation is not clearly localized to embedding structure."
+32,quotation_and_reported_speech_structure,1754,surface_target_proxy,Highly specific quotation-mark detector; useful surface correlate but not evidence for deeper reported-speech structure.
+38,speech_act_force_and_request_directness,3396,surface_artifact,Natural activations are dominated by wait/waiting lexical material across languages.
