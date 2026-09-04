@@ -19,17 +19,17 @@ Behavioral evaluation was substantially more selective. Within the frozen cohort
 5. aspect and event structure — SAE feature 6216;
 6. mirativity, stance, and affect marking — SAE feature 1887.
 
-The strongest general conclusion is therefore not that six abstract linguistic universals have been localized as monosemantic SAE features. Rather, **sparse directions associated with several controlled linguistic distinctions causally contribute to internal representation and, for a smaller subset, to local next-token behavior**. At the same time, several highly recoverable or human-interpretable features failed to produce the predicted behavioral effect. The study therefore separates four properties that should not be treated as equivalent: **representational recoverability, sparse isolation, semantic interpretability, and causal influence**.
+Several highly recoverable or human-interpretable features failed to produce the predicted behavioral effect; however, sparse directions associated with a strong set of controlled linguistic distinctions causally contribute to internal representation and, for a smaller subset, to local next-token behavior. For the general conclusion this means that low-level linguistic features can possess one of more of the following properties: **representational recoverability, sparse isolation, semantic interpretability, and causal influence**. Therefore, substantially contributing to a models behavior on a larger scale. To investigate more thoroughly what exact features possess which properties - outside of the ones covered in this paper -, and how those effect model behavior on a large scale the experiment needs to be scaled.
 
 ---
 
-## 2. Representational evidence is broad but not uniform
+## 2. Representational evidence broadness and uniformity
 
 The supervised and sparse analyses provide convergent evidence that low-level linguistic form is represented throughout XGLM-564M.
 
-The supervised comparison classified 26 of 40 variables as robust across all three available probe seeds under the core criterion requiring the relevant activation-recovery, directional-consistency, and split-generalization tests to pass in every seed. The remaining fourteen variables did not satisfy this cross-seed core standard, although failure of the aggregate criterion did not imply absence of signal at the SAE intervention layer. Several non-robust variables retained substantial layer-12 pair-difference probe performance.
+The supervised comparison classified 26 of 40 variables as robust across all three available probe seeds under the core criterion requiring the relevant activation-recovery, directional-consistency, and split-generalization tests to pass in every seed. The remaining fourteen variables did not satisfy this cross-seed core standard, although failure of the aggregate criterion did not imply absence of signal at the SAE intervention layer. Additionally, a substantial subset of the defined criterion was satisfied by the remaining variables. Several non-robust variables retained substantial layer-12 pair-difference probe performance.
 
-The SAE analysis produced similarly broad but non-uniform evidence. Under the primary mean-pooled SAE evidence synthesis, the forty variables were distributed as follows:
+The SAE analysis produced similarly broad but not generally uniform evidence. Under the primary mean-pooled SAE evidence synthesis, the forty variables were distributed as follows:
 
 | SAE evidence tier | Variables | Interpretation |
 |---|---:|---|
@@ -43,7 +43,7 @@ Using A, B1, and B2 as the stronger SAE group gives 29 of 40 variables. The supe
 
 The binary agreement between the supervised and SAE classifications was 0.775, with a Jaccard overlap of 0.719, Cohen's kappa of approximately 0.480, an odds ratio of approximately 10.22, and a two-sided Fisher exact p-value of approximately 0.007. These results indicate that the two methods detect substantially overlapping representational structure while remaining meaningfully distinct.
 
-This distinction is theoretically important. Linear probing can recover information distributed across many activation dimensions even if no single sparse latent isolates it. Conversely, an SAE can identify a stable sparse direction whose information is not captured by the stricter cross-seed probe criterion. Neither method should therefore be treated as a complete definition of whether a linguistic property is represented.
+Linear probing can recover information distributed across many activation dimensions even if no single sparse latent isolates it. Conversely, an SAE can identify a stable sparse direction whose information is not captured by the stricter cross-seed probe criterion. Neither method should therefore be treated as a complete definition of whether a specific linguistic property is represented and had substantial effects on the model.
 
 ---
 
@@ -51,9 +51,9 @@ This distinction is theoretically important. Linear probing can recover informat
 
 The SAE training stage also produced a methodological conclusion relevant to sparse interpretability.
 
-Initial JumpReLU configurations achieved high reconstruction quality but suffered severe feature death. The selected replacement architecture, a 16× BatchTopK SAE with 16,384 features and training k=256, produced substantially healthier dictionary utilization. The selected four-epoch model achieved approximately 0.99863 validation explained variance while preserving 16,372 active features over the full unique training corpus. Only 12 of 16,384 features never activated over that corpus.
+The selected replacement architecture, a 16× BatchTopK SAE with 16,384 features and training k=256, produced substantially healthier dictionary utilization than initial JumpReLU configurations. The selected four-epoch model achieved approximately 0.99863 validation explained variance while preserving 16,372 active features over the full unique training corpus. Only 12 of 16,384 features never activated over that corpus.
 
-A longer eight-epoch run produced a small reconstruction improvement, reaching approximately 0.99894 validation explained variance, but substantially worsened feature coverage. Full-corpus active features fell to 15,764, and trainer-dead feature fraction increased markedly. The four-epoch model was therefore selected because the objective was feature discovery rather than reconstruction optimization alone.
+A longer eight-epoch run produced a small reconstruction improvement, reaching approximately 0.99894 validation explained variance, but substantially worsened feature coverage. Full-corpus active features fell to 15,764, and trainer-dead feature fraction increased markedly. The four-epoch model was therefore selected.
 
 This comparison demonstrates that **reconstruction quality is an insufficient model-selection criterion for interpretability-oriented SAEs**. A model can reconstruct activations slightly better while yielding a materially less useful sparse dictionary.
 
@@ -78,9 +78,7 @@ After inspecting all forty variables and considering alternative candidates wher
 | C | 12 | partial, language-specific, lexical, or entangled correlate |
 | D | 8 | weak, proxy-like, or uninterpretable candidate |
 
-These grades were deliberately not used as hard exclusion criteria for causal testing. All forty variables remained in the initial intervention screen. This decision was empirically important: some low-grade candidates later produced strong causal evidence, while some high-grade candidates failed at the behavioral stage.
-
-The inspection results therefore support a central methodological conclusion: **statistical association with a controlled contrast is not equivalent to semantic identification of the corresponding linguistic abstraction**. Controlled datasets are effective tools for discovering candidate model directions, but the human-readable meaning of those directions must be evaluated separately.
+All forty variables remained in the initial intervention screen where the following was shown: some low-grade candidates later produced strong causal evidence, while some high-grade candidates failed at the behavioral stage. The inspection results therefore support a central methodological conclusion: **statistical association with a controlled contrast is not equivalent to semantic identification of the corresponding linguistic abstraction**. Controlled datasets are effective tools for discovering candidate model directions, but the human-readable meaning of those directions must be evaluated separately.
 
 ---
 
@@ -98,7 +96,7 @@ Across forty variables:
 
 The global representational disturbance was extremely small. The mean cosine similarity between the intervened and baseline final-layer representations was approximately 0.999955, with the lowest variable-level mean still approximately 0.998758. The effects are therefore difficult to explain as nonspecific destruction of the residual stream.
 
-Ablation should be interpreted as **necessity-like evidence**, not as proof that an individual latent is uniquely necessary for a linguistic distinction. Information can be redundant or distributed across multiple features. The result instead establishes that, for a substantial subset, removing one selected sparse component specifically reduces a downstream representation associated with the target contrast more than matched interventions do.
+Ablation should be interpreted as **necessity-like evidence**, not as proof that an individual latent is uniquely necessary for a linguistic distinction as information can be redundant or distributed across multiple features. The result instead establishes that, for a substantial subset, removing one selected sparse component specifically reduces a downstream representation associated with the target contrast more than matched interventions do.
 
 ---
 
@@ -149,11 +147,11 @@ Fifteen variables met these conditions:
 - quotation and reported-speech structure;
 - social deixis, honorifics, and status encoding.
 
-This freeze is important for interpreting the final behavioral statistics. The behavioral primary family was not selected from behavioral performance itself.
+The behavioral primary family was not selected from behavioral performance itself.
 
 ---
 
-## 8. Behavioral effects are real but substantially more selective than internal causal effects
+## 8. Behavioral effects while promising, substantially more selective than internal causal effects
 
 The behavioral evaluation tested whether SAE steering changed the model's actual next-token preference at the first controlled divergence between the feature-high and feature-low sentences.
 
@@ -168,7 +166,7 @@ Within the fifteen-variable frozen mechanistic cohort:
 - 6 of 15 produced a positive, control-specific effect surviving FDR correction across the primary family;
 - 9 of 15 showed monotonic behavioral dose response.
 
-The reduction from fifteen internally convergent candidates to six full-chain behavioral results is a central finding rather than a weakness of the experiment. Internal causal mediation was considerably more common than predictable output-level control.
+Internal causal mediation was considerably more common than predictable output-level control.
 
 The behavioral metric is deliberately narrow. It measures a local shift in the probability of the feature-high linguistic realization, not complete sentence rewriting or a high-level semantic decision. It therefore establishes that selected sparse interventions can influence the model's output distribution without implying that the corresponding feature acts as a general-purpose behavioral control knob.
 
@@ -197,7 +195,7 @@ The appropriate interpretation is therefore that a sparse direction associated w
 
 Feature 6618 received the weakest inspection grade among the full-chain features. Natural activations primarily reflected artificial-intelligence-related lexical material rather than a clean general animacy/humanness distinction. Despite this, it produced robust ablation, steering, dose-response, and behavioral evidence.
 
-This is a particularly important counterexample to the assumption that top-activation interpretability predicts causal importance. The feature is causally relevant to the controlled contrast even though its semantics remain entangled. It should therefore be described as an animacy-related lexical proxy with demonstrated causal participation, not as a clean animacy feature.
+This is a particularly important counterexample to the assumption that top-activation interpretability predicts causal importance. The feature is causally relevant to the controlled contrast even though its semantics remain entangled. It should therefore be described as an animacy-related lexical proxy with demonstrated causal participation.
 
 ### 9.3 Inclusive/exclusive distinction — feature 6062
 
@@ -209,13 +207,13 @@ Its full-chain causal success suggests that the controlled inclusive/exclusive m
 
 Feature 15325 repeatedly activated in kinship and possessive contexts. It was therefore interpreted as a kinship/possession proxy rather than a clean representation of alienability.
 
-This feature produced the largest target-minus-control behavioral effect in the final cohort. The combined evidence suggests that the controlled alienability manipulation is mediated partly through a more general possession/kinship representation. The typological distinction and the model feature are therefore related but should not be treated as semantically identical.
+This feature produced the largest target-minus-control behavioral effect in the final cohort. The combined evidence suggests that the controlled alienability manipulation is mediated partly through a more general possession/kinship representation. The typological distinction and the model feature are therefore only related.
 
 ### 9.5 Aspect and event structure — feature 6216
 
 Feature 6216 strongly tracked English progressive `-ing` morphology and was interpreted as a progressive-aspect feature. It is linguistically relevant but narrower than the full category of event structure.
 
-This result is particularly informative because the variable was weak under the original combined probe/SAE classification. Its later manually selected feature nevertheless survived specific ablation, specific steering, monotonicity, and behavioral correction. The case demonstrates that an early statistical screen should not be treated as an absolute mechanistic exclusion criterion.
+This result is particularly informative because the variable was weak under the original combined probe/SAE classification. Its later manually selected feature nevertheless survived specific ablation, specific steering, monotonicity, and behavioral correction.
 
 ### 9.6 Mirativity, stance, and affect marking — feature 1887
 
@@ -344,7 +342,7 @@ The causal experiments were conducted on `facebook/xglm-564M`, with the SAE oper
 
 ### 15.2 Synthetic controlled evaluation data
 
-The contrast-pair dataset was synthetically constructed to isolate linguistic variables. This provides strong control but creates a risk that variables are learned or recovered through recurring surface cues. Held-out marker families, held-out lexical domains, natural-text inspection, and matched causal controls reduce this concern but do not eliminate it.
+The contrast-pair dataset was synthetically constructed to isolate linguistic variables. This provides strong control but creates a risk that variables are learned or recovered through recurring surface cues. Held-out marker families, held-out lexical domains, natural-text inspection, and matched causal controls reduce this concern substantially but do not eliminate it.
 
 ### 15.3 Limited cross-linguistic instantiation per variable
 
@@ -354,25 +352,17 @@ Many non-English variables were instantiated in a selected language rather than 
 
 The SAE was trained on a separate multilingual corpus without controlled feature labels, which is an important safeguard. However, the causal analysis uses one trained dictionary. Independent SAE retraining could split, merge, rotate, or otherwise reorganize features even if the same linguistic information remains present.
 
-### 15.5 Candidate selection involved post-hoc scientific judgment
-
-Natural-text inspection and alternative-candidate selection necessarily involved researcher judgment. The behavioral cohort was frozen before behavioral evaluation, but the full feature-discovery and causal-candidate process was not a preregistered procedure. Causal results should therefore be understood as validation of selected mechanistic candidates rather than as a fully confirmatory test of a predetermined feature map.
-
-### 15.6 SAE feature interventions are not orthogonal interventions
+### 15.5 SAE feature interventions are not orthogonal interventions
 
 SAE decoder directions are not guaranteed to be orthogonal or causally independent. Adding or subtracting one direction may affect computations associated with correlated features. Matched control directions and the very high final-representation cosines reduce the likelihood of generic disruption but do not provide complete isolation.
 
-### 15.7 Behavioral evaluation is local
+### 15.6 Behavioral evaluation is local
 
 The first-divergence next-token test gives a clean, model-native output metric but measures only a local linguistic preference. It does not establish that steering would transform an entire generated sentence or produce a stable high-level behavioral change.
 
-### 15.8 Behavioral sample size
+### 15.7 Behavioral sample size
 
 The held-out behavioral evaluation used fifty test pairs per variable. Bootstrap inference and FDR correction address uncertainty, but larger evaluation sets would improve power and effect-size precision, especially for the smallest full-chain effects.
-
-### 15.9 Numerical precision in behavioral inference
-
-A diagnostic bfloat16 behavioral run produced quantized logit changes. The experiment was therefore repeated in float32 with the hypothesis family and intervention specification unchanged. The float32 run should be treated as canonical. This episode illustrates that small output-logit interventions require explicit numerical validation.
 
 ---
 
@@ -400,21 +390,21 @@ The value of this sequence is not only that it identifies positive results. It a
 
 ---
 
-## 17. Implications for structural-language and constitutional-language research
+## 17. Implications for structural-language research
 
 The broader motivation for studying low-level linguistic structure is the possibility that formal properties of language influence model computation even when higher-level propositional content is held approximately constant.
 
 The present evidence establishes an important prerequisite for that research direction. Controlled changes in morphology, person reference, possession, aspect, stance-related marking, and other structural properties correspond to internal directions that are not merely decodable but experimentally manipulable. For six variables, intervention on those directions also changes the model's local output probability in the predicted direction.
 
-This makes it plausible that structural linguistic signals could influence higher-level model behavior through identifiable internal mechanisms. It does not yet establish that they affect alignment-relevant outcomes.
+This makes it plausible that structural linguistic signals could influence higher-level model behavior through identifiable internal mechanisms.
 
 A subsequent research stage should therefore test whether interventions on these representations change **semantic decisions under controlled propositional content**, rather than only the linguistic realization itself. Candidate outcomes include confidence and evidence weighting for evidential or epistemic features, deference and authority weighting for honorific or social-deixis features, responsibility attribution for voice and agent-prominence features, or framing sensitivity for discourse and perspective features.
 
-The present study supplies the mechanistic basis for such experiments while leaving the high-level behavioral hypothesis open.
+The present study supplies the mechanistic basis for such experiments while leaving the nature of the - now mechanistically grounded and partially proven - high-level behavioral hypothesis open.
 
 ---
 
-## 18. Recommended interpretation of the six final variables
+## 18. Interpretation of the six final variables
 
 The six full-chain results are best described as **causally validated sparse correlates of controlled linguistic distinctions**.
 
@@ -436,7 +426,7 @@ The strongest conclusion supported by the complete evidence is:
 
 ## 20. Final conclusion
 
-Low-level linguistic structure is mechanistically accessible in XGLM-564M, but it is not organized as a simple dictionary of clean human linguistic concepts.
+Low-level linguistic structure is mechanistically accessible in XGLM-564M, but it is not organized as a simple, separable dictionary of clean human linguistic concepts.
 
 Many controlled linguistic distinctions can be recovered from model activations, and an unsupervised sparse decomposition recovers substantially overlapping information. Yet the strongest statistical SAE candidates often correspond to the surface machinery through which a distinction is expressed rather than to the abstract typological distinction itself. Sparse representations therefore appear to be partly structural, partly distributed, and frequently grounded in language-specific morphology, lexical material, punctuation, or other surface cues.
 
