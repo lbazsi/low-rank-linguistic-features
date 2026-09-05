@@ -23,7 +23,7 @@ The feature inventory is grounded in the typological orientation of **The World 
 
 The project does not directly copy WALS chapters. Instead, it adapts typological categories into an experimental feature map for mechanistic interpretability.
 
-Recommended general citation:
+General citation:
 
 > Dryer, Matthew S. & Haspelmath, Martin (eds.) 2013. **WALS Online (v2020.4)** [Data set]. Zenodo. https://doi.org/10.5281/zenodo.13950591. Available online at https://wals.info.
 
@@ -319,4 +319,4 @@ A successful result would show that at least some structural linguistic variable
 - causally involved in model predictions or generations;
 - relevant to alignment-adjacent behaviors such as uncertainty, deference, refusal stability, and truth-framing.
 
-The long-term motivation is to build an empirical foundation for Constitutional Language research: studying whether deliberately structured languages or intermediate representations can make model behavior more stable, transparent, and less sensitive to framing, social pressure, hidden assumptions, or linguistic bias.
+The long-term motivation is to build an empirical foundation for deeper linguistic research: studying whether deliberately structured languages or intermediate representations can make model behavior more stable, transparent, and less sensitive to framing, social pressure, hidden assumptions, or linguistic bias.
